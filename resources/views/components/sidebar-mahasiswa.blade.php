@@ -1,7 +1,7 @@
-<div>
+<div class="flex justify-between">
     <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar"
         type="button"
-        class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+        class="inline-flex items-center p-2 my-2 ms-3 text-sm text-white hover:text-blue1 rounded-lg sm:hidden hover:bg-white">
         <span class="sr-only">Open sidebar</span>
         <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
             <path clip-rule="evenodd" fill-rule="evenodd"
@@ -9,6 +9,18 @@
             </path>
         </svg>
     </button>
+    <button data-modal-target={{ $modal }} data-modal-toggle={{ $modal }} type="button"
+        class="inline-flex items-center p-2 my-2 mx-3 text-sm text-black hover:text-blue1 rounded-lg sm:hidden hover:bg-white stroke-white hover:stroke-blue1">
+        <span class="sr-only">Open sidebar</span>
+        <svg width="21" height="23" viewBox="0 0 21 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.9046 7.78811C16.9046 6.03687 16.2525 4.35736 15.0915 3.11905C13.9306 1.88073 12.3561 1.18506 10.7143 1.18506C9.07248 1.18506 7.49793 1.88073 6.33701 3.11905C5.17609 4.35736 4.5239 6.03687 4.5239 7.78811C4.5239 15.4917 1.42871 17.6927 1.42871 17.6927H19.9998C19.9998 17.6927 16.9046 15.4917 16.9046 7.78811Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.5029 20.7866C12.3215 21.0993 12.0612 21.3589 11.7479 21.5393C11.4346 21.7197 11.0795 21.8147 10.718 21.8147C10.3565 21.8147 10.0014 21.7197 9.68812 21.5393C9.37489 21.3589 9.11448 21.0993 8.93311 20.7866" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+    </button>
+
+    {{-- <button data-modal-target={{ $modal }} data-modal-toggle={{ $modal }}>
+        <img src="{{ url(asset('storage/assets/logo_notif.svg')) }}" alt="logo_notif">
+    </button> --}}
 
     <aside id="default-sidebar"
         class="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full sm:translate-x-0"
