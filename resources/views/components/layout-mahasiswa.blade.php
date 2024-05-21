@@ -32,10 +32,11 @@
     </head>
 
     <body class="bg-blue1">
-        <x-sidebar-mahasiswa/>
-        <div class="p-4 sm:ml-72 bg-white h-screen rounded rounded-l-[30px]">
+        <x-sidebar-mahasiswa modal="notif"/>
+        <div class="p-4 sm:ml-72 bg-white h-screen md:rounded md:rounded-l-[30px]">
             <x-navbar modal="notif"/>
             <x-modal-notif modal="notif"/>
+            <x-breadcrumbs :$collection/>
             {{$slot}}
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
