@@ -13,6 +13,30 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.dashboard-login');
+});
+Route::get('/login', function () {
+    return view('auth.login');
+});
+Route::get('/lupa-katasandi', function () {
+    return view('auth.lupa-katasandi');    
+});
+Route::get('/lengkapi-data-diri', function () {
+    return view('auth.lengkapi-data-diri');    
+});
+Route::get('/verifikasi-otp', function () {
+    return view('auth.verifikasi-otp');    
+});
+Route::get('/buat-katasandi-baru', function () {
+    return view('auth.buat-katasandi-baru');    
+});
+
+Route::prefix('mahasiswa')->group(function () {
+    Route::get('/seminar', function () {
+        return view('mahasiswa.seminar');    
+    })->name('seminar');
 });
