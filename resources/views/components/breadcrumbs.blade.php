@@ -10,7 +10,7 @@
         @else
         <li class="flex">
             <img src="{{ url(asset('storage/assets/logo_arrow_breadcrumbs.svg')) }}" alt="">
-            <a href="{{ $item['href'] }}" class="{{$loop->last ? 'font-poppins font-normal text-gold' : 'font-poppins font-normal'}}">
+            <a href="{{ $item['href'] }}" class="{{$loop->last ? 'font-poppins font-normal text-gold w-fit whitespace-nowrap' : 'font-poppins font-normal w-fit whitespace-nowrap'}}">
                 {{ $item['title'] }}
             </a>
         </li>
