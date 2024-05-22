@@ -5,15 +5,19 @@
             'title' => 'Yudisium',
         ],
         [
-            'href' => '/mahasiswa/yudisium/tambah',
-            'title' => 'Tambah',
+            'href' => '/mahasiswa/yudisium/detail',
+            'title' => 'Detail',
+        ],
+        [
+            'href' => '/mahasiswa/yudisium/ubah',
+            'title' => 'Ubah',
         ],
     ];
 @endphp
 
-<x-layout-mahasiswa :$breads title="Tambah Berkas Yudisium">
+<x-layout-mahasiswa :$breads title="Ubah Berkas Yudisium">
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
-            <form action="">
+        <form action="">
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
                     <label for="periode_wisuda" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Periode
@@ -41,6 +45,19 @@
                     <textarea
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
                         name="saran" id="saran" cols="90" rows="5"></textarea>
+                </div>
+            </div>
+            <div class="w-full px-5 flex py-2 gap-2">
+                <div class="w-4/5">
+                    <label for="saran" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Catatan
+                        Perbaikan :</label>
+                    <p id="saran" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
+                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laborum at dolores beatae sed sit
+                        quisquam
+                        in quae. Facilis, ipsum. Illo velit at repellendus. Atque fugiat commodi nemo consequuntur
+                        quidem
+                        tenetur.
+                    </p>
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
@@ -75,5 +92,5 @@
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Simpan</button>
             </div>
         </form>
-        </div>
+    </div>
 </x-layout-mahasiswa>

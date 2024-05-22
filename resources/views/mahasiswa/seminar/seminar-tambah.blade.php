@@ -12,8 +12,8 @@
 @endphp
 
 <x-layout-mahasiswa :$breads title="Tambah Seminar">
-    <form action="">
-        <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-hidden">
+    <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
+        <form action="">
             <div class="w-full px-5 py-2">
                 <div>
                     <label for="judul_tugas_akhir"
@@ -122,6 +122,6 @@
                 <button type="submit"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Simpan</button>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 </x-layout-mahasiswa>

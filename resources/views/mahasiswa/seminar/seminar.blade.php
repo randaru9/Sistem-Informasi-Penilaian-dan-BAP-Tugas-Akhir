@@ -22,12 +22,6 @@
                 'Status Seminar' => 'Seminar Proposal',
                 'Status Revisi' => 'Belum Selesai',
             ],
-            [
-                'Tanggal' => '10-10-2022',
-                'Waktu' => '13.00',
-                'Status Seminar' => 'Seminar Proposal',
-                'Status Revisi' => 'Belum Selesai',
-            ],
         ],
         'page' => 3,
         'current' => 1,

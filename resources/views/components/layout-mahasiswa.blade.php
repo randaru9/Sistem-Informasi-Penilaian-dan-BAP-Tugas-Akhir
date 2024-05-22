@@ -34,16 +34,10 @@
     <body class="bg-blue1">
         <x-sidebar-mahasiswa modal="notif" />
         <div class="flex flex-col p-4 sm:ml-72 bg-white h-screen md:rounded md:rounded-l-[30px]">
-            <div class="overflow-y-scroll">
-                <div class="sticky top-0 bg-white w-full">
-                    <x-navbar modal="notif" />
-                </div>
-                <div class="p-2">
-                    <x-breadcrumbs :$breads />
-                    <x-modal-notif modal="notif" />
-                    {{ $slot }}
-                </div>
-            </div>
+            <x-navbar modal="notif" />
+            <x-modal-notif modal="notif" />
+            <x-breadcrumbs :$breads />
+            {{ $slot }}
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
     </body>

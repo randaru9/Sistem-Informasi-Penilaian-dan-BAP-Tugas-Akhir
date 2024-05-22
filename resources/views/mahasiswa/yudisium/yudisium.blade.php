@@ -22,6 +22,10 @@
                 'periode_wisuda' => 'November',
                 'status_validasi' => 'Ditolak',
             ],
+            [
+                'periode_wisuda' => 'November',
+                'status_validasi' => 'Ditolak',
+            ],
         ],
         'page' => 3,
         'current' => 1,
