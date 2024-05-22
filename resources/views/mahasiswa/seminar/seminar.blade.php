@@ -63,7 +63,7 @@
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
                                 {{ $item['Status Seminar'] }}
                             </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['Status Revisi'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500'}}">
                                 {{ $item['Status Revisi'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
