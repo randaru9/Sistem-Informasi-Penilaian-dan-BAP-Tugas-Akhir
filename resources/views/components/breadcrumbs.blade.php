@@ -1,6 +1,6 @@
 <div>
     <ul class="flex p-3">
-        @foreach ($collection  as $item)
+        @foreach ($breads  as $item)
         @if ($loop->first)
         <li>
             <a href="{{ $item['href'] }}" class="font-poppins font-normal">
