@@ -18,10 +18,6 @@
             </svg>
     </button>
 
-    {{-- <button data-modal-target={{ $modal }} data-modal-toggle={{ $modal }}>
-        <img src="{{ url(asset('storage/assets/logo_notif.svg')) }}" alt="logo_notif">
-    </button> --}}
-
     <aside id="default-sidebar"
         class="fixed top-0 left-0 z-40 w-72 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar">
@@ -32,7 +28,7 @@
                     </p>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="/mahasiswa/seminar"
                         class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('seminar*') ? 'stroke-blue1 bg-white ring-blue1 text-blue1' : 'stroke-white hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 hover:stroke-blue1 ring-white text-white' }}">
                         <svg width="18" height="20" viewBox="0 0 18 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +43,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="/mahasiswa/yudisium"
                         class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('yudisium*') ? 'stroke-blue1 bg-white ring-blue1 text-blue1' : 'stroke-white hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 hover:stroke-blue1 ring-white text-white' }}">
                         <svg width="22" height="20" viewBox="0 0 22 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
