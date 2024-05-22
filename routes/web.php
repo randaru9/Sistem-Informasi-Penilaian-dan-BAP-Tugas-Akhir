@@ -36,10 +36,25 @@ Route::get('/buat-katasandi-baru', function () {
 });
 
 Route::prefix('mahasiswa')->group(function () {
+
     Route::get('/seminar', function () {
         return view('mahasiswa.seminar');    
     })->name('seminar');
+
     Route::get('/seminar/tambah', function () {
         return view('mahasiswa.seminar-tambah');    
     })->name('seminar-tambah');
+
+    Route::get('/seminar/detail', function () {
+        return view('mahasiswa.seminar-detail');    
+    })->name('seminar-detail');
+
+    Route::get('/seminar/ubah', function () {
+        return view('mahasiswa.seminar-ubah');    
+    })->name('seminar-ubah');
+
+    Route::get('/seminar/cek-revisi', function () {
+        return view('mahasiswa.seminar-cek-revisi');    
+    })->name('seminar-cek-revisi');
+
 });
