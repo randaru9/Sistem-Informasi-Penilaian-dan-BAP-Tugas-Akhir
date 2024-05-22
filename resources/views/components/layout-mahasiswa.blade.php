@@ -20,7 +20,8 @@
                     extend: {
                         colors: {
                           gold : "#C5A127",
-                          blue1 : "#2392EC"
+                          blue1 : "#2392EC",
+                          blue2 : "#DCEEFC"
                         },
                         fontFamily: {
                             poppins: ["Poppins", "sans-serif"],
@@ -36,7 +37,7 @@
         <div class="p-4 sm:ml-72 bg-white h-screen md:rounded md:rounded-l-[30px]">
             <x-navbar modal="notif"/>
             <x-modal-notif modal="notif"/>
-            <x-breadcrumbs :$collection/>
+            <x-breadcrumbs :$breads />
             {{$slot}}
         </div>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
