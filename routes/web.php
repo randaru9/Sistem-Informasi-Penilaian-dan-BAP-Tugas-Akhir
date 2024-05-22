@@ -39,4 +39,7 @@ Route::prefix('mahasiswa')->group(function () {
     Route::get('/seminar', function () {
         return view('mahasiswa.seminar');    
     })->name('seminar');
+    Route::get('/seminar/tambah', function () {
+        return view('mahasiswa.seminar-tambah');    
+    })->name('seminar-tambah');
 });
