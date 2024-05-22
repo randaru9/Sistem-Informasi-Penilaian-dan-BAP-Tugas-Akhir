@@ -31,7 +31,7 @@
     </head>
 
     <body>
-        <div class="min-h-full min-w-full h-screen w-screen flex">
+        <div class=" min-w-full min-h-screen w-screen flex">
             <div class="bg-white w-full md:w-1/2 flex justify-center items-center">
                 {{ $slot }}
             </div>
