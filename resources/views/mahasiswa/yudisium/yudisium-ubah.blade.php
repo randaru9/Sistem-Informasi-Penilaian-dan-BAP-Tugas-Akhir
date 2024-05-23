@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
-                <div class="w-1/2">
+                <div class="w-1/2 flex flex-col">
                     <label for="saran" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Saran Dan
                         Kritik</label>
                     <textarea
