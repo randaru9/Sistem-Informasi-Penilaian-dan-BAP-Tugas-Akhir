@@ -96,9 +96,9 @@
                 </p>
             </div>
             <div class="w-1/2">
-                <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft
+                <label for="draft" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft
                     Tugas Akhir</label>
-                <button id="status_revisi"
+                <button id="draft"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
                 </button>
