@@ -12,7 +12,7 @@
 @endphp
 
 <x-layout-mahasiswa :$breads title="Detail Seminar">
-    <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-fit overflow-y-auto">
+    <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-fit lg:overflow-y-auto">
         <div class="w-full px-5 py-2">
             <div>
                 <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
