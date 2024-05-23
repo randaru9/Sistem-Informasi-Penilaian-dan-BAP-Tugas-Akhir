@@ -57,6 +57,14 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/cek-revisi', function () {
             return view('mahasiswa.seminar.seminar-cek-revisi');
         })->name('seminar-cek-revisi');
+
+        Route::get('/cek-revisi/detail', function () {
+            return view('mahasiswa.seminar.seminar-cek-revisi-detail');
+        })->name('seminar-cek-revisi-detail');
+
+        Route::get('/cek-revisi/detail/unduh', function () {
+            return view('mahasiswa.seminar.seminar-form-revisi');
+        })->name('seminar-form-revisi');
     });
 
     Route::prefix('yudisium')->group(function () {
