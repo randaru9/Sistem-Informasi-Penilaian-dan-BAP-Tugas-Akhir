@@ -36,6 +36,7 @@ Route::get('/buat-katasandi-baru', function () {
 });
 
 Route::prefix('mahasiswa')->group(function () {
+
     Route::prefix('seminar')->group(function () {
         Route::get('/', function () {
             return view('mahasiswa.seminar.seminar');
@@ -68,6 +69,27 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/detail', function () {
             return view('mahasiswa.yudisium.yudisium-detail');
         })->name('yudisium-detail');
+        Route::get('/ubah', function () {
+            return view('mahasiswa.yudisium.yudisium-ubah');
+        })->name('yudisium-ubah');
+    });
+
+    Route::prefix('profil')->group(function () {
+        Route::get('/', function () {
+            return view('mahasiswa.profil.profil');
+        })->name('profil');
+        Route::get('/ubah-biodata', function () {
+            return view('mahasiswa.profil.profil-ubah-biodata');
+        })->name('profil-ubah-biodata');
+        Route::get('/ubah-email', function () {
+            return view('mahasiswa.profil.profil-ubah-email');
+        })->name('profil-ubah-email');
+        Route::get('/ubah-katasandi', function () {
+            return view('mahasiswa.profil.profil-ubah-katasandi');
+        })->name('profil-ubah-katasandi');
+        Route::get('/verifikasi-email', function () {
+            return view('mahasiswa.profil.profil-verifikasi-email');
+        })->name('profil-verifikasi-email');
     });
 });
 
