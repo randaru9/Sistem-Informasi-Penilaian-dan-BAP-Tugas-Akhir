@@ -24,6 +24,7 @@
                         },
                         fontFamily: {
                             poppins: ["Poppins", "sans-serif"],
+                            tmr : ["Times New Roman", "Times", "serif"]
                         },
                     }
                 }
