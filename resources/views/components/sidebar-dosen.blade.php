@@ -33,7 +33,7 @@
                 </li>
                 <li>
                     <a href="/dosen/penilaian"
-                        class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('seminar*') ? 'bg-white ring-blue1 text-blue1' : 'hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 ring-white text-white' }}">
+                        class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('penilaian*') ? 'bg-white ring-blue1 text-blue1' : 'hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 ring-white text-white' }}">
                         <svg width="16" height="18" viewBox="0 0 16 18" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -46,7 +46,7 @@
                 </li>
                 <li>
                     <a href="/dosen/bap"
-                        class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('yudisium*') ? 'bg-white ring-blue1 text-blue1' : 'hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 hover: ring-white text-white' }}">
+                        class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('bap*') ? 'bg-white ring-blue1 text-blue1' : 'hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 hover: ring-white text-white' }}">
                         <svg width="15" height="18" viewBox="0 0 15 18" fill="currentColor"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
