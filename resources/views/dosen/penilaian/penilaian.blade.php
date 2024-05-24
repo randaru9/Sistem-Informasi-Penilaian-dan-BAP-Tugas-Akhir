@@ -23,7 +23,7 @@
                 'tanggal' => '12-10-2024',
                 'waktu' => '13:00',
                 'jenis_seminar' => 'Seminar Proposal',
-                'status_revisi' => 'Belum Selesai',
+                'status_revisi' => 'Belum Diberikan',
                 'status_penilaian' => 'Belum Dinilai',
             ],
             [
@@ -31,7 +31,7 @@
                 'tanggal' => '12-10-2024',
                 'waktu' => '13:00',
                 'jenis_seminar' => 'Seminar Proposal',
-                'status_revisi' => 'Belum Selesai',
+                'status_revisi' => 'Selesai',
                 'status_penilaian' => 'Belum Dinilai',
             ],
         ],
@@ -44,7 +44,7 @@
     <div class="flex justify-start mb-4">
         <form action="" class="w-full flex space-x-4">
             <input type="text" id="search"
-                        class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 w-3/12 font-poppins font-normal"
+                        class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
                         minlength="9" required placeholder="Cari nama mahasiswa" />
             <button type="submit" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px]"> Cari </button>
         </form>
@@ -76,10 +76,10 @@
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
                                 {{ $item['jenis_seminar'] }}
                             </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_revisi'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500'}}">
+                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_revisi'] == 'Belum Diberikan' ? 'text-yellow-500' : ($item['status_revisi'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500')}}">
                                 {{ $item['status_revisi'] }}
                             </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_penilaian'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500'}}">
+                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_penilaian'] == 'Belum Dinilai' ? 'text-yellow-500' : ($item['status_penilaian'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500')}}">
                                 {{ $item['status_penilaian'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
