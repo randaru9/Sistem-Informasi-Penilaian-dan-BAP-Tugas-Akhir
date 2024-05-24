@@ -101,4 +101,39 @@ Route::prefix('mahasiswa')->group(function () {
     });
 });
 
+Route::prefix('dosen')->group(function () {
+    Route::prefix('penilaian')->group(function () {
+        Route::get('/', function () {
+            return view('dosen.penilaian.penilaian');
+        })->name('penilaian');
+
+        Route::get('/detail', function () {
+            return view('dosen.penilaian.penilaian-detail');
+        })->name('penilaian-detail');
+
+        Route::get('/penilaian-tambah', function () {
+            return view('dosen.penilaian.penilaian-tambah');
+        })->name('penilaian-tambah');
+
+        Route::get('/revisi-tambah', function () {
+            return view('dosen.penilaian.revisi-tambah');
+        })->name('penilaian-revisi-tambah');
+
+        Route::get('/cek-nilai', function () {
+            return view('dosen.penilaian.cek-nilai');
+        })->name('penilaian-cek-nilai');
+
+        Route::get('/cek-revisi', function () {
+            return view('dosen.penilaian.cek-revisi');
+        })->name('penilaian-cek-revisi');
+
+        Route::get('/ubah-nilai', function () {
+            return view('dosen.penilaian.ubah-nilai');
+        })->name('penilaian-ubah-nilai');
+        
+        Route::get('/ubah-revisi', function () {
+            return view('dosen.penilaian.ubah-revisi');
+        })->name('penilaian-ubah-revisi');
+    });
+});
 
