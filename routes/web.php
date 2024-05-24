@@ -102,6 +102,7 @@ Route::prefix('mahasiswa')->group(function () {
 });
 
 Route::prefix('dosen')->group(function () {
+
     Route::prefix('penilaian')->group(function () {
         Route::get('/', function () {
             return view('dosen.penilaian.penilaian');
@@ -134,6 +135,18 @@ Route::prefix('dosen')->group(function () {
         Route::get('/ubah-revisi', function () {
             return view('dosen.penilaian.ubah-revisi');
         })->name('penilaian-ubah-revisi');
+    });
+
+    Route::prefix('bap')->group(function () {
+        Route::get('/', function () {
+            return view('dosen.bap.bap');
+        })->name('bap');
+        Route::get('/tambah-tanda-tangan', function () {
+            return view('dosen.bap.bap-tambah-tanda-tangan');
+        })->name('bap-tambah-tanda-tangan');
+        Route::get('/unduh', function () {
+            return view('dosen.bap.bap-ketua-sidang');
+        });
     });
 });
 
