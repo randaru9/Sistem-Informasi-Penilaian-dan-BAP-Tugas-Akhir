@@ -185,6 +185,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/', function () {
            return view('admin.yudisium.yudisium'); 
         })->name('yudisium');
-        
+        Route::get('/detail', function () {
+            return view('admin.yudisium.yudisium-detail'); 
+         })->name('yudisium-detail');
     });
 });
