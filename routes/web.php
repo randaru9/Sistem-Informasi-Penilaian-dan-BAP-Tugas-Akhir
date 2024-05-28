@@ -189,4 +189,22 @@ Route::prefix('admin')->group(function () {
             return view('admin.yudisium.yudisium-detail'); 
          })->name('yudisium-detail');
     });
+
+    Route::prefix('dosen')->group(function () {
+        Route::get('/', function () {
+           return view('admin.dosen.dosen'); 
+        })->name('dosen');
+        Route::get('/detail', function () {
+            return view('admin.dosen.dosen-detail'); 
+         })->name('dosen-detail');
+         Route::get('/buat-akun', function () {
+            return view('admin.dosen.dosen-buat-akun'); 
+         })->name('dosen-buat-akun');
+         Route::get('/parsing-akun', function () {
+            return view('admin.dosen.dosen-parsing-akun'); 
+         })->name('dosen-parsing-akun');
+         Route::get('/ubah-katasandi', function () {
+            return view('admin.dosen.dosen-ubah-katasandi'); 
+         })->name('dosen-ubah-katasandi');
+    });
 });
