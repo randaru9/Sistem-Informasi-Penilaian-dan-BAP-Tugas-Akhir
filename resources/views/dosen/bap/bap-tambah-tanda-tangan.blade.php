@@ -36,7 +36,7 @@
                             </p>
                         </div>
                         <div class="flex flex-col mt-2 font-tmr font-normal text-base">
-                            <p>Pada hari Selasa tanggal 2 April tahun 2024 Pukul 11.00 - 12.00 telah dilaksanakan
+                            <p>Pada hari <span class="font-tmr font-semibold text-base"> Selasa tanggal 2 April </span> tahun 2024 Pukul <span class="font-tmr font-semibold text-base"> 11.00 - 12.00 </span> telah dilaksanakan
                                 Ujian Sidang
                                 (**Proposal/ Akhir) mahasiswa:</p>
                         </div>
@@ -109,8 +109,8 @@
                         <div class="flex flex-col font-tmr mt-2 font-normal text-base">
                             <p>Berdasarkan nilai yang diperoleh, maka diputuskan bahwa mahasiswa tersebut dinyatakan:
                             </p>
-                            <p>LULUS/ TIDAK LULUS dengan nilai :</p>
-                            <p>Nilai Huruf : A / AB / B / BC / C / D / E </p>
+                            <p> <span class="font-tmr font-semibold text-base"> LULUS/ TIDAK LULUS </span> dengan nilai :</p>
+                            <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> A / AB / B / BC / C / D / E </span> </p>
                         </div>
                         {{-- <div class="flex flex-col mt-12 font-tmr font-normal text-base h-[350px]">
                             <p>Bahwa teruji perlu melakukan perbaikan dalam hal : </p>
@@ -133,13 +133,15 @@
                             </div>
                         </div>
                         <div class="flex flex-col font-tmr mt-2 font-normal text-xs">
-                            <p>(A = 80 – 100 ; AB = 75 – 79 ; B = 70 – 74 ; BC = 65 – 69 ; C = 60 – 64)
+                            <p>( <span class="font-tmr font-semibold"> A </span> = 80 – 100 ; <span class="font-tmr font-semibold"> AB </span> = 75 – 79 ; <span class="font-tmr font-semibold"> B </span> = 70 – 74 ; <span class="font-tmr font-semibold"> BC </span> = 65 – 69 ; <span class="font-tmr font-semibold"> C </span> = 60 – 64)
                             </p>
-                            <p>** Coret salah satu</p>
-                            <p>* Diketik mahasiswa</p>
+                            <p class="font-semibold">&bull; ** Coret salah satu</p>
+                            <p class="font-semibold">&bull; * Diketik mahasiswa</p>
                         </div>
                     </div>
-                    <img src="{{ url(asset('storage/assets/footer_surat.png')) }}" alt="">
+                    <div class="h-3 mt-5">
+                        <img src="{{ url(asset('storage/assets/footer_surat.svg')) }}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="flex justify-center mt-4">
@@ -150,16 +152,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            document.body.innerHTML = printContents;
-
-            window.print();
-
-            document.body.innerHTML = originalContents;
-        }
-    </script>
 </x-layout-dosen>
