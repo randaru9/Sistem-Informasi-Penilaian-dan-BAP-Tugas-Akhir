@@ -74,7 +74,9 @@
                             </div>
                         </div>
                     </div>
-                    <img src="{{ url(asset('storage/assets/footer_surat.png')) }}" alt="">
+                    <div class="h-12 mt-14">
+                        <img src="{{ url(asset('storage/assets/footer_surat.svg')) }}" alt="">
+                    </div>
                 </div>
             </div>
             <div class="flex justify-center mt-4">
@@ -85,16 +87,4 @@
             </div>
         </div>
     </div>
-    <script>
-        function printDiv(divName) {
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            document.body.innerHTML = printContents;
-
-            window.print();
-
-            document.body.innerHTML = originalContents;
-        }
-    </script>
 </x-layout-mahasiswa>
