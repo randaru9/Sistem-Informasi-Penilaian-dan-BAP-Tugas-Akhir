@@ -148,5 +148,23 @@ Route::prefix('dosen')->group(function () {
             return view('dosen.bap.bap-ketua-sidang');
         });
     });
+
+    Route::prefix('profil')->group(function () {
+        Route::get('/', function () {
+            return view('dosen.profil.profil');
+        })->name('profil');
+        Route::get('/ubah-biodata', function () {
+            return view('dosen.profil.profil-ubah-biodata');
+        })->name('profil-ubah-biodata');
+        Route::get('/ubah-email', function () {
+            return view('dosen.profil.profil-ubah-email');
+        })->name('profil-ubah-email');
+        Route::get('/ubah-katasandi', function () {
+            return view('dosen.profil.profil-ubah-katasandi');
+        })->name('profil-ubah-katasandi');
+        Route::get('/verifikasi-email', function () {
+            return view('dosen.profil.profil-verifikasi-email');
+        })->name('profil-verifikasi-email');
+    });
 });
 
