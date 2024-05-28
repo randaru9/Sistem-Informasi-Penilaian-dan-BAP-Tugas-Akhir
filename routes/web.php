@@ -168,3 +168,23 @@ Route::prefix('dosen')->group(function () {
     });
 });
 
+Route::prefix('admin')->group(function () {
+    Route::prefix('bap')->group(function () {
+        Route::get('/', function () {
+           return view('admin.bap.bap'); 
+        })->name('bap');
+        Route::get('/detail', function () {
+            return view('admin.bap.bap-detail'); 
+         })->name('bap-detail');
+         Route::get('/detail-proses', function () {
+            return view('admin.bap.bap-detail-proses'); 
+         })->name('bap-detail-proses');
+    });
+
+    Route::prefix('yudisium')->group(function () {
+        Route::get('/', function () {
+           return view('admin.yudisium.yudisium'); 
+        })->name('yudisium');
+        
+    });
+});
