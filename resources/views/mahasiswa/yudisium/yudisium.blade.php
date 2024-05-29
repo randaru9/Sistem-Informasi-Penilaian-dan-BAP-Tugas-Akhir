@@ -16,7 +16,7 @@
             ],
             [
                 'periode_wisuda' => 'November',
-                'status_validasi' => 'Diproses',
+                'status_validasi' => 'Perlu Validasi',
             ],
             [
                 'periode_wisuda' => 'November',
@@ -57,7 +57,7 @@
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
                                 {{ $item['periode_wisuda'] }}
                             </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_validasi'] == 'Diterima' ? 'text-green-500' : ($item['status_validasi'] == 'Diproses' ? 'text-blue-500' : 'text-red-500')}}">
+                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_validasi'] == 'Diterima' ? 'text-green-500' : ($item['status_validasi'] == 'Perlu Validasi' ? 'text-blue-500' : 'text-red-500')}}">
                                 {{ $item['status_validasi'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
