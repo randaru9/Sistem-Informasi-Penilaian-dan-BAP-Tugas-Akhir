@@ -127,10 +127,10 @@
             <a href="/admin/bap/detail-proses"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Detail
                 Proses</a>
-            <a href="/mahasiswa/seminar/cek-revisi"
+            <a href="/admin/bap/lihat-bap1"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                 BAP 1</a>
-            <a href="/mahasiswa/seminar/cek-revisi"
+            <a href="/admin/bap/lihat-bap2"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                 BAP 2</a>
         </div>
