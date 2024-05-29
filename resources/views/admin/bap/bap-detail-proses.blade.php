@@ -14,7 +14,7 @@
         ],
     ];
 
-    $tablehead = ['No', 'Dosen', 'Posisi Dosen', 'Status Revisi', 'Status Penilaian'];
+    $tablehead = ['No', 'Dosen', 'Posisi Dosen', 'Status Revisi', 'Status Penilaian', 'Aksi'];
 
     $data = [
         'array' => [
@@ -80,6 +80,10 @@
                             <td
                                 class="px-6 py-4 font-poppins text-base font-normal {{ $item['status_penilaian'] == 'Belum Dinilai' ? 'text-yellow-500' : ($item['status_penilaian'] == 'Terlambat' ? 'text-red-500' : 'text-green-500') }}">
                                 {{ $item['status_penilaian'] }}
+                            </td>
+                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                                <a href="/admin/bap/form-penilaian"
+                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline whitespace-nowrap">Lihat Form</a>
                             </td>
                         </tr>
                     @endforeach
