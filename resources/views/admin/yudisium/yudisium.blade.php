@@ -6,27 +6,24 @@
         ],
     ];
 
-    $tablehead = ['No', 'Nama', 'Jenis Seminar', 'Status Revisi', 'Status Penilaian', 'Aksi'];
+    $tablehead = ['No', 'Nama', 'Jenis Seminar', 'Status Validasi', 'Aksi'];
 
     $data = [
         'array' => [
             [
                 'nama' => 'Rangga Ndaru Anggoro',
                 'jenis_seminar' => 'Seminar Proposal',
-                'status_revisi' => 'Belum Diberikan',
-                'status_penilaian' => 'Belum Dinilai',
+                'status_validasi' => 'Diterima',
             ],
             [
                 'nama' => 'Rangga Ndaru Anggoro',
                 'jenis_seminar' => 'Seminar Proposal',
-                'status_revisi' => 'Belum Selesai',
-                'status_penilaian' => 'Sudah Dinilai',
+                'status_validasi' => 'Perlu Validasi',
             ],
             [
                 'nama' => 'Rangga Ndaru Anggoro',
                 'jenis_seminar' => 'Seminar Proposal',
-                'status_revisi' => 'Selesai',
-                'status_penilaian' => 'Terlambat',
+                'status_validasi' => 'Ditolak',
             ],
         ],
         'page' => 3,
@@ -68,13 +65,8 @@
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
                                 {{ $item['jenis_seminar'] }}
                             </td>
-                            <td
-                                class="px-6 py-4 font-poppins text-base font-normal {{ $item['status_revisi'] == 'Belum Diberikan' ? 'text-yellow-500' : ($item['status_revisi'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500') }}">
-                                {{ $item['status_revisi'] }}
-                            </td>
-                            <td
-                                class="px-6 py-4 font-poppins text-base font-normal {{ $item['status_penilaian'] == 'Belum Dinilai' ? 'text-yellow-500' : ($item['status_penilaian'] == 'Terlambat' ? 'text-red-500' : 'text-green-500') }}">
-                                {{ $item['status_penilaian'] }}
+                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_validasi'] == 'Diterima' ? 'text-green-500' : ($item['status_validasi'] == 'Perlu Validasi' ? 'text-blue-500' : 'text-red-500')}}">
+                                {{ $item['status_validasi'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <a href="/admin/yudisium/detail"
