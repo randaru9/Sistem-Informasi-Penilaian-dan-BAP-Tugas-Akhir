@@ -24,7 +24,7 @@
     ];
 @endphp
 
-<x-layout-admin :$breads title="BAP">
+<x-layout-admin :$breads title="Dosen">
     <div class="flex justify-start mb-4">
         <form action="" class="w-full flex space-x-4">
             <input type="text" id="search"
