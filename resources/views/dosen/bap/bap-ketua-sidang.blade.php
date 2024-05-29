@@ -32,7 +32,7 @@
     </script>
 </head>
 
-<body onload="print()" class="bg-blue1">
+<body onload="print()">
     <div class="">
         <div id="revisi_form" class="bg-white h-fit ">
             <img src="{{ url(asset('storage/assets/header_surat.png')) }}" alt="" class="w-full">
