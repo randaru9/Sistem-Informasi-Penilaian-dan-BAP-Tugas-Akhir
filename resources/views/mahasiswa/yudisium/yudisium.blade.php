@@ -34,7 +34,7 @@
 
 <x-layout-mahasiswa :$breads title="Yudisium">
     <div class="flex justify-end mb-4">
-        <a href="/mahasiswa/yudisium/tambah" class="p-2 font-poppins font-medium text-white bg-gold rounded-[4px]">Tambah Berkas Yudisium</a>
+        <a href="/mahasiswa/yudisium/tambah" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">Tambah Berkas Yudisium</a>
     </div>
     <div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg ring-2 ring-blue1">

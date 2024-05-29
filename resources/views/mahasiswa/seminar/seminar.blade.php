@@ -30,7 +30,7 @@
 
 <x-layout-mahasiswa :$breads title="Seminar">
     <div class="flex justify-end mb-4">
-        <a href="/mahasiswa/seminar/tambah" class="p-2 font-poppins font-medium text-white bg-gold rounded-[4px]">Buat
+        <a href="/mahasiswa/seminar/tambah" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">Buat
             Jadwal Seminar</a>
     </div>
     <div>

@@ -34,7 +34,7 @@
             <input type="text" id="search"
                 class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
                 minlength="9" required placeholder="Cari nama mahasiswa" />
-            <button type="submit" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px]"> Cari
+            <button type="submit" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold"> Cari
             </button>
         </form>
     </div>
