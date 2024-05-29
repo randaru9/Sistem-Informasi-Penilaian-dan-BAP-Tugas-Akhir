@@ -207,4 +207,37 @@ Route::prefix('admin')->group(function () {
             return view('admin.dosen.dosen-ubah-katasandi'); 
          })->name('dosen-ubah-katasandi');
     });
+
+    Route::prefix('mahasiswa')->group(function () {
+        Route::get('/', function () {
+           return view('admin.mahasiswa.mahasiswa'); 
+        })->name('mahasiswa');
+        Route::get('/detail', function () {
+            return view('admin.mahasiswa.mahasiswa-detail'); 
+         })->name('mahasiswa-detail');
+         Route::get('/buat-akun', function () {
+            return view('admin.mahasiswa.mahasiswa-buat-akun'); 
+         })->name('mahasiswa-buat-akun');
+         Route::get('/parsing-akun', function () {
+            return view('admin.mahasiswa.mahasiswa-parsing-akun'); 
+         })->name('mahasiswa-parsing-akun');
+         Route::get('/ubah-katasandi', function () {
+            return view('admin.mahasiswa.mahasiswa-ubah-katasandi'); 
+         })->name('mahasiswa-ubah-katasandi');
+    });
+
+    Route::prefix('profil')->group(function () {
+        Route::get('/', function () {
+           return view('admin.profil.profil'); 
+        })->name('profil');
+        Route::get('/ubah-email', function () {
+            return view('admin.profil.profil-ubah-email'); 
+         })->name('profil-ubah-email');
+         Route::get('/verifikasi-email', function () {
+            return view('admin.profil.profil-verifikasi-email'); 
+         })->name('profil-verifikasi-email');
+         Route::get('/ubah-katasandi', function () {
+            return view('admin.profil.profil-ubah-katasandi'); 
+         })->name('profil-ubah-katasandi');
+    });
 });
