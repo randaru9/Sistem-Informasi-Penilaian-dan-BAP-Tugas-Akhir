@@ -74,14 +74,22 @@
                     <label for="revisi" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
                     </label>
                     <p id="revisi" class="text-sm text-[#000000] font-poppins font-normal text-justify">
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit totam temporibus commodi nam magni blanditiis.
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit totam temporibus commodi nam magni blanditiis.
-                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit totam temporibus commodi nam magni blanditiis.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident
+                        ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit
+                        totam temporibus commodi nam magni blanditiis.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident
+                        ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit
+                        totam temporibus commodi nam magni blanditiis.
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita dolores molestias provident
+                        ab recusandae eligendi quis reprehenderit esse corrupti blanditiis. Animi unde culpa suscipit
+                        totam temporibus commodi nam magni blanditiis.
                     </p>
                 </div>
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <a href="/dosen/penilaian/ubah-revisi"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>
+                    <a href=""
+                        class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Tandai Selesai</a>
                 </div>
             </form>
         </div>
