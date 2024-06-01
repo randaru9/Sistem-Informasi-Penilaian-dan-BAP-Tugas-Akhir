@@ -173,6 +173,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/', function () {
            return view('admin.bap.bap'); 
         })->name('bap');
+        Route::get('/rekap-nilai', function () {
+           return view('admin.bap.bap-rekap-nilai'); 
+        })->name('bap-rekap-nilai');
         Route::get('/detail', function () {
             return view('admin.bap.bap-detail'); 
          })->name('bap-detail');
