@@ -29,6 +29,11 @@ class Seminar extends Model
         'waktu',
     ];
 
+    protected $casts = [
+        'tanggal' => 'date',
+        'waktu' => 'time',
+    ];
+
     public function BAP1s(): BelongsTo
     {
         return $this->belongsTo(BAP1::class, 'bap1_id');
