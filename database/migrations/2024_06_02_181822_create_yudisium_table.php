@@ -16,10 +16,10 @@ return new class extends Migration
             $table->foreignUuid('pengguna_id')->constrained('pengguna');
             $table->foreignUuid('status_yudisium_id')->constrained('status_yudisium');
             $table->foreignUuid('periode_wisuda_id')->constrained('periode_wisuda');
-            $table->string('tempat_dan_bidang_kerja');
-            $table->string('saran_dan_kritik');
+            $table->string('tempat_dan_bidang_kerja')->nullable();
+            $table->string('saran_dan_kritik')->nullable();
             $table->string('berkas');
-            $table->string('catatan');
+            $table->string('catatan')->nullable();
             $table->timestamps();
         });
     }
