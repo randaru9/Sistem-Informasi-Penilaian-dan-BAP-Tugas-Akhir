@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Seminar\CreateRequest;
+use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Http\Requests\Seminar\GetByPenggunaIdRequest;
 use App\Models\Pengguna;
 use App\Models\Seminar;
@@ -32,5 +33,18 @@ class SeminarController extends Controller
 
         return response()->json($data);
 
+    }
+
+    // Get One Seminar By Id with Count Revisi (for Status)
+    public function GetOneSeminarByIdWithCountRevisi(GetByIdRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->withCount([
+            'Revisis' => function ($query) {
+                $query->whereHas('StatusRevisis', function ($query) {
+                    $query->where('keterangan', 'Belum Selesai');
+                });
+            }
+        ])->first();
+
+        return response()->json($data);
     }
 }
