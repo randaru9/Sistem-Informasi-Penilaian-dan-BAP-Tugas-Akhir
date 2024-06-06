@@ -27,6 +27,7 @@ class Seminar extends Model
         'judul',
         'tanggal',
         'waktu',
+        'draft',
     ];
 
     protected $casts = [
