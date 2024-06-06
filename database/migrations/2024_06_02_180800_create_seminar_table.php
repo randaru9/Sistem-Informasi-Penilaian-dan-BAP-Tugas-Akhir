@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('judul');
             $table->date('tanggal');
             $table->time('waktu');
+            $table->string('draft');
             $table->timestamps();
         });
 
