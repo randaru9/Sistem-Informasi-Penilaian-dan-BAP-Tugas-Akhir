@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Seminar\CreateRequest;
 use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Http\Requests\Seminar\GetByPenggunaIdRequest;
+use App\Http\Requests\Seminar\UpdateRequest;
 use App\Models\Pengguna;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
 
 class SeminarController extends Controller
 {
+    // (Mahasiswa) //
+
     // Get All Seminar By Pengguna Id with Count Revisi (for Status)
     public function GetSeminarByPenggunaIdWithCountRevisi(GetByPenggunaIdRequest $request){
         
@@ -47,4 +50,15 @@ class SeminarController extends Controller
 
         return response()->json($data);
     }
+
+    // Update Seminar
+    public function UpdateSeminar(UpdateRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->update($request->safe()->all());
+        return response()->json($data);
+    }
+
+    // (Dosen) //
+
+    
+
 }
