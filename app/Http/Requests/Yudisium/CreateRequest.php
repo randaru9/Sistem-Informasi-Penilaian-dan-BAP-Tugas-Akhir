@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
             'periode_wisuda_id' => 'required|uuid|exists:periode_wisuda',
             'tempat_dan_bidang_kerja' => 'string',
             'saran_dan_kritik' => 'string',
-            'berkas' => 'string',
+            'berkas' => 'file|mimes:zip,rar',
             'catatan' => 'string',
         ];
     }
