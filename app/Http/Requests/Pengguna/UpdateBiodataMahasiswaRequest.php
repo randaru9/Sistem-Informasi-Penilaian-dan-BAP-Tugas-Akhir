@@ -22,16 +22,16 @@ class UpdateBiodataMahasiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'uuid|exists:profil',
-            'nama' => 'string|unique:profil',
-            'nim' => 'string|max_digits:9|min_digits:9|unique:profil',
+            'id' => 'uuid|exists:pengguna',
+            'nama' => 'string|unique:pengguna',
+            'nim' => 'string|max_digits:9|min_digits:9|unique:pengguna',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'Profil',
+            'id' => 'Pengguna',
             'nama' => 'Nama',
             'nim' => 'NIM',
         ];
