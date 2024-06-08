@@ -59,6 +59,21 @@ class SeminarController extends Controller
 
     // (Dosen) //
 
+    // Get All Seminar (yang Terlibat) With Penilaian and Revisi
+    public function GetAllInvoledSeminar (GetByPenggunaIdRequest $request){
+        $data = Seminar::where('pembimbing_1_id', $request->safe()->pengguna_id)->orWhere('pembimbing_2_id', $request->safe()->pengguna_id)->orWhere('penguji_1_id', $request->safe()->pengguna_id)->orWhere('penguji_2_id', $request->safe()->pengguna_id)->with([
+            'Revisis' => function ($query, $request) {
+                $query->where('pengguna_id', $request->safe()->pengguna_id);
+            },
+            'Penilaians' => function ($query, $request) {
+                $query->where('pengguna_id', $request->safe()->pengguna_id);
+            }
+        ]);
+
+        return response()->json($data);
+    }
+
+
     
 
 }
