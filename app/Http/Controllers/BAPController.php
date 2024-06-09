@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BAP\CreateBAP1Request;
 use App\Http\Requests\BAP\UpdateBAP1Request;
+use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Models\BAP1;
 use App\Models\Seminar;
 use Carbon\Carbon;
@@ -30,6 +31,14 @@ class BAPController extends Controller
             'ttd' => $request->safe()->ttd->store('bap/'.$request->safe()->seminar_id.'/'.$time),
         ]);
         return response()->json($bap);
+    }
+
+    // Lihat BAP 1
+    public function GenerateBAP1 (GetByIdRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->with(['BAP1s','Penilaians'=>function($query){$query->with(['Penggunas']);},
+        'PimpinanSidangs',
+        ])->first();
+        return response()->json($data);
     }
     
 
