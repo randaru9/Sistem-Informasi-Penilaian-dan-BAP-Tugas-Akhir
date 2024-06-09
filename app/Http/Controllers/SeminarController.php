@@ -100,7 +100,8 @@ class SeminarController extends Controller
         $data = Seminar::where('id', $request->safe()->id)->with([
             'Penilaians' => function ($query) {
                 $query->with(['Penggunas']);
-            }
+            }, 
+            'PimpinanSidangs'
         ]);
 
         return response()->json($data);
