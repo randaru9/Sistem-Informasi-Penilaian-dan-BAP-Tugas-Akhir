@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Models\Pengguna;
@@ -31,4 +32,13 @@ class PenggunaController extends Controller
         }
         //back with message
     }
+
+    // (Dosen) //
+
+    // Update Biodata
+    public function UpdateBiodataDosen(UpdateBiodataDosen $request){
+        $data = Pengguna::where('id', $request->safe()->id)->update($request->safe()->all());
+        return response()->json($data);
+    }
+
 }
