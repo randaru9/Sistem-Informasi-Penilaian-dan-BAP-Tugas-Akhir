@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Penilaian\CreateRequest;
 use App\Http\Requests\Penilaian\GetBySeminarIdAndPenggunaIdRequest;
+use App\Http\Requests\Penilaian\UpdateRequest;
 use App\Models\Penilaian;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,4 +37,17 @@ class PenilaianController extends Controller
         $data = Penilaian::where('seminar_id', $request->safe()->seminar_id)->where('pengguna_id', $request->safe()->pengguna_id)->first();
         return response()->json($data);
     }
+
+    // Update Penilaian by Penilaian Id
+    public function UpdatePenilaianByPenilaianId(UpdateRequest $request){
+        $time = Carbon::now();
+        $penilaian = $request->safe()->all();
+        if($penilaian['ttd'] != null){
+            $penilaian['ttd'] = $request->safe()['ttd']->store('penilaian/'.$penilaian['pengguna_id'].'/'.$time);
+        }
+        $data = Penilaian::where('id', $request->safe()->id)->update($penilaian);
+        return response()->json($data);
+    }
+
+    
 }
