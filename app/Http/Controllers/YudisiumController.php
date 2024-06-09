@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateStatusRequest;
 use App\Http\Requests\Yudisium\CreateRequest;
 use App\Http\Requests\Yudisium\GetByPenggunaIdRequest;
 use App\Http\Requests\Yudisium\GetOneByIdRequest;
@@ -51,6 +52,13 @@ class YudisiumController extends Controller
         $data = Yudisium::with(['Penggunas','StatusYudisiums','PeriodeWisudas'])->paginate(5);
         return response()->json($data);
     }
+
+    // Update Status Yudisium
+    public function UpdateStatusYudisium(UpdateStatusRequest $request){
+        $data = Yudisium::where('id', $request->safe()->id)->update(['status_yudisium_id' => $request->safe()->status_yudisium_id]); // Must Change to Actual Id
+        return response()->json($data);
+    }
+
 
     
 }
