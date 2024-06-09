@@ -88,6 +88,13 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
+    // Get All Seminar (yang Terlibat Pimpinan Sidang) With BAP 
+
+    public function GetAllInvoledSeminarByPimpinanSidangWithBAP1 (GetByPenggunaIdRequest $request){
+        $data = Seminar::where('pimpinan_sidang_id', $request->safe()->pengguna_id)->with('BAP1s');
+        return response()->json($data);
+    }
+
     
     
 
