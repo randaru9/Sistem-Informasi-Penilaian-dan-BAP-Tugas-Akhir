@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Penilaian\CreateRequest;
+use App\Http\Requests\Penilaian\GetBySeminarIdAndPenggunaIdRequest;
 use App\Models\Penilaian;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,6 +28,12 @@ class PenilaianController extends Controller
             'nilai_bimbingan' => $request->safe()->nilai_bimbingan,
             'ttd' => $request->safe()->ttd->store('penilaian/'.$request->safe()->pengguna_id.'/'.$time),
         ]);
+        return response()->json($data);
+    }
+
+    // Get One Penilaian by Seminar Id and Pengguna Id
+    public function GetPenilaianBySeminarIdAndPenggunaId(GetBySeminarIdAndPenggunaIdRequest $request){
+        $data = Penilaian::where('seminar_id', $request->safe()->seminar_id)->where('pengguna_id', $request->safe()->pengguna_id)->first();
         return response()->json($data);
     }
 }
