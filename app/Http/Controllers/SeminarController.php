@@ -178,6 +178,16 @@ class SeminarController extends Controller
         return response()->json($data);
     }
     
-    
+    // Detail Proses
+
+    public function DetailProsesSeminar (GetByIdRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->with(['Pembimbing1s', 'Pembimbing2s', 'Penguji1s', 'Penguji2s', 'Penilaians' => function ($query) { 
+            $query->with(['Penggunas, StatusPenilaians']);
+        }, 'Revisis' => function ($query) {
+            $query->with(['Penggunas, StatusRevisis']);
+        }, ])->first();
+
+        return response()->json($data);
+    }
 
 }
