@@ -45,6 +45,13 @@ class RevisiController extends Controller
         return response()->json($data);
     }
 
+    // Update Status Revisi to "Selesai"
+    public function UpdateStatusRevisiToDone(GetOneByIdRequest $request){
+        $data = Revisi::where('id', $request->safe()->id)->update([
+            'status_revisi_id' => '3', // Must be actual id of 'Selesai'
+        ]);
+        return response()->json($data);
+    }
     
     
 }
