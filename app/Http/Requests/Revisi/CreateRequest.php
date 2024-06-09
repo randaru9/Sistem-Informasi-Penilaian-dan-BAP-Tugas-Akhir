@@ -24,7 +24,6 @@ class CreateRequest extends FormRequest
         return [
             'pengguna_id' => 'required|uuid|exists:pengguna,id',
             'seminar_id' => 'required|uuid|exists:seminar,id',
-            'status_revisi_id' => 'required|uuid|exists:status_revisi,id',
             'keterangan' => 'required|string',
         ];
     }
@@ -34,7 +33,6 @@ class CreateRequest extends FormRequest
         return [
             'pengguna_id' => 'Pengguna',
             'seminar_id' => 'Seminar',
-            'status_revisi_id' => 'Status Revisi',
             'keterangan' => 'Keterangan',
         ];
     }
