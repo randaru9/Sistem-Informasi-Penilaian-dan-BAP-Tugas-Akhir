@@ -95,6 +95,21 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
+    // Get One Seminar with Penilaian and Pengguna (Beri Tanda Tangan BAP1 Page)
+    public function GetOneSeminarWithPenilaianAndPengguna (GetByIdRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->with([
+            'Penilaians' => function ($query) {
+                $query->with(['Penggunas']);
+            }
+        ]);
+
+        return response()->json($data);
+    }
+
+    
+
+
+
     
     
 
