@@ -44,5 +44,13 @@ class YudisiumController extends Controller
         return response()->json($data);
     }
 
+    // (Admin) //
+
+    // Get All Yudisium
+    public function GetAllYudisium(){
+        $data = Yudisium::with(['Penggunas','StatusYudisiums','PeriodeWisudas'])->paginate(5);
+        return response()->json($data);
+    }
+
     
 }
