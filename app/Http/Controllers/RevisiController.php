@@ -30,10 +30,12 @@ class RevisiController extends Controller
 
     // Create Revisi
     public function CreateRevisi(CreateRequest $request){
-        $time = Carbon::now();
-        $revisi = $request->safe()->all();
-        $revisi['berkas'] = $request->safe()['berkas']->store("revisi/{$revisi['seminar_id']}/$time");
-        $data = Revisi::create($revisi);
+        $data = Revisi::create([
+            'pengguna_id' => $request->safe()->pengguna_id,
+            'seminar_id' => $request->safe()->seminar_id,
+            'status_revisi_id' => '1', // Must be actual id
+            'keterangan' => $request->safe()->keterangan 
+        ]);
         return response()->json($data);
     }
 
