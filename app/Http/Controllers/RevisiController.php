@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Revisi\CreateRequest;
 use App\Http\Requests\Revisi\GetAllBySeminarIdRequest;
 use App\Http\Requests\Revisi\GetOneByIdRequest;
+use App\Http\Requests\Revisi\UpdateRequest;
 use App\Models\Revisi;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -36,5 +37,12 @@ class RevisiController extends Controller
         return response()->json($data);
     }
 
+    // Update Revisi by Revisi Id
+    public function UpdateRevisiByRevisiId(UpdateRequest $request){
+        $data = Revisi::where('id', $request->safe()->id)->update($request->safe()->all());
+        return response()->json($data);
+    }
+
+    
     
 }
