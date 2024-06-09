@@ -143,10 +143,40 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
-    
+    // Get One Seminar with Revisi, Penilaian, and BAP1, and BAP2
 
+    public function GetOneSeminarWithRevisiAndPenilaianAndBAP(GetByIdRequest $request){
 
-
+        $data = Seminar::where('id', $request->safe()->id)->with(['BAP1s', 'BAP2s'])->withCount([
+            'Revisis as revisi_selesai' => function ($query) {
+                $query->whereHas('status_revisis', function ($query) {
+                    $query->where('keterangan', 'Selesai');
+                });
+            },
+            'Revisis as revisi_belum_selesai' => function ($query) {
+                $query->whereHas('status_revisis', function ($query) {
+                    $query->where('keterangan', 'Belum Selesai');
+                });
+            },
+            'Penilaians as penilaian_selesai' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Selesai');
+                });
+            },
+            'Penilaians as penilaian_belum_selesai' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Belum Selesai');
+                });
+            },
+            'Penilaians as penilaian_terlambat' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Terlambat');
+                });
+            },
+        ])->first();
+        
+        return response()->json($data);
+    }
     
     
 
