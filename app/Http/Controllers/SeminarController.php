@@ -107,6 +107,42 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
+    // (Admin) //
+
+    // Get All Seminar with Revisi and Penilaian
+
+    public function GetAllSeminarWithRevisiAndPenilaian(){
+        $data = Seminar::withCount([
+            'Revisis as revisi_selesai' => function ($query) {
+                $query->whereHas('status_revisis', function ($query) {
+                    $query->where('keterangan', 'Selesai');
+                });
+            },
+            'Revisis as revisi_belum_selesai' => function ($query) {
+                $query->whereHas('status_revisis', function ($query) {
+                    $query->where('keterangan', 'Belum Selesai');
+                });
+            },
+            'Penilaians as penilaian_selesai' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Selesai');
+                });
+            },
+            'Penilaians as penilaian_belum_selesai' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Belum Selesai');
+                });
+            },
+            'Penilaians as penilaian_terlambat' => function ($query) {
+                $query->whereHas('status_penilaians', function ($query) {
+                    $query->where('keterangan', 'Terlambat');
+                });
+            },
+        ])->paginate(5);
+
+        return response()->json($data);
+    }
+
     
 
 
