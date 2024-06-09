@@ -190,4 +190,12 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
+    // Lihat BAP 1
+    public function GenerateBAP1 (GetByIdRequest $request){
+        $data = Seminar::where('id', $request->safe()->id)->with(['BAP1s','Penilaians'=>function($query){$query->with(['Penggunas']);},
+        'PimpinanSidangs',
+        ])->first();
+        return response()->json($data);
+    }
+
 }
