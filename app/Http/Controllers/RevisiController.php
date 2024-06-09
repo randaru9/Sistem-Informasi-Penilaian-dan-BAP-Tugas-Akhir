@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Revisi\CreateRequest;
 use App\Http\Requests\Revisi\GetAllBySeminarIdRequest;
 use App\Http\Requests\Revisi\GetOneByIdRequest;
 use App\Models\Revisi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class RevisiController extends Controller
@@ -22,5 +24,17 @@ class RevisiController extends Controller
         $data = Revisi::where('id', $request->safe()->id)->first();
         return response()->json($data);
     }
+
+    // (Dosen) //
+
+    // Create Revisi
+    public function CreateRevisi(CreateRequest $request){
+        $time = Carbon::now();
+        $revisi = $request->safe()->all();
+        $revisi['berkas'] = $request->safe()['berkas']->store("revisi/{$revisi['seminar_id']}/$time");
+        $data = Revisi::create($revisi);
+        return response()->json($data);
+    }
+
     
 }
