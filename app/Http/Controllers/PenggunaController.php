@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Pengguna\CreateMahasiswa;
 use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
@@ -11,6 +12,19 @@ use Illuminate\Http\Request;
 class PenggunaController extends Controller
 {
     // (Mahasiswa) //
+
+    // Create Pengguna (Mahasiswa)
+    public function CreatePenggunaMahasiswa(CreateMahasiswa $request){
+        // dd($request);
+        Pengguna::create([
+            'nama' => $request->safe()->nama,
+            'nim' => $request->safe()->nim,
+            'password' => $request->safe()->katasandi,
+            'role_id' => 3,
+        ]);
+        // return $request->safe()->all();
+        return redirect()->route('mahasiswa');
+    }
 
     // Update Biodata
     public function UpdateBiodataMahasiswa(UpdateBiodataMahasiswaRequest $request){
