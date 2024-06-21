@@ -232,9 +232,7 @@ Route::prefix('admin')->group(function () {
 
     Route::prefix('mahasiswa')->group(function () {
 
-        Route::get('/', function () {
-            return view('admin.mahasiswa.mahasiswa');
-        })->name('mahasiswa');
+        Route::get('/', [PenggunaController::class, 'GetAllPenggunaMahasiswa'])->name('mahasiswa');
 
         Route::get('/detail', function () {
             return view('admin.mahasiswa.mahasiswa-detail');
