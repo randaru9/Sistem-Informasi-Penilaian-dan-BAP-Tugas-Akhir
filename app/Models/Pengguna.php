@@ -20,6 +20,9 @@ class Pengguna extends Authenticatable
      *
      * @var array<int, string>
      */
+
+    protected $table = 'pengguna';
+    
     protected $fillable = [
         'is_koordinator',
         'role_id',
