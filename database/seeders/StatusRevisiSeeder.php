@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,9 +15,9 @@ class StatusRevisiSeeder extends Seeder
     public function run(): void
     {
         $data_status_revisi = [
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Belum Diberikan'],
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Belum Selesai'],
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Selesai'],
+            ['id' => 1, 'keterangan' => 'Belum Diberikan', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 2, 'keterangan' => 'Belum Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 3, 'keterangan' => 'Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ];
 
         DB::table('status_revisi')->insert($data_status_revisi);
