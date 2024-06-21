@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -131,7 +132,7 @@ Route::prefix('dosen')->group(function () {
         Route::get('/ubah-nilai', function () {
             return view('dosen.penilaian.ubah-nilai');
         })->name('penilaian-ubah-nilai');
-        
+
         Route::get('/ubah-revisi', function () {
             return view('dosen.penilaian.ubah-revisi');
         })->name('penilaian-ubah-revisi');
@@ -171,94 +172,106 @@ Route::prefix('dosen')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::prefix('bap')->group(function () {
         Route::get('/', function () {
-           return view('admin.bap.bap'); 
+            return view('admin.bap.bap');
         })->name('bap');
         Route::get('/rekap-nilai', function () {
-           return view('admin.bap.bap-rekap-nilai'); 
+            return view('admin.bap.bap-rekap-nilai');
         })->name('bap-rekap-nilai');
         Route::get('/detail', function () {
-            return view('admin.bap.bap-detail'); 
-         })->name('bap-detail');
-         Route::get('/detail-proses', function () {
-            return view('admin.bap.bap-detail-proses'); 
-         })->name('bap-detail-proses');
-         Route::get('/form-penilaian', function () {
-            return view('admin.bap.bap-form-penilaian'); 
-         })->name('bap-form-penilaian');
-         Route::get('/unduh-form-penilaian', function () {
-            return view('admin.bap.form-penilaian'); 
-         })->name('bap-unduh-form-penilaian');
-         Route::get('/lihat-bap1', function () {
-            return view('admin.bap.bap-lihat-bap1'); 
-         })->name('bap-lihat-bap1');
-         Route::get('/unduh-bap1', function () {
-            return view('admin.bap.bap1'); 
-         })->name('bap-unduh-bap1');
-         Route::get('/lihat-bap2', function () {
-            return view('admin.bap.bap-lihat-bap2'); 
-         })->name('bap-lihat-bap2');
-         Route::get('/unduh-bap2', function () {
-            return view('admin.bap.bap2'); 
-         })->name('bap-unduh-bap2');
+            return view('admin.bap.bap-detail');
+        })->name('bap-detail');
+        Route::get('/detail-proses', function () {
+            return view('admin.bap.bap-detail-proses');
+        })->name('bap-detail-proses');
+        Route::get('/form-penilaian', function () {
+            return view('admin.bap.bap-form-penilaian');
+        })->name('bap-form-penilaian');
+        Route::get('/unduh-form-penilaian', function () {
+            return view('admin.bap.form-penilaian');
+        })->name('bap-unduh-form-penilaian');
+        Route::get('/lihat-bap1', function () {
+            return view('admin.bap.bap-lihat-bap1');
+        })->name('bap-lihat-bap1');
+        Route::get('/unduh-bap1', function () {
+            return view('admin.bap.bap1');
+        })->name('bap-unduh-bap1');
+        Route::get('/lihat-bap2', function () {
+            return view('admin.bap.bap-lihat-bap2');
+        })->name('bap-lihat-bap2');
+        Route::get('/unduh-bap2', function () {
+            return view('admin.bap.bap2');
+        })->name('bap-unduh-bap2');
     });
 
     Route::prefix('yudisium')->group(function () {
         Route::get('/', function () {
-           return view('admin.yudisium.yudisium'); 
+            return view('admin.yudisium.yudisium');
         })->name('yudisium');
         Route::get('/detail', function () {
-            return view('admin.yudisium.yudisium-detail'); 
-         })->name('yudisium-detail');
+            return view('admin.yudisium.yudisium-detail');
+        })->name('yudisium-detail');
     });
 
     Route::prefix('dosen')->group(function () {
         Route::get('/', function () {
-           return view('admin.dosen.dosen'); 
+            return view('admin.dosen.dosen');
         })->name('dosen');
         Route::get('/detail', function () {
-            return view('admin.dosen.dosen-detail'); 
-         })->name('dosen-detail');
-         Route::get('/buat-akun', function () {
-            return view('admin.dosen.dosen-buat-akun'); 
-         })->name('dosen-buat-akun');
-         Route::get('/parsing-akun', function () {
-            return view('admin.dosen.dosen-parsing-akun'); 
-         })->name('dosen-parsing-akun');
-         Route::get('/ubah-katasandi', function () {
-            return view('admin.dosen.dosen-ubah-katasandi'); 
-         })->name('dosen-ubah-katasandi');
+            return view('admin.dosen.dosen-detail');
+        })->name('dosen-detail');
+        Route::get('/buat-akun', function () {
+            return view('admin.dosen.dosen-buat-akun');
+        })->name('dosen-buat-akun');
+        Route::get('/parsing-akun', function () {
+            return view('admin.dosen.dosen-parsing-akun');
+        })->name('dosen-parsing-akun');
+        Route::get('/ubah-katasandi', function () {
+            return view('admin.dosen.dosen-ubah-katasandi');
+        })->name('dosen-ubah-katasandi');
     });
 
     Route::prefix('mahasiswa')->group(function () {
+
         Route::get('/', function () {
-           return view('admin.mahasiswa.mahasiswa'); 
+            return view('admin.mahasiswa.mahasiswa');
         })->name('mahasiswa');
+
         Route::get('/detail', function () {
-            return view('admin.mahasiswa.mahasiswa-detail'); 
-         })->name('mahasiswa-detail');
-         Route::get('/buat-akun', function () {
-            return view('admin.mahasiswa.mahasiswa-buat-akun'); 
-         })->name('mahasiswa-buat-akun');
-         Route::get('/parsing-akun', function () {
-            return view('admin.mahasiswa.mahasiswa-parsing-akun'); 
-         })->name('mahasiswa-parsing-akun');
-         Route::get('/ubah-katasandi', function () {
-            return view('admin.mahasiswa.mahasiswa-ubah-katasandi'); 
-         })->name('mahasiswa-ubah-katasandi');
+            return view('admin.mahasiswa.mahasiswa-detail');
+        })->name('mahasiswa-detail');
+
+        
+        Route::get('/buat-akun', function () {
+            return view('admin.mahasiswa.mahasiswa-buat-akun');
+        })->name('mahasiswa-buat-akun');
+        
+        // Route::controller(PenggunaController::class)->group(function () {
+        //     Route::post('/buat-akun', 'CreatePenggunaMahasiswa')->name('mahasiswa-buat-akun-post');
+        // });
+        Route::post('/buat-akun', [PenggunaController::class, 'CreatePenggunaMahasiswa'])->name('mahasiswa-buat-akun-post');
+
+        Route::get('/parsing-akun', function () {
+            return view('admin.mahasiswa.mahasiswa-parsing-akun');
+        })->name('mahasiswa-parsing-akun');
+        
+        Route::get('/ubah-katasandi', function () {
+            return view('admin.mahasiswa.mahasiswa-ubah-katasandi');
+        })->name('mahasiswa-ubah-katasandi');
+
     });
 
     Route::prefix('profil')->group(function () {
         Route::get('/', function () {
-           return view('admin.profil.profil'); 
+            return view('admin.profil.profil');
         })->name('profil');
         Route::get('/ubah-email', function () {
-            return view('admin.profil.profil-ubah-email'); 
-         })->name('profil-ubah-email');
-         Route::get('/verifikasi-email', function () {
-            return view('admin.profil.profil-verifikasi-email'); 
-         })->name('profil-verifikasi-email');
-         Route::get('/ubah-katasandi', function () {
-            return view('admin.profil.profil-ubah-katasandi'); 
-         })->name('profil-ubah-katasandi');
+            return view('admin.profil.profil-ubah-email');
+        })->name('profil-ubah-email');
+        Route::get('/verifikasi-email', function () {
+            return view('admin.profil.profil-verifikasi-email');
+        })->name('profil-verifikasi-email');
+        Route::get('/ubah-katasandi', function () {
+            return view('admin.profil.profil-ubah-katasandi');
+        })->name('profil-ubah-katasandi');
     });
 });
