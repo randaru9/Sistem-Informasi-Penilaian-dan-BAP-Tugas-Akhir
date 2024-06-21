@@ -17,7 +17,7 @@
     <nav aria-label="Page navigation example">
         <ul class="flex items-center space-x-2 h-8 text-sm">
             <li>
-                <a href="#"
+                <a href="?page={{$current - 1}}"
                     class="flex items-center justify-center px-3 h-8 leading-tight text-gold bg-white border border-gold rounded-[4px] hover:bg-gold hover:text-white">
                     <span class="sr-only">Previous</span>
                     <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -29,12 +29,12 @@
             </li>
             @for ($i = $min; $i <= $max; $i++)
             <li>
-                <a href="#"
+                <a href="?page={{$i}}"
                     class="{{$i == $current ? 'bg-gold text-white' : ''}} flex items-center justify-center px-3 h-8 leading-tight rounded-[4px] border border-[#DCDCDC] text-[#212B36] hover:bg-gold hover:text-white">{{$i}}</a>
             </li>
             @endfor
             <li>
-                <a href="#"
+                <a href="?page={{$current + 1}}"
                     class="flex items-center justify-center px-3 h-8 leading-tight text-gold bg-white border border-gold rounded-[4px] hover:bg-gold hover:text-white">
                     <span class="sr-only">Next</span>
                     <svg class="w-2.5 h-2.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
