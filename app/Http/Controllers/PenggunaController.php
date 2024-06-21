@@ -7,6 +7,7 @@ use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Models\Pengguna;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
@@ -24,6 +25,16 @@ class PenggunaController extends Controller
         ]);
         // return $request->safe()->all();
         return redirect()->route('mahasiswa');
+    }
+
+    public function GetAllPenggunaMahasiswa(Request $request){
+        $data = Pengguna::where(function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->where('nama', 'LIKE', "%{$request->search}%")
+                    ->orWhere('nim', $request->search);
+            }
+        })->paginate(5)->toArray();
+        return view('admin.mahasiswa.mahasiswa', compact(['data']));
     }
 
     // Update Biodata
