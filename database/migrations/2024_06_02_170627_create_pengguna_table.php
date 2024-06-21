@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('pengguna', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('role_id')->constrained('role');
+            $table->foreignId('role_id')->constrained('role');
             $table->boolean('is_koordinator')->default(false);
             $table->string('nama')->unique();
             $table->string('email')->unique()->nullable();
             $table->string('nim')->unique()->nullable();
             $table->string('nip')->unique()->nullable();
             $table->string('password');
-            $table->string('otp');
+            $table->string('otp')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

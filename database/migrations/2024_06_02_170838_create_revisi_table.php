@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('revisi', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('pengguna_id')->constrained('pengguna');
-            $table->foreignUuid('status_revisi_id')->constrained('status_revisi');
+            $table->foreignId('status_revisi_id')->constrained('status_revisi');
             $table->string('keterangan');
             $table->timestamps();
         });

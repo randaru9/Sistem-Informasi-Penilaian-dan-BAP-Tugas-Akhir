@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('periode_wisuda', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            // $table->uuid('id')->primary();
+            $table->id('id');
             $table->string('keterangan')->unique();
             $table->softDeletes();
             $table->timestamps();

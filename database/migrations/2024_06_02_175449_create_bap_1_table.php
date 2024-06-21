@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('bap_1', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->foreignUuid('status_tanda_tangan_id')->constrained('status_tanda_tangan');
+            $table->foreignId('status_tanda_tangan_id')->constrained('status_tanda_tangan');
             $table->string('ttd');
             $table->timestamps();
         });

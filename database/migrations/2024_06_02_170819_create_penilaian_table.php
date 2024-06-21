@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('penilaian', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignUuid('pengguna_id')->constrained('pengguna');
-            $table->foreignUuid('status_penilaian_id')->constrained('status_penilaian');
+            $table->foreignId('status_penilaian_id')->constrained('status_penilaian');
             $table->tinyInteger('penulisan_draft_tugas_akhir_dan_ppt')->nullable();
             $table->tinyInteger('penyajian_atau_presentasi')->nullable();
             $table->tinyInteger('penguasaan_materi')->nullable();

@@ -12,14 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('jenis_seminar', function (Blueprint $table) {
-            $table->uuid('id')->primary();
+            // $table->uuid('id')->primary();
+            $table->id('id');
             $table->string('keterangan')->unique();
             $table->softDeletes();
             $table->timestamps();
         });
 
         Schema::table('seminar', function (Blueprint $table) {
-            $table->foreignUuid('jenis_seminar_id')->constrained('jenis_seminar');
+            $table->foreignId('jenis_seminar_id')->constrained('jenis_seminar');
         });
     }
 
