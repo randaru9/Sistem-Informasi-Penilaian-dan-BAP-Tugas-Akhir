@@ -14,9 +14,9 @@ class StatusYudisiumSeeder extends Seeder
     public function run(): void
     {
         $data_status_yudisium = [
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Perlu Validasi'],
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Ditolak'],
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'keterangan' => 'Diterima'],
+            ['id' => 1, 'keterangan' => 'Perlu Validasi'],
+            ['id' => 2, 'keterangan' => 'Ditolak'],
+            ['id' => 3, 'keterangan' => 'Diterima'],
         ];
 
         DB::table('status_yudisium')->insert($data_status_yudisium);
