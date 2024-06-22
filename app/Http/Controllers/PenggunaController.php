@@ -33,7 +33,8 @@ class PenggunaController extends Controller
                 $query->where('nama', 'LIKE', "%{$request->search}%")
                     ->orWhere('nim', 'LIKE', "%{$request->search}%");
             }
-        })->paginate(5)->toArray();
+        })->paginate(5, ['id', 'nama', 'nim'])->toArray();
+        dd($data);
         return view('admin.mahasiswa.mahasiswa', compact(['data']));
     }
 
