@@ -234,18 +234,12 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/', [PenggunaController::class, 'GetAllPenggunaMahasiswa'])->name('mahasiswa');
 
-        Route::get('/detail', function () {
-            return view('admin.mahasiswa.mahasiswa-detail');
-        })->name('mahasiswa-detail');
+        Route::get('/detail', [PenggunaController::class, 'GetOnePenggunaById'])->name('mahasiswa-detail');
 
-        
         Route::get('/buat-akun', function () {
             return view('admin.mahasiswa.mahasiswa-buat-akun');
         })->name('mahasiswa-buat-akun');
         
-        // Route::controller(PenggunaController::class)->group(function () {
-        //     Route::post('/buat-akun', 'CreatePenggunaMahasiswa')->name('mahasiswa-buat-akun-post');
-        // });
         Route::post('/buat-akun', [PenggunaController::class, 'CreatePenggunaMahasiswa'])->name('mahasiswa-buat-akun-post');
 
         Route::get('/parsing-akun', function () {
