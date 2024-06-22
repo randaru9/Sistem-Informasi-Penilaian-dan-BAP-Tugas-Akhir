@@ -56,7 +56,7 @@
                                 {{ $item['nim'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="/admin/mahasiswa/detail"
+                                <a href="{{route('mahasiswa-detail', ['id' => $item['id']])}}"
                                     class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail</a>
                             </td>
                         </tr>
