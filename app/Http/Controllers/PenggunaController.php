@@ -38,7 +38,7 @@ class PenggunaController extends Controller
     }
 
     public function GetOnePenggunaById(Request $request){
-        $data = Pengguna::findOrFail($request->id);
+        $data = Pengguna::findOrFail($request->id)->only(['id', 'nama', 'nim', 'email']);
         return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
     }
 
