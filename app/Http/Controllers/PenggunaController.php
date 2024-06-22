@@ -31,10 +31,15 @@ class PenggunaController extends Controller
         $data = Pengguna::where(function (Builder $query) use ($request) {
             if (isset($request->search)) {
                 $query->where('nama', 'LIKE', "%{$request->search}%")
-                    ->orWhere('nim', $request->search);
+                    ->orWhere('nim', 'LIKE', "%{$request->search}%");
             }
         })->paginate(5)->toArray();
         return view('admin.mahasiswa.mahasiswa', compact(['data']));
+    }
+
+    public function GetOnePenggunaById(Request $request){
+        $data = Pengguna::findOrFail($request->id);
+        return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
     }
 
     // Update Biodata
