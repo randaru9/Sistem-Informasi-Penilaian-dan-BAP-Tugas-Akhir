@@ -213,15 +213,21 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('dosen')->group(function () {
+        
         Route::get('/', function () {
             return view('admin.dosen.dosen');
         })->name('dosen');
+
         Route::get('/detail', function () {
             return view('admin.dosen.dosen-detail');
         })->name('dosen-detail');
+
         Route::get('/buat-akun', function () {
             return view('admin.dosen.dosen-buat-akun');
         })->name('dosen-buat-akun');
+
+        Route::post('/buat-akun', [PenggunaController::class, 'CreatePenggunaDosen'])->name('dosen-buat-akun-post');
+
         Route::get('/parsing-akun', function () {
             return view('admin.dosen.dosen-parsing-akun');
         })->name('dosen-parsing-akun');
