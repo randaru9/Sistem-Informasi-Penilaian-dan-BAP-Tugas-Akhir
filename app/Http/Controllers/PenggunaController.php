@@ -134,6 +134,17 @@ class PenggunaController extends Controller
         return view('admin.dosen.dosen', compact(['data']));
     }
 
+    // Get One Pengguna (Dosen)
+    public function GetOnePengggunaDosenById(Request $request)
+    {
+        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nip', 'email'])->first();
+        if ($data != null) {
+            return view('admin.dosen.dosen-detail', compact(['data']));
+        }
+        return redirect()->route('dosen');
+    }
+
+
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
     {
         $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
