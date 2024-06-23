@@ -85,9 +85,10 @@ class PenggunaController extends Controller
         $mahasiswa = Pengguna::where('id',$request->query('id'))->first();
         if ($mahasiswa != null) {
             if ($request->safe()->katasandi == $request->safe()->konfirmasi_katasandi) {
-                Pengguna::where('id', $request->query('id'))->update([
-                    'katasandi' => $request->safe()->katasandi
+                $mahasiswa->update([
+                    'password' => $request->safe()->katasandi
                 ]);
+                return redirect()->route('mahasiswa');
             }
             return back()->with('katasandi', 'Kata sandi tidak sama');
         }
