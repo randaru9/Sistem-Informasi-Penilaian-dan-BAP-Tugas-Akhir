@@ -18,15 +18,26 @@ class PenggunaController extends Controller
     // Create Pengguna (Mahasiswa)
     public function CreatePenggunaMahasiswa(CreateMahasiswa $request)
     {
-        // dd($request);
-        Pengguna::create([
+        $mahasiswa = Pengguna::withTrashed()->where('nim', $request->safe()->nim)->orWhere('nama', $request->safe()->nama)->first();
+        if ($mahasiswa == null) {
+            Pengguna::create([
+                'nama' => $request->safe()->nama,
+                'nim' => $request->safe()->nim,
+                'password' => $request->safe()->katasandi,
+                'role_id' => 3,
+            ]);
+            return redirect()->route('mahasiswa');
+        }
+        $mahasiswa->restore();
+        $mahasiswa->update([
             'nama' => $request->safe()->nama,
             'nim' => $request->safe()->nim,
-            'password' => $request->safe()->katasandi,
-            'role_id' => 3,
+            'email' => null,
+            'otp' => null,
+            'password' => $request->safe()->katasandi
         ]);
-        // return $request->safe()->all();
         return redirect()->route('mahasiswa');
+
     }
 
     public function GetAllPenggunaMahasiswa(Request $request)
@@ -94,6 +105,16 @@ class PenggunaController extends Controller
                 return redirect()->route('mahasiswa');
             }
             return back()->with('katasandi', 'Kata sandi tidak sama');
+        }
+        return back()->with('mahasiswa', 'Mahasiswa tidak ditemukan');
+    }
+
+    public function HapusPengguna(Request $request)
+    {
+        $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
+        if($mahasiswa != null){
+            $mahasiswa->delete();
+            return redirect()->route('mahasiswa');
         }
         return back()->with('mahasiswa', 'Mahasiswa tidak ditemukan');
     }
