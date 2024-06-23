@@ -227,9 +227,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/parsing-akun', function () {
             return view('admin.dosen.dosen-parsing-akun');
         })->name('dosen-parsing-akun');
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.dosen.dosen-ubah-katasandi');
         })->name('dosen-ubah-katasandi');
+
+        Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandiForPengguna'])->name('dosen-ubah-katasandi-post');
+
     });
 
     Route::prefix('mahasiswa')->group(function () {
