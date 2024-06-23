@@ -137,13 +137,32 @@ class PenggunaController extends Controller
     // Get One Pengguna (Dosen)
     public function GetOnePengggunaDosenById(Request $request)
     {
-        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nip', 'email'])->first();
+        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nip', 'email', 'is_koordinator'])->first();
         if ($data != null) {
             return view('admin.dosen.dosen-detail', compact(['data']));
         }
         return redirect()->route('dosen');
     }
 
+    public function UpdateKoordindator(Request $request){
+        $koordinator = Pengguna::where('is_koordinator', 1)->first();
+        if($koordinator != null && $koordinator->id != $request->query('id')){
+            $koordinator->update([
+                'is_koordinator' => 0
+            ]);
+        }
+        $new_koordinator = Pengguna::where('id', $request->query('id'))->first();
+        if($new_koordinator != null){
+            if($new_koordinator->is_koordinator == 1){
+                return back()->with('koordinator', 'Pengguna ini sudah menjadi Koordinator');
+            }
+            $new_koordinator->update([
+                'is_koordinator' => 1
+            ]);
+            return back()->with('koordinator', 'Menjadikan Koordinator sukses');
+        }
+        return redirect()->route('dosen');
+    }
 
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
     {
