@@ -236,6 +236,7 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/update-koordinator', [PenggunaController::class, 'UpdateKoordindator'])->name('dosen-update-koordinator');
 
+        Route::post('/hapus-pengguna', [PenggunaController::class, 'HapusPengguna'])->name('hapus-pengguna-dosen');
     });
 
     Route::prefix('mahasiswa')->group(function () {
