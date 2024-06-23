@@ -42,9 +42,9 @@
                     @endif
                 </div>
             </div>
-            @if (Session::has('mahasiswa'))
+            @if (Session::has('pengguna'))
                 <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-                    <p class="text-red-500">{{ Session::get('mahasiswa') }}</p>
+                    <p class="text-red-500">{{ Session::get('pengguna') }}</p>
                 </div>
             @endif
             <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
