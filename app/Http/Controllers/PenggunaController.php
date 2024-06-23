@@ -184,12 +184,15 @@ class PenggunaController extends Controller
 
     public function HapusPengguna(Request $request)
     {
-        $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
-        if ($mahasiswa != null) {
-            $mahasiswa->delete();
-            return redirect()->route('mahasiswa');
+        $pengguna = Pengguna::where('id', $request->query('id'))->first();
+        if ($pengguna != null) {
+            $pengguna->delete();
+            if($pengguna->role_id == 3){
+                return redirect()->route('mahasiswa');
+            }
+            return redirect()->route('dosen');
         }
-        return back()->with('mahasiswa', 'Mahasiswa tidak ditemukan');
+        return back()->with('pengguna', 'Pengguna tidak ditemukan');
     }
 
 }
