@@ -234,7 +234,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/', [PenggunaController::class, 'GetAllPenggunaMahasiswa'])->name('mahasiswa');
 
-        Route::get('/detail', [PenggunaController::class, 'GetOnePenggunaById'])->name('mahasiswa-detail');
+        Route::get('/detail', [PenggunaController::class, 'GetOnePengggunaMahasiswaById'])->name('mahasiswa-detail');
 
         Route::get('/buat-akun', function () {
             return view('admin.mahasiswa.mahasiswa-buat-akun');
