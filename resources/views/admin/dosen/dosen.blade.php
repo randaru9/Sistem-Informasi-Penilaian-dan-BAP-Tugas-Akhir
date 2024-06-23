@@ -8,28 +8,14 @@
 
     $tablehead = ['No', 'Nama', 'NIP', 'Aksi'];
 
-    $data = [
-        'array' => [
-            [
-                'nama' => 'Ilham Firman Ashari, S.Kom., M.T.',
-                'nip' => '19930314 201903 1 018',
-            ],
-            [
-                'nama' => 'Andika Setiawan, S.Kom., M.Cs.',
-                'nip' => '19911127 2022 03 1 007',
-            ],
-        ],
-        'page' => 3,
-        'current' => 1,
-    ];
 @endphp
 
 <x-layout-admin :$breads title="Dosen">
     <div class="flex justify-start mb-4">
         <form action="" class="w-full flex space-x-4">
-            <input type="text" id="search"
+            <input type="text" id="search" name="search"
                 class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
-                minlength="9" required placeholder="Cari nama dosen" />
+                 placeholder="Cari nama dosen" value="{{ request()->query('search') }}" />
             <button type="submit" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold"> Cari
             </button>
         </form>
@@ -55,7 +41,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['array'] as $item)
+                    @foreach ($data['data'] as $item)
                         <tr class="bg-white border-b font-poppins text-base font-normal">
                             <td class="px-6 py-4 w-fit">
                                 {{ $loop->index + 1 }}
@@ -67,7 +53,7 @@
                                 {{ $item['nip'] }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="/admin/dosen/detail"
+                                <a href="{{route('dosen-detail', ['id' => $item['id']])}}"
                                     class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail</a>
                             </td>
                         </tr>
@@ -77,6 +63,6 @@
         </div>
     </div>
     <div class="mt-4 flex justify-end">
-        <x-pagination :pages="$data['page']" :current="$data['current']" />
+        <x-pagination :pages="$data['last_page']" :current="$data['current_page']" />
     </div>
 </x-layout-admin>
