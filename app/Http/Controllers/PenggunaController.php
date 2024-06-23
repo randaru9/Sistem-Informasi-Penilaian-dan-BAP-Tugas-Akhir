@@ -122,16 +122,16 @@ class PenggunaController extends Controller
     }
 
 
-    // Get All Pengguna (Mahasiswa)
+    // Get All Pengguna (Dosen)
     public function GetAllPenggunaDosen(Request $request)
     {
-        $data = Pengguna::where(function (Builder $query) use ($request) {
+        $data = Pengguna::where('role_id', 2)->where(function (Builder $query) use ($request) {
             if (isset($request->search)) {
                 $query->where('nama', 'LIKE', "%{$request->search}%")
-                    ->orWhere('nim', 'LIKE', "%{$request->search}%");
+                    ->orWhere('nip', 'LIKE', "%{$request->search}%");
             }
-        })->paginate(5, ['id', 'nama', 'nim'])->toArray();
-        return view('admin.mahasiswa.mahasiswa', compact(['data']));
+        })->paginate(5, ['id', 'nama', 'nip'])->toArray();
+        return view('admin.dosen.dosen', compact(['data']));
     }
 
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
