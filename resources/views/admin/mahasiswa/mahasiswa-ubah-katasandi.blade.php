@@ -9,7 +9,7 @@
             'title' => 'Detail',
         ],
         [
-            'href' => '/admin/mahasiswa/ubah-katasandi',
+            'href' => route('mahasiswa-ubah-katasandi', ['id' => request()->query('id')]),
             'title' => 'Ubah Katasandi',
         ],
     ];
