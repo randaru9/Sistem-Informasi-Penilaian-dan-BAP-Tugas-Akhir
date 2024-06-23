@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Pengguna\CreateDosen;
 use App\Http\Requests\Pengguna\CreateMahasiswa;
 use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
@@ -71,7 +72,6 @@ class PenggunaController extends Controller
             'password' => $request->safe()->katasandi
         ]);
         return redirect()->route('mahasiswa');
-
     }
 
     // Get All Pengguna (Mahasiswa)
@@ -90,11 +90,37 @@ class PenggunaController extends Controller
     public function GetOnePengggunaMahasiswaById(Request $request)
     {
         $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nim', 'email'])->first();
-        if($data != null){
+        if ($data != null) {
             return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
         }
         return redirect()->route('mahasiswa');
     }
+
+    // Create Pengguna (Dosen)
+    public function CreatePenggunaDosen(CreateDosen $request)
+    {
+        $mahasiswa = Pengguna::withTrashed()->where('nip', $request->safe()->nip)->orWhere('nama', $request->safe()->nama)->first();
+        if ($mahasiswa == null) {
+            Pengguna::create([
+                'nama' => $request->safe()->nama,
+                'nip' => $request->safe()->nip,
+                'email' => $request->safe()->email,
+                'password' => $request->safe()->katasandi,
+                'role_id' => 2,
+            ]);
+            return redirect()->route('dosen');
+        }
+        $mahasiswa->restore();
+        $mahasiswa->update([
+            'nama' => $request->safe()->nama,
+            'nip' => $request->safe()->nip,
+            'email' => $request->safe()->email,
+            'otp' => null,
+            'password' => $request->safe()->katasandi
+        ]);
+        return redirect()->route('dosen');
+    }
+
 
     // Get All Pengguna (Mahasiswa)
     public function GetAllPenggunaDosen(Request $request)
@@ -110,7 +136,7 @@ class PenggunaController extends Controller
 
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
     {
-        $mahasiswa = Pengguna::where('id',$request->query('id'))->first();
+        $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
         if ($mahasiswa != null) {
             if ($request->safe()->katasandi == $request->safe()->konfirmasi_katasandi) {
                 $mahasiswa->update([
@@ -126,7 +152,7 @@ class PenggunaController extends Controller
     public function HapusPengguna(Request $request)
     {
         $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
-        if($mahasiswa != null){
+        if ($mahasiswa != null) {
             $mahasiswa->delete();
             return redirect()->route('mahasiswa');
         }
