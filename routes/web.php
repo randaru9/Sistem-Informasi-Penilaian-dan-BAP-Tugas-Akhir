@@ -252,6 +252,8 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandiForPengguna'])->name('mahasiswa-ubah-katasandi-post');
 
+        Route::post('/hapus-pengguna', [PenggunaController::class, 'HapusPengguna'])->name('hapus-pengguna');
+
     });
 
     Route::prefix('profil')->group(function () {
