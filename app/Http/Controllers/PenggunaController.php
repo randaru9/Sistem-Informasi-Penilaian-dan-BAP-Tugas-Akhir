@@ -15,51 +15,6 @@ class PenggunaController extends Controller
 {
     // (Mahasiswa) //
 
-    // Create Pengguna (Mahasiswa)
-    public function CreatePenggunaMahasiswa(CreateMahasiswa $request)
-    {
-        $mahasiswa = Pengguna::withTrashed()->where('nim', $request->safe()->nim)->orWhere('nama', $request->safe()->nama)->first();
-        if ($mahasiswa == null) {
-            Pengguna::create([
-                'nama' => $request->safe()->nama,
-                'nim' => $request->safe()->nim,
-                'password' => $request->safe()->katasandi,
-                'role_id' => 3,
-            ]);
-            return redirect()->route('mahasiswa');
-        }
-        $mahasiswa->restore();
-        $mahasiswa->update([
-            'nama' => $request->safe()->nama,
-            'nim' => $request->safe()->nim,
-            'email' => null,
-            'otp' => null,
-            'password' => $request->safe()->katasandi
-        ]);
-        return redirect()->route('mahasiswa');
-
-    }
-
-    public function GetAllPenggunaMahasiswa(Request $request)
-    {
-        $data = Pengguna::where(function (Builder $query) use ($request) {
-            if (isset($request->search)) {
-                $query->where('nama', 'LIKE', "%{$request->search}%")
-                    ->orWhere('nim', 'LIKE', "%{$request->search}%");
-            }
-        })->paginate(5, ['id', 'nama', 'nim'])->toArray();
-        return view('admin.mahasiswa.mahasiswa', compact(['data']));
-    }
-
-    public function GetOnePengggunaMahasiswaById(Request $request)
-    {
-        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nim', 'email'])->first();
-        if($data != null){
-            return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
-        }
-        return redirect()->route('mahasiswa');
-    }
-
     // Update Biodata
     public function UpdateBiodataMahasiswa(UpdateBiodataMahasiswaRequest $request)
     {
@@ -93,6 +48,65 @@ class PenggunaController extends Controller
     }
 
     // (Admin) //
+
+    // Create Pengguna (Mahasiswa)
+    public function CreatePenggunaMahasiswa(CreateMahasiswa $request)
+    {
+        $mahasiswa = Pengguna::withTrashed()->where('nim', $request->safe()->nim)->orWhere('nama', $request->safe()->nama)->first();
+        if ($mahasiswa == null) {
+            Pengguna::create([
+                'nama' => $request->safe()->nama,
+                'nim' => $request->safe()->nim,
+                'password' => $request->safe()->katasandi,
+                'role_id' => 3,
+            ]);
+            return redirect()->route('mahasiswa');
+        }
+        $mahasiswa->restore();
+        $mahasiswa->update([
+            'nama' => $request->safe()->nama,
+            'nim' => $request->safe()->nim,
+            'email' => null,
+            'otp' => null,
+            'password' => $request->safe()->katasandi
+        ]);
+        return redirect()->route('mahasiswa');
+
+    }
+
+    // Get All Pengguna (Mahasiswa)
+    public function GetAllPenggunaMahasiswa(Request $request)
+    {
+        $data = Pengguna::where('role_id', 3)->where(function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->where('nama', 'LIKE', "%{$request->search}%")
+                    ->orWhere('nim', 'LIKE', "%{$request->search}%");
+            }
+        })->paginate(5, ['id', 'nama', 'nim'])->toArray();
+        return view('admin.mahasiswa.mahasiswa', compact(['data']));
+    }
+
+    // Get One Pengguna (Mahasiswa)
+    public function GetOnePengggunaMahasiswaById(Request $request)
+    {
+        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nim', 'email'])->first();
+        if($data != null){
+            return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
+        }
+        return redirect()->route('mahasiswa');
+    }
+
+    // Get All Pengguna (Mahasiswa)
+    public function GetAllPenggunaDosen(Request $request)
+    {
+        $data = Pengguna::where(function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->where('nama', 'LIKE', "%{$request->search}%")
+                    ->orWhere('nim', 'LIKE', "%{$request->search}%");
+            }
+        })->paginate(5, ['id', 'nama', 'nim'])->toArray();
+        return view('admin.mahasiswa.mahasiswa', compact(['data']));
+    }
 
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
     {
