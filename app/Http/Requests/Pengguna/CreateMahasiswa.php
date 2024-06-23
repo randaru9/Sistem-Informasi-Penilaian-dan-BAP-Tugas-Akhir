@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Pengguna;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class CreateMahasiswa extends FormRequest
 {
@@ -22,8 +23,8 @@ class CreateMahasiswa extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required|string|unique:pengguna',
-            'nim' => 'required|string|max_digits:9|min_digits:9|unique:pengguna',
+            'nama' => ['required', 'string', Rule::unique('pengguna')->withoutTrashed()],
+            'nim' => ['required', 'string', 'max_digits:9', 'min_digits:9' ,Rule::unique('pengguna')->withoutTrashed()],
             'katasandi' => 'required|string|min_digits:8',
         ];
     }
