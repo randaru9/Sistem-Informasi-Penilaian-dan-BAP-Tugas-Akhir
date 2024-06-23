@@ -5,7 +5,7 @@
             'title' => 'Mahasiswa',
         ],
         [
-            'href' => '/admin/mahasiswa/detail',
+            'href' => route('mahasiswa-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
     ];
