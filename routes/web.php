@@ -250,6 +250,8 @@ Route::prefix('admin')->group(function () {
             return view('admin.mahasiswa.mahasiswa-ubah-katasandi');
         })->name('mahasiswa-ubah-katasandi');
 
+        Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandiForPengguna'])->name('mahasiswa-ubah-katasandi-post');
+
     });
 
     Route::prefix('profil')->group(function () {
