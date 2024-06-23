@@ -234,6 +234,8 @@ Route::prefix('admin')->group(function () {
 
         Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandiForPengguna'])->name('dosen-ubah-katasandi-post');
 
+        Route::post('/update-koordinator', [PenggunaController::class, 'UpdateKoordindator'])->name('dosen-update-koordinator');
+
     });
 
     Route::prefix('mahasiswa')->group(function () {
