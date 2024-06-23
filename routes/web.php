@@ -216,9 +216,7 @@ Route::prefix('admin')->group(function () {
         
         Route::get('/', [PenggunaController::class, 'GetAllPenggunaDosen'])->name('dosen');
 
-        Route::get('/detail', function () {
-            return view('admin.dosen.dosen-detail');
-        })->name('dosen-detail');
+        Route::get('/detail', [PenggunaController::class, 'GetOnePengggunaDosenById'])->name('dosen-detail');
 
         Route::get('/buat-akun', function () {
             return view('admin.dosen.dosen-buat-akun');
