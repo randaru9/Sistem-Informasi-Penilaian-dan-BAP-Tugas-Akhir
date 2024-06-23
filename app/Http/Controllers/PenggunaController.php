@@ -40,7 +40,7 @@ class PenggunaController extends Controller
         return view('admin.mahasiswa.mahasiswa', compact(['data']));
     }
 
-    public function GetOnePenggunaById(Request $request)
+    public function GetOnePengggunaMahasiswaById(Request $request)
     {
         $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nim', 'email'])->first();
         if($data != null){
