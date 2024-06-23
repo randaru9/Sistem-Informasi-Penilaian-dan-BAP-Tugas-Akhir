@@ -147,17 +147,20 @@ class PenggunaController extends Controller
 
     public function UpdateKatasandiForPengguna(UpdateKatasandiForPenggunaRequest $request)
     {
-        $mahasiswa = Pengguna::where('id', $request->query('id'))->first();
-        if ($mahasiswa != null) {
+        $pengguna = Pengguna::where('id', $request->query('id'))->first();
+        if ($pengguna != null) {
             if ($request->safe()->katasandi == $request->safe()->konfirmasi_katasandi) {
-                $mahasiswa->update([
+                $pengguna->update([
                     'password' => $request->safe()->katasandi
                 ]);
-                return redirect()->route('mahasiswa');
+                if($pengguna->role_id == 3){
+                    return redirect()->route('mahasiswa');
+                }
+                return redirect()->route('dosen');
             }
             return back()->with('katasandi', 'Kata sandi tidak sama');
         }
-        return back()->with('mahasiswa', 'Mahasiswa tidak ditemukan');
+        return back()->with('pengguna', 'Pengguna tidak ditemukan');
     }
 
     public function HapusPengguna(Request $request)
