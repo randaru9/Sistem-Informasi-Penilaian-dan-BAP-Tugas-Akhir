@@ -42,8 +42,11 @@ class PenggunaController extends Controller
 
     public function GetOnePenggunaById(Request $request)
     {
-        $data = Pengguna::findOrFail($request->id)->only(['id', 'nama', 'nim', 'email']);
-        return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
+        $data = Pengguna::where('id', $request->id)->get(['id', 'nama', 'nim', 'email'])->first();
+        if($data != null){
+            return view('admin.mahasiswa.mahasiswa-detail', compact(['data']));
+        }
+        return redirect()->route('mahasiswa');
     }
 
     // Update Biodata
