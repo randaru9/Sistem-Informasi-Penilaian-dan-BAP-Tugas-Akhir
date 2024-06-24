@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\GenerateOtp;
 use App\Http\Requests\Auth\Login;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
@@ -34,5 +35,14 @@ class AuthController extends Controller
             }
         }
         return back()->with('error', 'NIM/NIP atau Katasandi salah');
+    }
+
+    public function GenerateOtpLupaKatasandi(GenerateOtp $request)
+    {
+        $data = Pengguna::where('email', $request->safe()->email)->first();
+        $data->update([
+            'otp' => random_int(100000, 999999)
+        ]);
+        return redirect()->route('verifikasi-otp', ['email' => $request->email]);
     }
 }
