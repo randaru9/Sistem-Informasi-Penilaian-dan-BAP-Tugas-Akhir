@@ -6,6 +6,7 @@ use App\Http\Requests\Seminar\CreateRequest;
 use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Http\Requests\Seminar\GetByPenggunaIdRequest;
 use App\Http\Requests\Seminar\UpdateRequest;
+use App\Models\JenisSeminar;
 use App\Models\Pengguna;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
@@ -27,6 +28,14 @@ class SeminarController extends Controller
 
         return response()->json($data);
 
+    }
+
+    // Create Seminar View
+
+    public function CreateSeminarView(){
+        $dosen = Pengguna::where('role_id', 2)->get();
+        $jenis = JenisSeminar::all();
+        return view('mahasiswa.seminar.seminar-tambah', compact(['dosen', 'jenis']));
     }
 
     // Create Seminar
