@@ -18,22 +18,23 @@ class SeminarController extends Controller
     // (Mahasiswa) //
 
     // Get All Seminar By Pengguna Id with Count Revisi (for Status)
-    public function GetSeminarByPenggunaIdWithCountRevisi(GetByPenggunaIdRequest $request){
+    public function SeminarMahasiswaView(){
         
-        $data = Seminar::where('pengguna_id', $request->safe()->pengguna_id)->withCount([
-            'Revisis' => function ($query) {
-                $query->whereHas('StatusRevisis', function ($query) {
-                    $query->where('keterangan', 'Belum Selesai');
-                });
-            }
-        ])->get();
-
-        return response()->json($data);
+        $data = Seminar::where('pengguna_id', auth()->user()->id)->with('JenisSeminars')->withCount([
+            'Revisis as count_revisi', 
+            'Revisis as count_revisi_belum_selesai' => function ($query) {
+                $query->where('status_revisi_id', 1);
+            },
+            'Revisis as count_revisi_selesai' => function ($query) {
+                $query->where('status_revisi_id', 2);
+            },
+        ])->paginate(5)->toArray();
+        
+        return view('mahasiswa.seminar.seminar', compact('data'));
 
     }
 
     // Create Seminar View
-
     public function CreateSeminarView(){
         $dosen = Pengguna::where('role_id', 2)->get();
         $jenis = JenisSeminar::all();
