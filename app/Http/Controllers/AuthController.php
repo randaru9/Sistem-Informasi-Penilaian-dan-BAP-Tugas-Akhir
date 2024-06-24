@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\GenerateOtp;
 use App\Http\Requests\Auth\Login;
+use App\Http\Requests\Auth\VerifikasiOtp;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,6 +44,18 @@ class AuthController extends Controller
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        return redirect()->route('verifikasi-otp', ['email' => $request->email]);
+        return redirect()->route('verifikasi-otp', ['email' => $request->safe()->email]);
+    }
+
+    public function VerifikasiOtp(VerifikasiOtp $request)
+    {
+        $data = Pengguna::where('email', $request->query('email'))->first();
+        if ($data !== null) {
+            if ($data->otp == $request->otp) {
+                return redirect()->route('buat-katasandi-baru', ['email' => $request->query('email'), 'otp' => $request->safe()->otp]);
+            }
+            return back()->with('error', 'OTP yang anda masukkan salah');
+        }
+        return redirect()->route('lupa-katasandi');
     }
 }
