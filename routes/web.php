@@ -29,7 +29,7 @@ Route::post('/login', [AuthController::class, 'Login'])->name('login');
 
 Route::get('/lupa-katasandi', function () {
     return view('auth.lupa-katasandi');
-});
+})->name('lupa-katasandi');
 
 Route::post('/generate-otp-lupa-katasandi', [AuthController::class, 'GenerateOtpLupaKatasandi'])->name('generate-otp-lupa-katasandi');
 
@@ -39,9 +39,12 @@ Route::get('/lengkapi-data-diri', function () {
 Route::get('/verifikasi-otp', function () {
     return view('auth.verifikasi-otp');
 })->name('verifikasi-otp');
+
+Route::post('/verifikasi-otp', [AuthController::class, 'VerifikasiOtp'])->name('verifikasi-otp-post');
+
 Route::get('/buat-katasandi-baru', function () {
     return view('auth.buat-katasandi-baru');
-});
+})->name('buat-katasandi-baru');
 
 Route::prefix('mahasiswa')->group(function () {
 
