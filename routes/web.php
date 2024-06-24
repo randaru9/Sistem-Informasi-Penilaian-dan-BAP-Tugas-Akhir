@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenggunaController;
+use App\Http\Controllers\SeminarController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -58,9 +59,7 @@ Route::prefix('mahasiswa')->group(function () {
             return view('mahasiswa.seminar.seminar');
         })->name('seminar');
 
-        Route::get('/tambah', function () {
-            return view('mahasiswa.seminar.seminar-tambah');
-        })->name('seminar-tambah');
+        Route::get('/tambah', [SeminarController::class, 'CreateSeminarView'])->name('seminar-tambah');
 
         Route::get('/detail', function () {
             return view('mahasiswa.seminar.seminar-detail');
