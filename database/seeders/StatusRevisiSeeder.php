@@ -15,9 +15,8 @@ class StatusRevisiSeeder extends Seeder
     public function run(): void
     {
         $data_status_revisi = [
-            ['id' => 1, 'keterangan' => 'Belum Diberikan', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['id' => 2, 'keterangan' => 'Belum Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['id' => 3, 'keterangan' => 'Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 1, 'keterangan' => 'Belum Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 2, 'keterangan' => 'Selesai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ];
 
         DB::table('status_revisi')->insert($data_status_revisi);
