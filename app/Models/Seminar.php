@@ -32,7 +32,6 @@ class Seminar extends Model
 
     protected $casts = [
         'tanggal' => 'date',
-        'waktu' => 'time',
     ];
 
     public function BAP1s(): BelongsTo
