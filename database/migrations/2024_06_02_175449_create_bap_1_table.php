@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bap_1', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->foreignId('status_tanda_tangan_id')->constrained('status_tanda_tangan');
-            $table->string('ttd');
+            $table->string('ttd')->nullable();
             $table->timestamps();
         });
     }
