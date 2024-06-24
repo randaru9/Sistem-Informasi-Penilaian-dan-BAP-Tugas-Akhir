@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\BuatKatasandiBaruwithOtp;
 use App\Http\Requests\Auth\GenerateOtp;
 use App\Http\Requests\Auth\Login;
 use App\Http\Requests\Auth\VerifikasiOtp;
@@ -51,10 +52,28 @@ class AuthController extends Controller
     {
         $data = Pengguna::where('email', $request->query('email'))->first();
         if ($data !== null) {
-            if ($data->otp == $request->otp) {
+            if ($data->otp == $request->safe()->otp) {
                 return redirect()->route('buat-katasandi-baru', ['email' => $request->query('email'), 'otp' => $request->safe()->otp]);
             }
             return back()->with('error', 'OTP yang anda masukkan salah');
+        }
+        return redirect()->route('lupa-katasandi');
+    }
+
+    public function BuatKatasandiBaruWithOtp(BuatKatasandiBaruwithOtp $request){
+        $data = Pengguna::where('email', $request->query('email'))->first();
+        if ($data !== null) {
+            if ($data->otp == $request->query('otp')) {
+                if($request->safe()->katasandi == $request->safe()->konfirmasi_katasandi){
+                    $data->update([
+                        'otp' => null,
+                        'password' => $request->safe()->katasandi
+                    ]);
+                    return redirect()->route('login');
+                }
+                return back()->with('error', 'Katasandi yang anda masukkan tidak sama');
+            }
+            return redirect()->route('verifikasi-otp', ['email' => $request->query('email')]);
         }
         return redirect()->route('lupa-katasandi');
     }
