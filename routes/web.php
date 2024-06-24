@@ -46,6 +46,8 @@ Route::get('/buat-katasandi-baru', function () {
     return view('auth.buat-katasandi-baru');
 })->name('buat-katasandi-baru');
 
+Route::post('/buat-katasandi-baru', [AuthController::class, 'BuatKatasandiBaruWithOtp'])->name('buat-katasandi-baru-post');
+
 Route::prefix('mahasiswa')->group(function () {
 
     Route::prefix('seminar')->group(function () {
