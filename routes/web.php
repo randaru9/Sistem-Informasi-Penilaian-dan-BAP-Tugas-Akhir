@@ -61,6 +61,8 @@ Route::prefix('mahasiswa')->group(function () {
 
         Route::get('/tambah', [SeminarController::class, 'CreateSeminarView'])->name('seminar-tambah');
 
+        Route::post('/tambah', [SeminarController::class, 'CreateSeminar'])->name('seminar-tambah-post');
+
         Route::get('/detail', function () {
             return view('mahasiswa.seminar.seminar-detail');
         })->name('seminar-detail');
