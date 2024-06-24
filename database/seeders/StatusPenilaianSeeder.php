@@ -15,9 +15,8 @@ class StatusPenilaianSeeder extends Seeder
     public function run(): void
     {
         $data_status_penilaian = [
-            ['id' => 1, 'keterangan' => 'Belum Dinilai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['id' => 2, 'keterangan' => 'Sudah Dinilai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
-            ['id' => 3, 'keterangan' => 'Terlambat', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 1, 'keterangan' => 'Sudah Dinilai', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => 2, 'keterangan' => 'Terlambat', 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ];
 
         DB::table('status_penilaian')->insert($data_status_penilaian);
