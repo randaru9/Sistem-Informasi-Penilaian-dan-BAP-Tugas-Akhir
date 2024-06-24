@@ -55,9 +55,7 @@ Route::post('/buat-katasandi-baru', [AuthController::class, 'BuatKatasandiBaruWi
 Route::prefix('mahasiswa')->group(function () {
 
     Route::prefix('seminar')->group(function () {
-        Route::get('/', function () {
-            return view('mahasiswa.seminar.seminar');
-        })->name('seminar');
+        Route::get('/', [SeminarController::class, 'SeminarMahasiswaView'])->name('seminar');
 
         Route::get('/tambah', [SeminarController::class, 'CreateSeminarView'])->name('seminar-tambah');
 
