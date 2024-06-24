@@ -6,6 +6,8 @@ use App\Http\Requests\Seminar\CreateRequest;
 use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Http\Requests\Seminar\GetByPenggunaIdRequest;
 use App\Http\Requests\Seminar\UpdateRequest;
+use App\Models\BAP1;
+use App\Models\BAP2;
 use App\Models\JenisSeminar;
 use App\Models\Pengguna;
 use App\Models\Seminar;
@@ -41,10 +43,37 @@ class SeminarController extends Controller
     // Create Seminar
     public function CreateSeminar(CreateRequest $request){
 
-        $data = Seminar::create($request->safe()->all());
+        $koordinator = Pengguna::where('is_koordinator', 1)->first();
 
-        return response()->json($data);
+        $bap1 = BAP1::create([
+            'status_tanda_tangan_id' => 1,
+        ]);
 
+        $bap2 = BAP2::create([
+            'koordinator' => $koordinator->id,
+        ]);
+
+        $id = auth()->user()->id;
+
+        $draft = $request->safe()->draft->store("seminar/{$id}");
+
+        Seminar::create([
+           'bap1_id' => $bap1->id,
+           'bap2_id' => $bap2->id,
+           'pengguna_id' => auth()->user()->id,
+           'pembimbing_1_id' => $request->safe()->pembimbing1,
+           'pembimbing_2_id' => $request->safe()->pembimbing2,
+           'penguji_1_id' => $request->safe()->penguji1,
+           'penguji_2_id' => $request->safe()->penguji2,
+           'pimpinan_sidang_id' => $request->safe()->pimpinan,
+           'jenis_seminar_id' => $request->safe()->jenis,
+           'judul' => $request->safe()->judul,
+           'tanggal' => $request->safe()->tanggal,
+           'waktu' => $request->safe()->waktu,
+           'draft' => $draft
+        ]);
+
+        return redirect()->route('seminar');
     }
 
     // Get One Seminar By Id with Count Revisi (for Status)
