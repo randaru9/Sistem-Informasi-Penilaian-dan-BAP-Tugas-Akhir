@@ -35,7 +35,10 @@ Route::post('/generate-otp-lupa-katasandi', [AuthController::class, 'GenerateOtp
 
 Route::get('/lengkapi-data-diri', function () {
     return view('auth.lengkapi-data-diri');
-});
+})->name('lengkapi-data-diri');
+
+Route::post('/lengkapi-data-diri', [AuthController::class, 'LengkapiDataDiri'])->name('lengkapi-data-diri-post');
+
 Route::get('/verifikasi-otp', function () {
     return view('auth.verifikasi-otp');
 })->name('verifikasi-otp');
