@@ -32,7 +32,10 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="pembimbing1" id="pembimbing1">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Pembimbing 1 </option>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
@@ -42,7 +45,10 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="pembimbing2" id="pembimbing2">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Pembimbing 2 </option>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -53,7 +59,10 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="penguji1" id="penguji1">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Penguji 1 </option>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
@@ -62,7 +71,10 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="penguji2" id="penguji2">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Penguji 2 </option>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -73,7 +85,10 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="pimpinan" id="pimpinan">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Pimpinan Sidang </option>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
@@ -81,8 +96,11 @@
                         Sidang</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="jenis_sidang" id="jenis_sidang">
-                        <option value=""></option>
+                        name="jenis_sidang" id="jenis_sidang" >
+                        <option disabled selected hidden> Pilih Jenis Sidang </option>
+                        @foreach ($jenis as $item)
+                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
