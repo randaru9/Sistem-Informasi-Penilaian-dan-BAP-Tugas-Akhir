@@ -22,34 +22,30 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pengguna_id' => 'required|uuid|exists:pengguna',
-            'bap1_id' => 'required|uuid|exists:bap_1',
-            'bap2_id' => 'required|uuid|exists:bap_2',
-            'pembimbing_1_id' => 'required|uuid|exists:pengguna',
-            'pembimbing_2_id' => 'required|uuid|exists:pengguna',
-            'penguji_1_id' => 'required|uuid|exists:pengguna',
-            'penguji_2_id' => 'required|uuid|exists:pengguna',
-            'pimpinan_sidang_id' => 'required|uuid|exists:pengguna',
-            'jenis_seminar_id' => 'required|uuid|exists:jenis_seminar',
+            'pembimbing1' => 'required|uuid|exists:pengguna,id',
+            'pembimbing2' => 'required|uuid|exists:pengguna,id',
+            'penguji1' => 'required|uuid|exists:pengguna,id',
+            'penguji2' => 'required|uuid|exists:pengguna,id',
+            'pimpinan' => 'required|uuid|exists:pengguna,id',
+            'jenis' => 'required|exists:jenis_seminar,id',
             'judul' => 'required|string',
-            'tanggal' => 'required|string',
-            'waktu' => 'required|string',
+            'draft' => 'required|mimes:zip,rar|max:10240',
+            'tanggal' => 'required',
+            'waktu' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'pengguna_id' => 'Pengguna',
-            'bap1_id' => 'BAP 1',
-            'bap2_id' => 'BAP 2',
-            'pembimbing_1_id' => 'Pembimbing 1',
-            'pembimbing_2_id' => 'Pembimbing 2',
-            'penguji_1_id' => 'Penguji 1',
-            'penguji_2_id' => 'Penguji 2',
-            'pimpinan_sidang_id' => 'Pimpinan Sidang',
-            'jenis_seminar_id' => 'Jenis Seminar',
+            'pembimbing1' => 'Pembimbing 1',
+            'pembimbing2' => 'Pembimbing 2',
+            'penguji1' => 'Penguji 1',
+            'penguji2' => 'Penguji 2',
+            'pimpinan' => 'Pimpinan Sidang',
+            'jenis' => 'Jenis Seminar',
             'judul' => 'Judul',
+            'draft' => 'Draft',
             'tanggal' => 'Tanggal',
             'waktu' => 'Waktu',
         ];
@@ -62,6 +58,8 @@ class CreateRequest extends FormRequest
             'exists' => ':attribute tidak ditemukan.',
             'string' => ':attribute harus berupa string.',
             'uuid' => ':attribute harus berupa UUID.',
+            'mimes' => ':attribute harus berupa file PDF.',
+            'max' => ':attribute maksimal 10 MB.',
         ];  
     }
 
