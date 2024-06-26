@@ -114,6 +114,8 @@ Route::prefix('mahasiswa')->group(function () {
             return view('mahasiswa.profil.profil-verifikasi-email');
         })->name('profil-verifikasi-email-mahasiswa');
 
+        Route::post('/verifikasi-email', [PenggunaController::class, 'VerifikasiOtpEmail'])->name('profil-verifikasi-email-mahasiswa-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('mahasiswa.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-mahasiswa');
