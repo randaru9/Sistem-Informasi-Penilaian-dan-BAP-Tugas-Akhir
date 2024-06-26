@@ -37,9 +37,17 @@ class YudisiumController extends Controller
     }    
 
     // Get All Yudisium by Pengguna Id
-    public function GetAllYudisiumByPenggunaId(GetByPenggunaIdRequest $request){
-        $data = Yudisium::where('pengguna_id', $request->safe()->pengguna_id)->get();
-        return response()->json($data);
+    public function GetAllYudisiumByPenggunaId(Request $request){
+        $data = Yudisium::select(['id','periode_wisuda_id','status_yudisium_id'])->with([
+            'PeriodeWisudas' => function($query){
+                $query->select(['id', 'keterangan']);
+            }, 
+            'StatusYudisiums' => function($query){
+                $query->select(['id', 'keterangan']);
+            }
+        ])->where('pengguna_id', auth()->user()->id)->paginate(5)->toArray();
+
+        return view('mahasiswa.yudisium.yudisium', compact('data'));
     }
 
     // Get One Yudisium by Id
