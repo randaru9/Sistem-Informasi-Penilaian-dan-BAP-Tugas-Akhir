@@ -90,7 +90,7 @@ Route::prefix('mahasiswa')->group(function () {
 
         Route::get('/detail', function () {
             return view('mahasiswa.yudisium.yudisium-detail');
-        })->name('yudisium-detail');
+        })->name('yudisium-detail-mahasiswa');
 
         Route::get('/ubah', function () {
             return view('mahasiswa.yudisium.yudisium-ubah');
