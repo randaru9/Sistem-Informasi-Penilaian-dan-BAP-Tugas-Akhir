@@ -82,9 +82,7 @@ Route::prefix('mahasiswa')->group(function () {
     });
 
     Route::prefix('yudisium')->group(function () {
-        Route::get('/', function () {
-            return view('mahasiswa.yudisium.yudisium');
-        })->name('yudisium');
+        Route::get('/', [YudisiumController::class, 'GetAllYudisiumByPenggunaId'])->name('yudisium');
 
         Route::get('/tambah', [YudisiumController::class, 'CreateYudisiumView'])->name('yudisium-tambah');
 
