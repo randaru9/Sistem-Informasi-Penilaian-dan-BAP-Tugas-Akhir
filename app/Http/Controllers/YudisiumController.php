@@ -16,13 +16,15 @@ class YudisiumController extends Controller
 {
     // (Mahasiswa) //
 
-    public function CreateYudisiumView(){
+    public function CreateYudisiumView()
+    {
         $periode = PeriodeWisuda::all();
         return view('mahasiswa.yudisium.yudisium-tambah', compact('periode'));
     }
 
     // Create Yudisium
-    public function CreateYudisium(CreateRequest $request){
+    public function CreateYudisium(CreateRequest $request)
+    {
         $id = auth()->user()->id;
         $berkas = $request->safe()->berkas->store("yudisium/{$id}");
         Yudisium::create([
@@ -33,16 +35,17 @@ class YudisiumController extends Controller
             'saran_dan_kritik' => $request->saran,
             'berkas' => $berkas
         ]);
-        return redirect()->route('yudisium');
-    }    
+        return redirect()->route('yudisium-mahasiswa');
+    }
 
     // Get All Yudisium by Pengguna Id
-    public function GetAllYudisiumByPenggunaId(Request $request){
-        $data = Yudisium::select(['id','periode_wisuda_id','status_yudisium_id'])->with([
-            'PeriodeWisudas' => function($query){
+    public function GetAllYudisiumByPenggunaId(Request $request)
+    {
+        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id'])->with([
+            'PeriodeWisudas' => function ($query) {
                 $query->select(['id', 'keterangan']);
-            }, 
-            'StatusYudisiums' => function($query){
+            },
+            'StatusYudisiums' => function ($query) {
                 $query->select(['id', 'keterangan']);
             }
         ])->where('pengguna_id', auth()->user()->id)->paginate(5)->toArray();
@@ -51,13 +54,25 @@ class YudisiumController extends Controller
     }
 
     // Get One Yudisium by Id
-    public function GetOneYudisiumById(GetOneByIdRequest $request){
-        $data = Yudisium::where('id', $request->safe()->id)->first();
-        return response()->json($data);
+    public function GetOneYudisiumById(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $data = Yudisium::where('id', $request->query('id'))->with([
+                'StatusYudisiums' => function ($query) {
+                    $query->select(['id', 'keterangan']);
+                },
+                'PeriodeWisudas' => function ($query) {
+                    $query->select(['id', 'keterangan']);
+                }
+            ])->first()->toArray();
+                return view('mahasiswa.yudisium.yudisium-detail', compact('data'));
+        }
+        return redirect()->route('yudisium-mahasiswa');
     }
 
     // Update Yudisium by Id
-    public function UpdateYudisium(UpdateRequest $request){
+    public function UpdateYudisium(UpdateRequest $request)
+    {
         $time = Carbon::now();
         $yudisium = $request->safe()->all();
         $yudisium['berkas'] = $request->safe()['berkas']->store("yudisium/{$yudisium['pengguna_id']}/$time");
@@ -68,17 +83,19 @@ class YudisiumController extends Controller
     // (Admin) //
 
     // Get All Yudisium
-    public function GetAllYudisium(){
-        $data = Yudisium::with(['Penggunas','StatusYudisiums','PeriodeWisudas'])->paginate(5);
+    public function GetAllYudisium()
+    {
+        $data = Yudisium::with(['Penggunas', 'StatusYudisiums', 'PeriodeWisudas'])->paginate(5);
         return response()->json($data);
     }
 
     // Update Status Yudisium
-    public function UpdateStatusYudisium(UpdateStatusRequest $request){
+    public function UpdateStatusYudisium(UpdateStatusRequest $request)
+    {
         $data = Yudisium::where('id', $request->safe()->id)->update(['status_yudisium_id' => $request->safe()->status_yudisium_id]); // Must Change to Actual Id
         return response()->json($data);
     }
 
 
-    
+
 }
