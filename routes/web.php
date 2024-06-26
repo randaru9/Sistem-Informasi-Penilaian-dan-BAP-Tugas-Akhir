@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\SeminarController;
+use App\Http\Controllers\YudisiumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -84,12 +85,15 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/', function () {
             return view('mahasiswa.yudisium.yudisium');
         })->name('yudisium');
-        Route::get('/tambah', function () {
-            return view('mahasiswa.yudisium.yudisium-tambah');
-        })->name('yudisium-tambah');
+
+        Route::get('/tambah', [YudisiumController::class, 'CreateYudisiumView'])->name('yudisium-tambah');
+
+        Route::post('/tambah', [YudisiumController::class, 'CreateYudisium'])->name('yudisium-tambah-post');
+
         Route::get('/detail', function () {
             return view('mahasiswa.yudisium.yudisium-detail');
         })->name('yudisium-detail');
+
         Route::get('/ubah', function () {
             return view('mahasiswa.yudisium.yudisium-ubah');
         })->name('yudisium-ubah');
