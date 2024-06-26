@@ -13,25 +13,31 @@
 
 <x-layout-mahasiswa :$breads title="Tambah Berkas Yudisium">
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
-            <form action="">
+        <form action="{{ route('yudisium-tambah-post') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
                     <label for="periode_wisuda" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Periode
                         Wisuda</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="periode_wisuda" id="periode_wisuda">
-                        <option value=""></option>
+                        name="periode_wisuda" id="periode_wisuda" name="periode_wisuda">
+                        <option disabled selected hidden> Pilih Periode Wisuda </option>
+                        @foreach ($periode as $item)
+                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                        @endforeach
                     </select>
+                    @error('periode_wisuda')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
                     <label for="tempat_kerja" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tempat
                         dan Bidang Kerja (Apabila Sudah Bekerja)</label>
-                    <input type="text" id="tempat_kerja"
-                        class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                        minlength="9" required />
+                    <input type="text" id="tempat_bidang_kerja" name="tempat_bidang_kerja"
+                        class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full " />
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
@@ -51,11 +57,14 @@
                     <div class="flex space-x-2 items-center">
                         <label for="berkas"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                            <input type="file" id="berkas" class="hidden" minlength="9" required />
+                            <input type="file" accept=".zip,.rar" id="berkas" name="berkas" class="hidden" />
                             Unggah
                         </label>
                         <p class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
                     </div>
+                    @error('berkas')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
@@ -75,5 +84,5 @@
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Simpan</button>
             </div>
         </form>
-        </div>
+    </div>
 </x-layout-mahasiswa>
