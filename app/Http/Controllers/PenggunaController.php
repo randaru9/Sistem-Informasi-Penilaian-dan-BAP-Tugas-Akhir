@@ -24,11 +24,12 @@ class PenggunaController extends Controller
 
     // (Mahasiswa) //
 
-    // Update Biodata
+    // Update Biodata Mahasiswa
     public function UpdateBiodataMahasiswa(UpdateBiodataMahasiswaRequest $request)
     {
-        $data = Pengguna::where('id', $request->safe()->id)->update($request->safe()->all());
-        return response()->json($data);
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        $data->update($request->safe()->all());
+        return redirect()->route('profil-mahasiswa');
     }
 
     //Update Katasandi
