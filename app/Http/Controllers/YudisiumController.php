@@ -7,6 +7,7 @@ use App\Http\Requests\Yudisium\CreateRequest;
 use App\Http\Requests\Yudisium\GetByPenggunaIdRequest;
 use App\Http\Requests\Yudisium\GetOneByIdRequest;
 use App\Http\Requests\Yudisium\UpdateRequest;
+use App\Models\PeriodeWisuda;
 use App\Models\Yudisium;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -15,13 +16,24 @@ class YudisiumController extends Controller
 {
     // (Mahasiswa) //
 
+    public function CreateYudisiumView(){
+        $periode = PeriodeWisuda::all();
+        return view('mahasiswa.yudisium.yudisium-tambah', compact('periode'));
+    }
+
     // Create Yudisium
     public function CreateYudisium(CreateRequest $request){
-        $time = Carbon::now();
-        $yudisium = $request->safe()->all();
-        $yudisium['berkas'] = $request->safe()['berkas']->store("yudisium/{$yudisium['pengguna_id']}/$time");
-        $data = Yudisium::create($yudisium);
-        return response()->json($data);
+        $id = auth()->user()->id;
+        $berkas = $request->safe()->berkas->store("yudisium/{$id}");
+        Yudisium::create([
+            'pengguna_id' => $id,
+            'status_yudisium_id' => 1,
+            'periode_wisuda_id' => $request->safe()->periode_wisuda,
+            'tempat_dan_bidang_kerja' => $request->tempat_bidang_kerja,
+            'saran_dan_kritik' => $request->saran,
+            'berkas' => $berkas
+        ]);
+        return redirect()->route('yudisium');
     }    
 
     // Get All Yudisium by Pengguna Id
