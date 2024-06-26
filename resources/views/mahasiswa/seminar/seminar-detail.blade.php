@@ -5,7 +5,7 @@
             'title' => 'Seminar',
         ],
         [
-            'href' => '/mahasiswa/seminar/detail',
+            'href' => route('seminar-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
     ];
@@ -18,8 +18,7 @@
                 <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
                     Tugas Akhir</label>
                 <p id="judul_tugas_akhir" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    RANCANG BANGUN SISTEM INFORMASI PENILAIAN DAN BERITA ACARA PENILAIAN TUGAS AKHIR BERBASIS WEB
-                    MENGGUNAKAN METODE DSDM (Studi Kasus : Prodi Teknik Informatika ITERA)
+                    {{ $data['judul'] }}
                 </p>
             </div>
         </div>
@@ -28,14 +27,14 @@
                 <label for="pembimbing1" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Pembimbing
                     1</label>
                 <p id="pembimbing1" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Ilham Firman Ashari, S.Kom., M.T.
+                    {{ $data['pembimbing1s']['nama'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="pembimbing2" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Pembimbing
                     2</label>
                 <p id="pembimbing2" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Andika Setiawan, S.Kom., M.Cs.
+                    {{ $data['pembimbing2s']['nama'] }}
                 </p>
             </div>
         </div>
@@ -44,14 +43,14 @@
                 <label for="penguji1" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Penguji
                     1</label>
                 <p id="penguji1" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Ir. Mugi Praseptiawan, S.T., M.Kom.
+                    {{ $data['penguji1s']['nama'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="penguji2" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Penguji
                     2</label>
                 <p id="penguji2" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Miranti Verdiana, M.Si.
+                    {{ $data['penguji2s']['nama'] }}
                 </p>
             </div>
         </div>
@@ -60,14 +59,14 @@
                 <label for="pimpinan" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Pimpinan
                     Sidang</label>
                 <p id="pimpinan" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Ilham Firman Ashari, S.Kom., M.T.
+                    {{ $data['pimpinan_sidangs']['nama'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="jenis_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Jenis
                     Sidang</label>
                 <p id="jenis_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Seminar Proposal
+                    {{ $data['jenis_seminars']['keterangan'] }}
                 </p>
             </div>
         </div>
@@ -76,14 +75,20 @@
                 <label for="tanggal_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Tanggal
                     Sidang</label>
                 <p id="tanggal_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    12 - 10 -2024
+                    @php
+                        $data['tanggal'] = date('d-m-Y', strtotime($data['tanggal']));
+                    @endphp
+                    {{ $data['tanggal'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="waktu_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Waktu
                     Sidang</label>
                 <p id="waktu_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    13:00
+                    @php
+                        $data['waktu'] = date('H:i', strtotime($data['waktu']));
+                    @endphp
+                    {{ $data['waktu'] }}
                 </p>
             </div>
         </div>
@@ -92,7 +97,13 @@
                 <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Revisi</label>
                 <p id="status_revisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Belum Selesai
+                    @if ($data['count_revisi'] === 0)
+                        Belum Diberikan
+                    @elseif($data['count_revisi_selesai'] === 4)
+                        Selesai
+                    @else
+                        Belum Selesai
+                    @endif
                 </p>
             </div>
             <div class="w-1/2">
