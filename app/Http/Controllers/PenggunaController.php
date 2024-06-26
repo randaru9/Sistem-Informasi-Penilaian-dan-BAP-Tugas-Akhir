@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Auth\VerifikasiOtp;
 use App\Http\Requests\Pengguna\CreateDosen;
 use App\Http\Requests\Pengguna\CreateMahasiswa;
 use App\Http\Requests\Pengguna\UpdateBiodataDosen;
@@ -24,13 +25,25 @@ class PenggunaController extends Controller
 
     public function GenerateOtpUpdateEmail(UpdateEmail $request){
         $data = Pengguna::where('id', auth()->user()->id)->first();
+        $request->session()->put('email', $request->safe()->email);
         //catch email req and send email
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        return redirect()->route('profil-verifikasi-email-mahasiswa', [
-            'email' => $request->safe()->email
-        ]);
+        return redirect()->route('profil-verifikasi-email-mahasiswa');
+    }
+
+    public function VerifikasiOtpEmail(VerifikasiOtp $request){
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        if ($data->otp == $request->safe()->otp) {
+            $data->update([
+                'otp' => null,
+                'email' => $request->session()->get('email')
+            ]);
+            $request->session()->forget('email');
+            return redirect()->route('profil-mahasiswa');
+        }
+        return back()->withInput()->with('otp', 'OTP yang anda masukkan salah');
     }
 
 
