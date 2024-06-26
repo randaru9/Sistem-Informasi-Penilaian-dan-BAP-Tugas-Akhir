@@ -96,18 +96,16 @@ Route::prefix('mahasiswa')->group(function () {
     });
 
     Route::prefix('profil')->group(function () {
-        Route::get('/', function () {
-            return view('mahasiswa.profil.profil');
-        })->name('profil');
+        Route::get('/', [PenggunaController::class, 'ProfilView'])->name('profil-mahasiswa');
         Route::get('/ubah-biodata', function () {
             return view('mahasiswa.profil.profil-ubah-biodata');
-        })->name('profil-ubah-biodata');
+        })->name('profil-ubah-biodata-mahasiswa');
         Route::get('/ubah-email', function () {
             return view('mahasiswa.profil.profil-ubah-email');
-        })->name('profil-ubah-email');
+        })->name('profil-ubah-email-mahasiswa');
         Route::get('/ubah-katasandi', function () {
             return view('mahasiswa.profil.profil-ubah-katasandi');
-        })->name('profil-ubah-katasandi');
+        })->name('profil-ubah-katasandi-mahasiswa');
         Route::get('/verifikasi-email', function () {
             return view('mahasiswa.profil.profil-verifikasi-email');
         })->name('profil-verifikasi-email');
@@ -225,7 +223,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('dosen')->group(function () {
-        
+
         Route::get('/', [PenggunaController::class, 'GetAllPenggunaDosen'])->name('dosen');
 
         Route::get('/detail', [PenggunaController::class, 'GetOnePengggunaDosenById'])->name('dosen-detail');
@@ -260,13 +258,13 @@ Route::prefix('admin')->group(function () {
         Route::get('/buat-akun', function () {
             return view('admin.mahasiswa.mahasiswa-buat-akun');
         })->name('mahasiswa-buat-akun');
-        
+
         Route::post('/buat-akun', [PenggunaController::class, 'CreatePenggunaMahasiswa'])->name('mahasiswa-buat-akun-post');
 
         Route::get('/parsing-akun', function () {
             return view('admin.mahasiswa.mahasiswa-parsing-akun');
         })->name('mahasiswa-parsing-akun');
-        
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.mahasiswa.mahasiswa-ubah-katasandi');
         })->name('mahasiswa-ubah-katasandi');
