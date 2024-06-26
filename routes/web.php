@@ -119,6 +119,8 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/ubah-katasandi', function () {
             return view('mahasiswa.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-mahasiswa');
+
+        Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandi'])->name('profil-ubah-katasandi-mahasiswa-post');
         
     });
 });
