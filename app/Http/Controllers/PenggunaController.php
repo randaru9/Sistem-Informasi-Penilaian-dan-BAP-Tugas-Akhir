@@ -13,6 +13,7 @@ use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Models\Pengguna;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class PenggunaController extends Controller
 {
@@ -46,6 +47,22 @@ class PenggunaController extends Controller
         return back()->withInput()->with('otp', 'OTP yang anda masukkan salah');
     }
 
+    //Update Katasandi
+    public function UpdateKatasandi(UpdateKatasandiRequest $request)
+    {
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        if (Hash::check($request->safe()->katasandi_lama, $data->password)) {
+            if ($request->safe()->katasandi_baru == $request->safe()->konfirmasi_katasandi) {
+                $data->update([
+                    'password' => $request->safe()->katasandi_baru
+                ]);
+                return redirect()->route('profil-mahasiswa');
+            }   
+            return back()->with('katasandi_baru', 'Konfirmasi Katasandi Baru Tidak Sesuai');
+        }
+        return back()->with('katasandi_lama', 'Katasandi Lama Tidak Sesuai');
+    }
+
 
     // (Mahasiswa) //
 
@@ -57,21 +74,6 @@ class PenggunaController extends Controller
         return redirect()->route('profil-mahasiswa');
     }
 
-    //Update Katasandi
-    public function UpdateKatasandi(UpdateKatasandiRequest $request)
-    {
-        $katasandi_lama = Pengguna::where('id', $request->safe()->id)->value('katasandi');
-        if ($katasandi_lama == $request->safe()->katasandi_lama) {
-            if ($request->safe()->katasandi_baru == $request->safe()->konfirmasi_katasandi_baru) {
-                $data = Pengguna::where('id', $request->safe()->id)->update([
-                    'katasandi' => $request->safe()->katasandi_baru
-                ]);
-                return response()->json($data);
-            }
-            //back with message
-        }
-        //back with message
-    }
 
     // (Dosen) //
 
