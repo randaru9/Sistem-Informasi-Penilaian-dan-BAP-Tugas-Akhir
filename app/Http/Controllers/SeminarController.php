@@ -18,13 +18,11 @@ class SeminarController extends Controller
     // (Mahasiswa) //
 
     // Get All Seminar By Pengguna Id with Count Revisi (for Status)
-    public function SeminarMahasiswaView(){
-        
+    public function SeminarMahasiswaView()
+    {
+
         $data = Seminar::where('pengguna_id', auth()->user()->id)->with('JenisSeminars')->withCount([
-            'Revisis as count_revisi', 
-            'Revisis as count_revisi_belum_selesai' => function ($query) {
-                $query->where('status_revisi_id', 1);
-            },
+            'Revisis as count_revisi',
             'Revisis as count_revisi_selesai' => function ($query) {
                 $query->where('status_revisi_id', 2);
             },
@@ -35,14 +33,16 @@ class SeminarController extends Controller
     }
 
     // Create Seminar View
-    public function CreateSeminarView(){
+    public function CreateSeminarView()
+    {
         $dosen = Pengguna::where('role_id', 2)->get();
         $jenis = JenisSeminar::all();
         return view('mahasiswa.seminar.seminar-tambah', compact(['dosen', 'jenis']));
     }
 
     // Create Seminar
-    public function CreateSeminar(CreateRequest $request){
+    public function CreateSeminar(CreateRequest $request)
+    {
 
         $koordinator = Pengguna::where('is_koordinator', 1)->first();
 
@@ -59,39 +59,65 @@ class SeminarController extends Controller
         $draft = $request->safe()->draft->store("seminar/{$id}");
 
         Seminar::create([
-           'bap1_id' => $bap1->id,
-           'bap2_id' => $bap2->id,
-           'pengguna_id' => auth()->user()->id,
-           'pembimbing_1_id' => $request->safe()->pembimbing1,
-           'pembimbing_2_id' => $request->safe()->pembimbing2,
-           'penguji_1_id' => $request->safe()->penguji1,
-           'penguji_2_id' => $request->safe()->penguji2,
-           'pimpinan_sidang_id' => $request->safe()->pimpinan,
-           'jenis_seminar_id' => $request->safe()->jenis,
-           'judul' => $request->safe()->judul,
-           'tanggal' => $request->safe()->tanggal,
-           'waktu' => $request->safe()->waktu,
-           'draft' => $draft
+            'bap1_id' => $bap1->id,
+            'bap2_id' => $bap2->id,
+            'pengguna_id' => auth()->user()->id,
+            'pembimbing_1_id' => $request->safe()->pembimbing1,
+            'pembimbing_2_id' => $request->safe()->pembimbing2,
+            'penguji_1_id' => $request->safe()->penguji1,
+            'penguji_2_id' => $request->safe()->penguji2,
+            'pimpinan_sidang_id' => $request->safe()->pimpinan,
+            'jenis_seminar_id' => $request->safe()->jenis,
+            'judul' => $request->safe()->judul,
+            'tanggal' => $request->safe()->tanggal,
+            'waktu' => $request->safe()->waktu,
+            'draft' => $draft
         ]);
 
         return redirect()->route('seminar');
     }
 
     // Get One Seminar By Id with Count Revisi (for Status)
-    public function GetOneSeminarByIdWithCountRevisi(GetByIdRequest $request){
-        $data = Seminar::where('id', $request->safe()->id)->withCount([
-            'Revisis' => function ($query) {
-                $query->whereHas('StatusRevisis', function ($query) {
-                    $query->where('keterangan', 'Belum Selesai');
-                });
-            }
-        ])->first();
+    public function GetOneSeminarView(Request $request)
+    {
 
-        return response()->json($data);
+        if ($request->query('id') !== null) {
+
+            $data = Seminar::select('id', 'judul', 'tanggal', 'waktu', 'draft', 'pembimbing_1_id', 'pembimbing_2_id', 'penguji_1_id', 'penguji_2_id', 'pimpinan_sidang_id', 'jenis_seminar_id')->where('id', $request->query('id'))->with([
+                'JenisSeminars' => function ($query) {
+                    $query->select('id', 'keterangan');
+                },
+                'Pembimbing1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Pembimbing2s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji2s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'PimpinanSidangs' => function ($query) {
+                    $query->select('id', 'nama');
+                }
+            ])->withCount([
+                        'Revisis as count_revisi',
+                        'Revisis as count_revisi_selesai' => function ($query) {
+                            $query->where('status_revisi_id', 2);
+                        },
+                    ])->first()->toArray();
+
+            return view('mahasiswa.seminar.seminar-detail', compact('data'));
+        }
+
+        return redirect()->route('seminar');
     }
 
     // Update Seminar
-    public function UpdateSeminar(UpdateRequest $request){
+    public function UpdateSeminar(UpdateRequest $request)
+    {
         $data = Seminar::where('id', $request->safe()->id)->update($request->safe()->all());
         return response()->json($data);
     }
@@ -99,7 +125,8 @@ class SeminarController extends Controller
     // (Dosen) //
 
     // Get All Seminar (yang Terlibat) With Penilaian and Revisi
-    public function GetAllInvoledSeminar (GetByPenggunaIdRequest $request){
+    public function GetAllInvoledSeminar(GetByPenggunaIdRequest $request)
+    {
         $data = Seminar::where('pembimbing_1_id', $request->safe()->pengguna_id)->orWhere('pembimbing_2_id', $request->safe()->pengguna_id)->orWhere('penguji_1_id', $request->safe()->pengguna_id)->orWhere('penguji_2_id', $request->safe()->pengguna_id)->with([
             'Revisis' => function ($query) use ($request) {
                 $query->where('pengguna_id', $request->safe()->pengguna_id);
@@ -114,7 +141,8 @@ class SeminarController extends Controller
 
     // Get One Seminar (yang Terlibat) With Penilaian and Revisi
 
-    public function GetOneInvoledSeminar (GetByIdRequest $request){
+    public function GetOneInvoledSeminar(GetByIdRequest $request)
+    {
         $data = Seminar::where('id', $request->safe()->id)->with([
             'Revisis' => function ($query) use ($request) {
                 $query->where('pengguna_id', $request->safe()->pengguna_id)->with('StatusRevisis');
@@ -129,17 +157,19 @@ class SeminarController extends Controller
 
     // Get All Seminar (yang Terlibat Pimpinan Sidang) With BAP 
 
-    public function GetAllInvoledSeminarByPimpinanSidangWithBAP1 (GetByPenggunaIdRequest $request){
+    public function GetAllInvoledSeminarByPimpinanSidangWithBAP1(GetByPenggunaIdRequest $request)
+    {
         $data = Seminar::where('pimpinan_sidang_id', $request->safe()->pengguna_id)->with('BAP1s');
         return response()->json($data);
     }
 
     // Get One Seminar with Penilaian and Pengguna (Beri Tanda Tangan BAP1 Page)
-    public function GetOneSeminarWithPenilaianAndPengguna (GetByIdRequest $request){
+    public function GetOneSeminarWithPenilaianAndPengguna(GetByIdRequest $request)
+    {
         $data = Seminar::where('id', $request->safe()->id)->with([
             'Penilaians' => function ($query) {
                 $query->with(['Penggunas']);
-            }, 
+            },
             'PimpinanSidangs'
         ]);
 
@@ -150,7 +180,8 @@ class SeminarController extends Controller
 
     // Get All Seminar with Revisi and Penilaian
 
-    public function GetAllSeminarWithRevisiAndPenilaian(){
+    public function GetAllSeminarWithRevisiAndPenilaian()
+    {
         $data = Seminar::withCount([
             'Revisis as revisi_selesai' => function ($query) {
                 $query->whereHas('status_revisis', function ($query) {
@@ -184,7 +215,8 @@ class SeminarController extends Controller
 
     // Get One Seminar with Revisi, Penilaian, and BAP1, and BAP2
 
-    public function GetOneSeminarWithRevisiAndPenilaianAndBAP(GetByIdRequest $request){
+    public function GetOneSeminarWithRevisiAndPenilaianAndBAP(GetByIdRequest $request)
+    {
 
         $data = Seminar::where('id', $request->safe()->id)->with(['BAP1s', 'BAP2s'])->withCount([
             'Revisis as revisi_selesai' => function ($query) {
@@ -213,18 +245,26 @@ class SeminarController extends Controller
                 });
             },
         ])->first();
-        
+
         return response()->json($data);
     }
-    
+
     // Detail Proses
 
-    public function DetailProsesSeminar (GetByIdRequest $request){
-        $data = Seminar::where('id', $request->safe()->id)->with(['Pembimbing1s', 'Pembimbing2s', 'Penguji1s', 'Penguji2s', 'Penilaians' => function ($query) { 
-            $query->with(['Penggunas, StatusPenilaians']);
-        }, 'Revisis' => function ($query) {
-            $query->with(['Penggunas, StatusRevisis']);
-        }, ])->first();
+    public function DetailProsesSeminar(GetByIdRequest $request)
+    {
+        $data = Seminar::where('id', $request->safe()->id)->with([
+            'Pembimbing1s',
+            'Pembimbing2s',
+            'Penguji1s',
+            'Penguji2s',
+            'Penilaians' => function ($query) {
+                $query->with(['Penggunas, StatusPenilaians']);
+            },
+            'Revisis' => function ($query) {
+                $query->with(['Penggunas, StatusRevisis']);
+            },
+        ])->first();
 
         return response()->json($data);
     }
