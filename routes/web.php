@@ -82,15 +82,13 @@ Route::prefix('mahasiswa')->group(function () {
     });
 
     Route::prefix('yudisium')->group(function () {
-        Route::get('/', [YudisiumController::class, 'GetAllYudisiumByPenggunaId'])->name('yudisium');
+        Route::get('/', [YudisiumController::class, 'GetAllYudisiumByPenggunaId'])->name('yudisium-mahasiswa');
 
         Route::get('/tambah', [YudisiumController::class, 'CreateYudisiumView'])->name('yudisium-tambah');
 
         Route::post('/tambah', [YudisiumController::class, 'CreateYudisium'])->name('yudisium-tambah-post');
 
-        Route::get('/detail', function () {
-            return view('mahasiswa.yudisium.yudisium-detail');
-        })->name('yudisium-detail-mahasiswa');
+        Route::get('/detail', [YudisiumController::class, 'GetOneYudisiumById'])->name('yudisium-detail-mahasiswa');
 
         Route::get('/ubah', function () {
             return view('mahasiswa.yudisium.yudisium-ubah');
