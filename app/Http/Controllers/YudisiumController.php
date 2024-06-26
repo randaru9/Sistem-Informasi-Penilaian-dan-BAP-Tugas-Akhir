@@ -65,12 +65,23 @@ class YudisiumController extends Controller
                     $query->select(['id', 'keterangan']);
                 }
             ])->first()->toArray();
-                return view('mahasiswa.yudisium.yudisium-detail', compact('data'));
+            return view('mahasiswa.yudisium.yudisium-detail', compact('data'));
         }
         return redirect()->route('yudisium-mahasiswa');
     }
 
     // Update Yudisium by Id
+
+    public function UpdateYudisiumView(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $periode = PeriodeWisuda::all();
+            $data = Yudisium::where('id', $request->query('id'))->first();
+            return view('mahasiswa.yudisium.yudisium-ubah', compact(['data', 'periode']));
+        }
+        return redirect()->route('yudisium-mahasiswa');
+    }
+
     public function UpdateYudisium(UpdateRequest $request)
     {
         $time = Carbon::now();
