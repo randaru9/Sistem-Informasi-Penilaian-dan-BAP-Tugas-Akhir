@@ -27,7 +27,7 @@
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <a href="{{route('profil-ubah-biodata-mahasiswa', ['id' => $data[   'id']])}}"
+                <a href="{{route('profil-ubah-biodata-mahasiswa')}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">
                     Ubah Biodata
                 </a>
@@ -43,7 +43,7 @@
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <a href="{{route('profil-ubah-email-mahasiswa', ['id' => $data[ 'id']])}}"
+                <a href="{{route('profil-ubah-email-mahasiswa')}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">
                     Ubah Email
                 </a>
@@ -53,7 +53,7 @@
             <div class="w-1/2">
                 <label for="katasandi"
                     class="block mb-2 text-base text-[#000000] font-poppins font-normal">Katasandi</label>
-                <a href="{{route('profil-ubah-katasandi-mahasiswa', ['id' => $data[ 'id']])}}"
+                <a href="{{route('profil-ubah-katasandi-mahasiswa')}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">
                     Ubah Katasandi
                 </a>
