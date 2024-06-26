@@ -97,9 +97,13 @@ Route::prefix('mahasiswa')->group(function () {
 
     Route::prefix('profil')->group(function () {
         Route::get('/', [PenggunaController::class, 'ProfilView'])->name('profil-mahasiswa');
+
         Route::get('/ubah-biodata', function () {
             return view('mahasiswa.profil.profil-ubah-biodata');
         })->name('profil-ubah-biodata-mahasiswa');
+
+        Route::post('/ubah-biodata', [PenggunaController::class, 'UpdateBiodataMahasiswa'])->name('profil-ubah-biodata-mahasiswa-post');
+
         Route::get('/ubah-email', function () {
             return view('mahasiswa.profil.profil-ubah-email');
         })->name('profil-ubah-email-mahasiswa');
