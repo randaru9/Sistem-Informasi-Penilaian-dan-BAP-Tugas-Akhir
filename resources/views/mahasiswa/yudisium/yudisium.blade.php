@@ -8,33 +8,13 @@
 
     $tablehead = ['No', 'Periode Wisuda', 'Status Validasi', 'Aksi'];
 
-    $data = [
-        'array' => [
-            [
-                'periode_wisuda' => 'November',
-                'status_validasi' => 'Diterima',
-            ],
-            [
-                'periode_wisuda' => 'November',
-                'status_validasi' => 'Perlu Validasi',
-            ],
-            [
-                'periode_wisuda' => 'November',
-                'status_validasi' => 'Ditolak',
-            ],
-            [
-                'periode_wisuda' => 'November',
-                'status_validasi' => 'Ditolak',
-            ],
-        ],
-        'page' => 3,
-        'current' => 1,
-    ];
 @endphp
 
 <x-layout-mahasiswa :$breads title="Yudisium">
     <div class="flex justify-end mb-4">
-        <a href="/mahasiswa/yudisium/tambah" class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">Tambah Berkas Yudisium</a>
+        <a href="/mahasiswa/yudisium/tambah"
+            class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">Tambah
+            Berkas Yudisium</a>
     </div>
     <div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg ring-2 ring-blue1">
@@ -49,19 +29,29 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['array'] as $item)
+                    @foreach ($data['data'] as $item)
                         <tr class="bg-white border-b font-poppins text-base font-normal">
                             <td class="px-6 py-4">
                                 {{ $loop->index + 1 }}
                             </td>
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
-                                {{ $item['periode_wisuda'] }}
+                                {{ $item['periode_wisudas']['keterangan'] }}
                             </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['status_validasi'] == 'Diterima' ? 'text-green-500' : ($item['status_validasi'] == 'Perlu Validasi' ? 'text-blue-500' : 'text-red-500')}}">
-                                {{ $item['status_validasi'] }}
-                            </td>
+                            @if ($item['status_yudisiums']['id'] == '1')
+                                <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
+                                    {{ $item['status_yudisiums']['keterangan'] }}
+                                </td>
+                            @elseif ($item['status_yudisiums']['id'] == '2')
+                                <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
+                                    {{ $item['status_yudisiums']['keterangan'] }}
+                                </td>
+                            @else
+                                <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
+                                    {{ $item['status_yudisiums']['keterangan'] }}
+                                </td>
+                            @endif
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="/mahasiswa/yudisium/detail"
+                                <a href="{{ route('yudisium-detail', ['id' => $item['id']]) }}"
                                     class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail</a>
                             </td>
                         </tr>
@@ -70,4 +60,9 @@
             </table>
         </div>
     </div>
+    @if ($data['last_page'] > 1)
+        <div class="mt-4 flex justify-end">
+            <x-pagination :pages="$data['last_page']" :current="$data['current_page']" />
+        </div>
+    @endif
 </x-layout-mahasiswa>
