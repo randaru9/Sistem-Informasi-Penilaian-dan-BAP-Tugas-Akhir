@@ -107,12 +107,17 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/ubah-email', function () {
             return view('mahasiswa.profil.profil-ubah-email');
         })->name('profil-ubah-email-mahasiswa');
+
+        Route::post('/ubah-email', [PenggunaController::class, 'GenerateOtpUpdateEmail'])->name('profil-ubah-email-mahasiswa-post');
+
+        Route::get('/verifikasi-email', function () {
+            return view('mahasiswa.profil.profil-verifikasi-email');
+        })->name('profil-verifikasi-email-mahasiswa');
+
         Route::get('/ubah-katasandi', function () {
             return view('mahasiswa.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-mahasiswa');
-        Route::get('/verifikasi-email', function () {
-            return view('mahasiswa.profil.profil-verifikasi-email');
-        })->name('profil-verifikasi-email');
+        
     });
 });
 
