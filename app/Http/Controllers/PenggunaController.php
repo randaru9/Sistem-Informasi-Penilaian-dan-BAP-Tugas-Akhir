@@ -6,6 +6,7 @@ use App\Http\Requests\Pengguna\CreateDosen;
 use App\Http\Requests\Pengguna\CreateMahasiswa;
 use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
+use App\Http\Requests\Pengguna\UpdateEmail;
 use App\Http\Requests\Pengguna\UpdateKatasandiForPenggunaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Models\Pengguna;
@@ -19,6 +20,17 @@ class PenggunaController extends Controller
     public function ProfilView(){
         $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
         return view('mahasiswa.profil.profil', compact('data'));
+    }
+
+    public function GenerateOtpUpdateEmail(UpdateEmail $request){
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        //catch email req and send email
+        $data->update([
+            'otp' => random_int(100000, 999999)
+        ]);
+        return redirect()->route('profil-verifikasi-email-mahasiswa', [
+            'email' => $request->safe()->email
+        ]);
     }
 
 
