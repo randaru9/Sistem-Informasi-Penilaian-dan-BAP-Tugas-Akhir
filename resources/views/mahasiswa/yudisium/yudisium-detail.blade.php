@@ -5,7 +5,7 @@
             'title' => 'Yudisium',
         ],
         [
-            'href' => '/mahasiswa/yudisium/detail',
+            'href' => route('yudisium-detail-mahasiswa', ['id' => $data['id']]),
             'title' => 'Detail',
         ],
     ];
