@@ -14,6 +14,14 @@ use Illuminate\Http\Request;
 
 class PenggunaController extends Controller
 {
+
+    // (Profil) //
+    public function ProfilView(){
+        $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
+        return view('mahasiswa.profil.profil', compact('data'));
+    }
+
+
     // (Mahasiswa) //
 
     // Update Biodata
