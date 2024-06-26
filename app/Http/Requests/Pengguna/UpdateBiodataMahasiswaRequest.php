@@ -22,7 +22,6 @@ class UpdateBiodataMahasiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'uuid|exists:pengguna',
             'nama' => 'string|unique:pengguna',
             'nim' => 'string|max_digits:9|min_digits:9|unique:pengguna',
         ];
@@ -31,7 +30,6 @@ class UpdateBiodataMahasiswaRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'id' => 'Pengguna',
             'nama' => 'Nama',
             'nim' => 'NIM',
         ];
@@ -45,7 +43,6 @@ class UpdateBiodataMahasiswaRequest extends FormRequest
             'string' => ':attribute harus string',
             'max_digits' => ':attribute harus lebih kecil sama dengan 9 digit',
             'min_digits' => ':attribute harus lebih besar sama dengan 9 digit',
-            'exists' => ':attribute tidak ditemukan',
         ];
     }
 }
