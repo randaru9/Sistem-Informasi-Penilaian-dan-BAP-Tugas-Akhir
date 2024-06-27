@@ -5,11 +5,11 @@
             'title' => 'Seminar',
         ],
         [
-            'href' => '/mahasiswa/seminar/detail',
+            'href' => route('seminar-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
         [
-            'href' => '/mahasiswa/seminar/ubah',
+            'href' => route('seminar-ubah', ['id' => request()->query('id')]),
             'title' => 'Ubah',
         ],
     ];
@@ -20,10 +20,10 @@
         <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
             <div class="w-full px-5 py-2">
                 <div>
-                    <label for="judul_tugas_akhir"
+                    <label for="judul"
                         class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Judul
                         Tugas Akhir</label>
-                    <input type="text" id="judul_tugas_akhir"
+                    <input type="text" id="judul" name="judul" value="{{ $data['judul'] }}"
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
                         minlength="9" required />
                 </div>
@@ -35,8 +35,10 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pembimbing1" id="pembimbing1">
-                        <option value=""></option>
+                        name="pembimbing1" id="pembimbing1" value="{{ $data['pembimbing_1_id'] }}">
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
@@ -45,8 +47,10 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pembimbing2" id="pembimbing2">
-                        <option value=""></option>
+                        name="pembimbing2" id="pembimbing2" value={{$data['pembimbing_2_id']}}>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -56,8 +60,10 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="penguji1" id="penguji1">
-                        <option value=""></option>
+                        name="penguji1" id="penguji1" value{{$data['penguji_1_id']}}>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
@@ -65,8 +71,10 @@
                         2</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="penguji2" id="penguji2">
-                        <option value=""></option>
+                        name="penguji2" id="penguji2" value={{$data['penguji_2_id']}}>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
@@ -76,33 +84,37 @@
                         Sidang</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pimpinan" id="pimpinan">
-                        <option value=""></option>
+                        name="pimpinan" id="pimpinan" value={{$data['pimpinan_sidang_id']}}>
+                        @foreach ($dosen as $item)
+                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="w-1/2">
-                    <label for="jenis_sidang" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Jenis
+                    <label for="jenis" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Jenis
                         Sidang</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="jenis_sidang" id="jenis_sidang">
-                        <option value=""></option>
+                        name="jenis" id="jenis" value={{$data['jenis_seminar_id']}}>
+                        @foreach ($jenis as $item)
+                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
-                    <label for="tanggal_seminar"
+                    <label for="tanggal"
                         class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tanggal Sidang</label>
-                    <input type="date" id="tanggal_seminar"
+                    <input type="date" id="tanggal" name="tanggal"
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                        minlength="9" required />
+                        minlength="9" required value={{$data['tanggal']}} />
                 </div>
                 <div class="w-1/2">
-                    <label for="waktu_seminar" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Waktu
+                    <label for="waktu" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Waktu
                         Sidang</label>
-                    <input type="time" id="waktu_seminar"
-                        class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
+                    <input type="time" id="waktu"
+                        class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full " value="{{$data['waktu']}}"
                         minlength="9" required />
                 </div>
             </div>
