@@ -17,7 +17,7 @@
 
 <x-layout-mahasiswa :$breads title="Ubah Berkas Yudisium">
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
-        <form action="">
+        <form action="{{route('yudisium-ubah-post', ['id' => request()->query('id')])}}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
@@ -34,9 +34,9 @@
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
-                    <label for="tempat_kerja" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tempat
+                    <label for="tempat_bidang_kerja" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tempat
                         dan Bidang Kerja (Apabila Sudah Bekerja)</label>
-                    <input type="text" id="tempat_kerja" value="{{ $data['tempat_dan_bidang_kerja'] }}"
+                    <input type="text" id="tempat_bidang_kerja" name="tempat_bidang_kerja" value="{{ $data['tempat_dan_bidang_kerja'] }}"
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
                         minlength="9" required />
                 </div>
@@ -47,7 +47,7 @@
                         Kritik</label>
                     <textarea
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
-                        name="saran" id="saran" cols="90" rows="5" value="{{$data['saran_dan_kritik']}}"></textarea>
+                        name="saran" id="saran" cols="90" rows="5">{{$data['saran_dan_kritik']}}</textarea>
                 </div>
             </div>
             @if ($data['catatan'] != null)
@@ -69,7 +69,7 @@
                     <div class="flex space-x-2 items-center">
                         <label for="berkas"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                            <input type="file" id="berkas" class="hidden" minlength="9" required />
+                            <input type="file" id="berkas" name="berkas" class="hidden" minlength="9" required />
                             Unggah
                         </label>
                         <p class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
