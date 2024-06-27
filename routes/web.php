@@ -91,6 +91,8 @@ Route::prefix('mahasiswa')->group(function () {
         Route::get('/detail', [YudisiumController::class, 'GetOneYudisiumById'])->name('yudisium-detail-mahasiswa');
 
         Route::get('/ubah', [YudisiumController::class, 'UpdateYudisiumView'])->name('yudisium-ubah');
+
+        Route::post('/ubah', [YudisiumController::class, 'UpdateYudisium'])->name('yudisium-ubah-post');
     });
 
     Route::prefix('profil')->group(function () {
