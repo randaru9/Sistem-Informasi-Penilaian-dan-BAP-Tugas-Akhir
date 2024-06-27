@@ -64,9 +64,7 @@ Route::prefix('mahasiswa')->group(function () {
 
         Route::get('/detail', [SeminarController::class, 'GetOneSeminarView'])->name('seminar-detail');
 
-        Route::get('/ubah', function () {
-            return view('mahasiswa.seminar.seminar-ubah');
-        })->name('seminar-ubah');
+        Route::get('/ubah', [SeminarController::class, 'UpdateSeminarView'])->name('seminar-ubah');
 
         Route::get('/cek-revisi', function () {
             return view('mahasiswa.seminar.seminar-cek-revisi');
