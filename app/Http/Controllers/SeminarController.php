@@ -27,7 +27,7 @@ class SeminarController extends Controller
                 $query->where('status_revisi_id', 2);
             },
         ])->paginate(5)->toArray();
-        
+
         return view('mahasiswa.seminar.seminar', compact('data'));
 
     }
@@ -110,6 +110,19 @@ class SeminarController extends Controller
                     ])->first()->toArray();
 
             return view('mahasiswa.seminar.seminar-detail', compact('data'));
+        }
+
+        return redirect()->route('seminar');
+    }
+
+    public function UpdateSeminarView(Request $request)
+    {
+
+        if ($request->query('id') !== null) {
+            $dosen = Pengguna::where('role_id', 2)->get();
+            $jenis = JenisSeminar::all();
+            $data = Seminar::where('id', $request->query('id'))->first()->toArray();
+            return view('mahasiswa.seminar.seminar-ubah', compact(['data', 'dosen', 'jenis']));
         }
 
         return redirect()->route('seminar');
