@@ -22,39 +22,25 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'uuid|exists:yudisium',
-            'pengguna_id' => 'uuid|exists:pengguna',
-            'status_yudisium_id' => 'uuid|exists:status_yudisium',
-            'periode_wisuda_id' => 'uuid|exists:periode_wisuda',
-            'tempat_dan_bidang_kerja' => 'string',
-            'saran_dan_kritik' => 'string',
-            'berkas' => 'file|mimes:zip,rar',
-            'catatan' => 'string',
+            'periode_wisuda' => 'required|exists:periode_wisuda,id',
+            'berkas' => 'required|mimes:zip,rar|max:10240',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'Yudisium',
-            'pengguna_id' => 'Pengguna',
-            'status_yudisium_id' => 'Status Yudisium',
-            'periode_wisuda_id' => 'Periode Wisuda',
-            'tempat_dan_bidang_kerja' => 'Tempat dan Bidang Kerja',
-            'saran_dan_kritik' => 'Saran dan Kritik',
+            'periode_wisuda' => 'Periode Wisuda',
             'berkas' => 'Berkas',
-            'catatan' => 'Catatan',
         ];
     }
 
     public function messages(): array
     {
         return [
-            'uuid' => ':attribute wajib UUID',
+            'required' => ':attribute wajib diisi',
             'exists' => ':attribute tidak ditemukan',
-            'string' => ':attribute harus string',
-            'file' => ':attribute harus berupa file',
-            'mimes' => ':attribute harus berupa file zip atau rar',
+            'mimes' => ':attribute harus berupa berkas zip atau rar',
         ];
     }
 
