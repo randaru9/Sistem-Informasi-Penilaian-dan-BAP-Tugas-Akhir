@@ -11,6 +11,7 @@ use App\Models\PeriodeWisuda;
 use App\Models\Yudisium;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class YudisiumController extends Controller
 {
@@ -84,11 +85,28 @@ class YudisiumController extends Controller
 
     public function UpdateYudisium(UpdateRequest $request)
     {
-        $time = Carbon::now();
-        $yudisium = $request->safe()->all();
-        $yudisium['berkas'] = $request->safe()['berkas']->store("yudisium/{$yudisium['pengguna_id']}/$time");
-        $data = Yudisium::where('id', $request->safe()->id)->update($yudisium);
-        return response()->json($data);
+        if ($request->query('id') !== null) {
+            $data = Yudisium::where('id', $request->query('id'))->first();
+            $id = auth()->user()->id;
+
+            if ($request->berkas !== null) {
+                Storage::delete($data->berkas);
+                $berkas = $request->safe()->berkas->store("yudisium/{$id}");
+                $data->update([
+                    'berkas' => $berkas
+                ]);
+            }
+
+            $data->update([
+                'status_yudisium_id' => 1,
+                'periode_wisuda_id' => $request->safe()->periode_wisuda,
+                'tempat_dan_bidang_kerja' => $request->tempat_bidang_kerja,
+                'saran_dan_kritik' => $request->saran,
+            ]);
+            return redirect()->route('yudisium-mahasiswa');
+
+        }
+        return redirect()->route('yudisium-mahasiswa');
     }
 
     // (Admin) //
