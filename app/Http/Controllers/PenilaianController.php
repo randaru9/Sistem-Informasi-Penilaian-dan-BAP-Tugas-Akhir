@@ -6,6 +6,7 @@ use App\Http\Requests\Penilaian\CreateRequest;
 use App\Http\Requests\Penilaian\GetBySeminarIdAndPenggunaIdRequest;
 use App\Http\Requests\Penilaian\UpdateRequest;
 use App\Models\Penilaian;
+use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -13,6 +14,21 @@ class PenilaianController extends Controller
 {
 
     // (Dosen) //
+
+    public function CreatePenilaianView(Request $request){
+        if($request->query('id') !== null){
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas' => function($query){
+                    $query->select(['id', 'nama']);
+                },
+                'JenisSeminars' => function($query){
+                    $query->select(['id', 'keterangan']);
+                } 
+            ])->first()->toArray();
+            return view('dosen.penilaian.penilaian-tambah', compact('data'));
+        }
+        return redirect()->route('penilaian');
+    }
 
     // Create Penilaian and Update Status Penilaian to "Selesai"
     public function CreatePenilaian(CreateRequest $request){
