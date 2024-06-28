@@ -11,6 +11,7 @@ use App\Models\BAP2;
 use App\Models\JenisSeminar;
 use App\Models\Pengguna;
 use App\Models\Seminar;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -167,18 +168,41 @@ class SeminarController extends Controller
     // (Dosen) //
 
     // Get All Seminar (yang Terlibat) With Penilaian and Revisi
-    public function GetAllInvoledSeminar(GetByPenggunaIdRequest $request)
+    public function PenilaianPage(Request $request)
     {
-        $data = Seminar::where('pembimbing_1_id', $request->safe()->pengguna_id)->orWhere('pembimbing_2_id', $request->safe()->pengguna_id)->orWhere('penguji_1_id', $request->safe()->pengguna_id)->orWhere('penguji_2_id', $request->safe()->pengguna_id)->with([
-            'Revisis' => function ($query) use ($request) {
-                $query->where('pengguna_id', $request->safe()->pengguna_id);
-            },
-            'Penilaians' => function ($query, $request) {
-                $query->where('pengguna_id', $request->safe()->pengguna_id);
-            }
-        ]);
+        $data = Seminar::select('id', 'tanggal', 'waktu', 'pengguna_id', 'jenis_seminar_id')
+            ->withCount([
+                'Penilaians as count_penilaian',
+                'Penilaians as count_penilaian_selesai' => function ($query) {
+                    $query->where('status_penilaian_id', 1);
+                },
+                'Revisis as count_revisi',
+                'Revisis as count_revisi_selesai' => function ($query) {
+                    $query->where('status_revisi_id', 2);
+                }
 
-        return response()->json($data);
+            ])->with([
+                    'Penggunas' => function ($query) {
+                        $query->select('id', 'nama');
+                    },
+                    'JenisSeminars' => function ($query) {
+                        $query->select('id', 'keterangan');
+                    }
+                ])
+            ->whereHas('Penggunas', function (Builder $query) use ($request) {
+                if (isset($request->search)) {
+                    $query->where('nama', 'LIKE', "%{$request->search}%");
+                }
+            })
+            ->where(function ($query) {
+                $query->where('pembimbing_1_id', auth()->user()->id)
+                      ->orWhere('pembimbing_2_id', auth()->user()->id)
+                      ->orWhere('penguji_1_id', auth()->user()->id)
+                      ->orWhere('penguji_2_id', auth()->user()->id);
+            })
+            ->paginate(5)->toArray();
+
+        return view('dosen.penilaian.penilaian', compact('data'));
     }
 
     // Get One Seminar (yang Terlibat) With Penilaian and Revisi
