@@ -207,18 +207,31 @@ class SeminarController extends Controller
 
     // Get One Seminar (yang Terlibat) With Penilaian and Revisi
 
-    public function GetOneInvoledSeminar(GetByIdRequest $request)
+    public function DetailPenilaianView(Request $request)
     {
-        $data = Seminar::where('id', $request->safe()->id)->with([
-            'Revisis' => function ($query) use ($request) {
-                $query->where('pengguna_id', $request->safe()->pengguna_id)->with('StatusRevisis');
-            },
-            'Penilaians' => function ($query, $request) {
-                $query->where('pengguna_id', $request->safe()->pengguna_id)->with('StatusPenilaians');
-            }
-        ])->first();
+        if($request->query('id') !== null){
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'JenisSeminars'=>function($query){
+                    $query ->select('id', 'keterangan');
+                },
+                'Penggunas' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penilaians' => function ($query) {
+                    $query->with(['StatusPenilaians']);
+                },
+                'Revisis' => function ($query) {
+                    $query->with(['StatusRevisis']);
+                },
+            ])->withCount([
+                'Penilaians as count_penilaian', 
+                'Revisis as count_revisi'
+            ])->first()->toArray();
 
-        return response()->json($data);
+            return view('dosen.penilaian.penilaian-detail', compact('data'));
+        }
+
+        return redirect()->route('penilaian');
     }
 
     // Get All Seminar (yang Terlibat Pimpinan Sidang) With BAP 
