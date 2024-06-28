@@ -12,6 +12,7 @@ use App\Models\JenisSeminar;
 use App\Models\Pengguna;
 use App\Models\Seminar;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SeminarController extends Controller
 {
@@ -131,8 +132,36 @@ class SeminarController extends Controller
     // Update Seminar
     public function UpdateSeminar(UpdateRequest $request)
     {
-        $data = Seminar::where('id', $request->safe()->id)->update($request->safe()->all());
-        return response()->json($data);
+        if ($request->query('id') !== null) {
+            $id = auth()->user()->id;
+            $data = Seminar::where('id', $request->query('id'))->first();
+
+            if ($request->draft !== null) {
+                Storage::delete($data->draft);
+                $draft = $request->safe()->draft->store("seminar/{$id}");
+                $data->update([
+                    'draft' => $draft
+                ]);
+            }
+
+            $data->update([
+                'pembimbing_1_id' => $request->safe()->pembimbing1,
+                'pembimbing_2_id' => $request->safe()->pembimbing2,
+                'penguji_1_id' => $request->safe()->penguji1,
+                'penguji_2_id' => $request->safe()->penguji2,
+                'pimpinan_sidang_id' => $request->safe()->pimpinan,
+                'jenis_seminar_id' => $request->safe()->jenis,
+                'judul' => $request->safe()->judul,
+                'tanggal' => $request->safe()->tanggal,
+                'waktu' => $request->safe()->waktu,
+            ]);
+
+            return redirect()->route('seminar-detail', ['id' => $request->query('id')]);
+
+        }
+
+        return redirect()->route('seminar');
+
     }
 
     // (Dosen) //
