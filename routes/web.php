@@ -130,9 +130,7 @@ Route::prefix('dosen')->group(function () {
     Route::prefix('penilaian')->group(function () {
         Route::get('/', [SeminarController::class, 'PenilaianPage'])->name('penilaian');
 
-        Route::get('/detail', function () {
-            return view('dosen.penilaian.penilaian-detail');
-        })->name('penilaian-detail');
+        Route::get('/detail', [SeminarController::class, 'DetailPenilaianView'])->name('penilaian-detail');
 
         Route::get('/penilaian-tambah', function () {
             return view('dosen.penilaian.penilaian-tambah');
