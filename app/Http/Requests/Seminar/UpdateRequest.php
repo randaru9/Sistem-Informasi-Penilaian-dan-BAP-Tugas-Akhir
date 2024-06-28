@@ -22,34 +22,30 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|uuid|exists:seminar',
-            'bap1_id' => 'uuid|exists:bap_1',
-            'bap2_id' => 'uuid|exists:bap_2',
-            'pembimbing_1_id' => 'uuid|exists:pengguna',
-            'pembimbing_2_id' => 'uuid|exists:pengguna',
-            'penguji_1_id' => 'uuid|exists:pengguna',
-            'penguji_2_id' => 'uuid|exists:pengguna',
-            'pimpinan_sidang_id' => 'uuid|exists:pengguna',
-            'jenis_seminar_id' => 'uuid|exists:jenis_seminar',
-            'judul' => 'string',
-            'tanggal' => 'string',
-            'waktu' => 'string',
+            'pembimbing1' => 'required|uuid|exists:pengguna,id',
+            'pembimbing2' => 'required|uuid|exists:pengguna,id',
+            'penguji1' => 'required|uuid|exists:pengguna,id',
+            'penguji2' => 'required|uuid|exists:pengguna,id',
+            'pimpinan' => 'required|uuid|exists:pengguna,id',
+            'jenis' => 'required|exists:jenis_seminar,id',
+            'judul' => 'required|string',
+            'draft' => 'mimes:zip,rar|max:10240',
+            'tanggal' => 'required',
+            'waktu' => 'required',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'Seminar',
-            'bap1_id' => 'BAP 1',
-            'bap2_id' => 'BAP 2',
-            'pembimbing_1_id' => 'Pembimbing 1',
-            'pembimbing_2_id' => 'Pembimbing 2',
-            'penguji_1_id' => 'Penguji 1',
-            'penguji_2_id' => 'Penguji 2',
-            'pimpinan_sidang_id' => 'Pimpinan Sidang',
-            'jenis_seminar_id' => 'Jenis Seminar',
+            'pembimbing1' => 'Pembimbing 1',
+            'pembimbing2' => 'Pembimbing 2',
+            'penguji1' => 'Penguji 1',
+            'penguji2' => 'Penguji 2',
+            'pimpinan' => 'Pimpinan Sidang',
+            'jenis' => 'Jenis Seminar',
             'judul' => 'Judul',
+            'draft' => 'Draft',
             'tanggal' => 'Tanggal',
             'waktu' => 'Waktu',
         ];
@@ -62,6 +58,8 @@ class UpdateRequest extends FormRequest
             'exists' => ':attribute tidak ditemukan.',
             'string' => ':attribute harus berupa string.',
             'uuid' => ':attribute harus berupa UUID.',
+            'mimes' => ':attribute harus berupa file PDF.',
+            'max' => ':attribute maksimal 10 MB.',
         ];
     }
 }
