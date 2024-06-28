@@ -5,7 +5,7 @@
             'title' => 'Penilaian',
         ],
         [
-            'href' => '/dosen/penilaian/detail',
+            'href' => route('penilaian-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
     ];
@@ -15,9 +15,10 @@
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full lg:overflow-y-auto">
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <label for="nama" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Nama Teruji</label>
+                <label for="nama" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Nama
+                    Teruji</label>
                 <p id="nama" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Rangga Ndaru Anggoro
+                    {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
         </div>
@@ -26,8 +27,7 @@
                 <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
                     Tugas Akhir</label>
                 <p id="judul_tugas_akhir" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    RANCANG BANGUN SISTEM INFORMASI PENILAIAN DAN BERITA ACARA PENILAIAN TUGAS AKHIR BERBASIS WEB
-                    MENGGUNAKAN METODE DSDM (Studi Kasus : Prodi Teknik Informatika ITERA)
+                    {{ $data['judul'] }}
                 </p>
             </div>
         </div>
@@ -36,52 +36,77 @@
                 <label for="tanggal_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Tanggal
                     Sidang</label>
                 <p id="tanggal_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    12 - 10 -2024
+                    @php
+                        $data['tanggal'] = date('d-m-Y', strtotime($data['tanggal']));
+                    @endphp
+                    {{ $data['tanggal'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="waktu_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Waktu
                     Sidang</label>
                 <p id="waktu_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    13:00
+                    @php
+                        $data['waktu'] = date('H:i', strtotime($data['waktu']));
+                    @endphp
+                    {{ $data['waktu'] }}
                 </p>
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <label for="posisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Posisi Dalam Sidang</label>
+                <label for="posisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Posisi Dalam
+                    Sidang</label>
                 <p id="posisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Pembimbing 1
+                    @if (auth()->user()->id === $data['pembimbing_1_id'])
+                        Pembimbing 1
+                    @elseif(auth()->user()->id === $data['pembimbing_2_id'])
+                        Pembimbing 2
+                    @elseif(auth()->user()->id === $data['penguji_1_id'])
+                        Penguji 1
+                    @elseif(auth()->user()->id === $data['penguji_2_id'])
+                        Penguji 2
+                    @endif
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="jenis_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Jenis
                     Sidang</label>
                 <p id="jenis_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Seminar Proposal
+                    {{$data['jenis_seminars']['keterangan']}}
                 </p>
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <label for="status_penilaian" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
+                <label for="status_penilaian"
+                    class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Penilaian</label>
                 <p id="status_penilaian" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Belum Selesai
+                    @if ($data['count_penilaian'] === 0)
+                        Belum Diberikan
+                    @else
+                        {{$data['penilaians']['status_penilaians']['keterangan']}}
+                    @endif
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Revisi</label>
                 <p id="status_revisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Belum Diberikan
+                    @if ($data['count_revisi'] === 0)
+                        Belum Diberikan
+                    @else
+                        {{$data['revisis']['status_revisis']['keterangan']}}
+                    @endif
                 </p>
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-            <a href="/dosen/penilaian/penilaian-tambah"
-                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri Nilai</a>
-            <a href="/dosen/penilaian/revisi-tambah"
+            <a href="{{route('penilaian-tambah', ['id' => $data['id']])}}"
+                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
+                Nilai</a>
+            <a href="{{route('penilaian-revisi-tambah', ['id' => $data['id']])}}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
                 Revisi</a>
         </div>
