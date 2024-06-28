@@ -22,7 +22,7 @@
                 <label for="nama" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Nama
                     Teruji</label>
                 <p id="nama" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Rangga Ndaru Anggoro
+                    {{$data['penggunas']['nama']}}
                 </p>
             </div>
         </div>
@@ -31,8 +31,7 @@
                 <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
                     Tugas Akhir</label>
                 <p id="judul_tugas_akhir" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    RANCANG BANGUN SISTEM INFORMASI PENILAIAN DAN BERITA ACARA PENILAIAN TUGAS AKHIR BERBASIS WEB
-                    MENGGUNAKAN METODE DSDM (Studi Kasus : Prodi Teknik Informatika ITERA)
+                    {{$data['judul']}}
                 </p>
             </div>
         </div>
@@ -41,14 +40,20 @@
                 <label for="tanggal_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Tanggal
                     Sidang</label>
                 <p id="tanggal_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    12 - 10 -2024
+                    @php
+                        $data['tanggal'] = date('d-m-Y', strtotime($data['tanggal']));
+                    @endphp
+                    {{ $data['tanggal'] }}
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="waktu_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Waktu
                     Sidang</label>
                 <p id="waktu_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    13:00
+                    @php
+                        $data['waktu'] = date('H:i', strtotime($data['waktu']));
+                    @endphp
+                    {{ $data['waktu'] }}
                 </p>
             </div>
         </div>
@@ -57,14 +62,22 @@
                 <label for="posisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Posisi Dalam
                     Sidang</label>
                 <p id="posisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Pembimbing 1
+                    @if (auth()->user()->id === $data['pembimbing_1_id'])
+                        Pembimbing 1
+                    @elseif(auth()->user()->id === $data['pembimbing_2_id'])
+                        Pembimbing 2
+                    @elseif(auth()->user()->id === $data['penguji_1_id'])
+                        Penguji 1
+                    @elseif(auth()->user()->id === $data['penguji_2_id'])
+                        Penguji 2
+                    @endif
                 </p>
             </div>
             <div class="w-1/2">
                 <label for="jenis_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Jenis
                     Sidang</label>
                 <p id="jenis_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    Seminar Proposal
+                    {{$data['jenis_seminars']['keterangan']}}
                 </p>
             </div>
         </div>
