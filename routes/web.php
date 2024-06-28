@@ -128,9 +128,7 @@ Route::prefix('mahasiswa')->group(function () {
 Route::prefix('dosen')->group(function () {
 
     Route::prefix('penilaian')->group(function () {
-        Route::get('/', function () {
-            return view('dosen.penilaian.penilaian');
-        })->name('penilaian');
+        Route::get('/', [SeminarController::class, 'PenilaianPage'])->name('penilaian');
 
         Route::get('/detail', function () {
             return view('dosen.penilaian.penilaian-detail');
