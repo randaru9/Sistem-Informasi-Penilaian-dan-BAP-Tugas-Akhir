@@ -140,6 +140,7 @@ Route::prefix('dosen')->group(function () {
 
         Route::get('/revisi-tambah', [RevisiController::class, 'CreateRevisiView'])->name('penilaian-revisi-tambah');
 
+        Route::post('/revisi-tambah', [RevisiController::class, 'CreateRevisi'])->name('penilaian-revisi-tambah-post');
 
 
         Route::get('/cek-nilai', function () {
