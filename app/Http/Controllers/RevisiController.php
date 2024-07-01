@@ -7,6 +7,7 @@ use App\Http\Requests\Revisi\GetAllBySeminarIdRequest;
 use App\Http\Requests\Revisi\GetOneByIdRequest;
 use App\Http\Requests\Revisi\UpdateRequest;
 use App\Models\Revisi;
+use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,23 @@ class RevisiController extends Controller
     }
 
     // (Dosen) //
+
+    public function CreateRevisiView(Request $request){
+        if($request->query('id') !== null){
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas' => function($query){
+                    $query->select(['id', 'nama']);
+                },
+                'JenisSeminars' => function($query){
+                    $query->select(['id', 'keterangan']);
+                } 
+            ])->first()->toArray();
+                
+            return view('dosen.penilaian.revisi-tambah',compact('data'));
+                
+        }
+        return redirect()->route('penilaian');
+    }
 
     // Create Revisi
     public function CreateRevisi(CreateRequest $request){
