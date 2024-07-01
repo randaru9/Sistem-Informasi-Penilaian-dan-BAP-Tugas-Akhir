@@ -22,7 +22,7 @@
                 <label for="nama" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Nama
                     Teruji</label>
                 <p id="nama" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    {{$data['penggunas']['nama']}}
+                    {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
         </div>
@@ -31,7 +31,7 @@
                 <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
                     Tugas Akhir</label>
                 <p id="judul_tugas_akhir" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    {{$data['judul']}}
+                    {{ $data['judul'] }}
                 </p>
             </div>
         </div>
@@ -77,35 +77,45 @@
                 <label for="jenis_sidang" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Jenis
                     Sidang</label>
                 <p id="jenis_sidang" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    {{$data['jenis_seminars']['keterangan']}}
+                    {{ $data['jenis_seminars']['keterangan'] }}
                 </p>
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
-            <form action="" class="w-full">
+            <form action="{{ route('penilaian-tambah-post', ['id' => $data['id']]) }}" method="POST" enctype="multipart/form-data" class="w-full">
+                @csrf
                 <div class="w-full lg:flex gap-x-4">
                     <div class="lg:w-1/3">
                         <label for="penulisan"
                             class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Penulisan Draft Tugas
                             Akhir dan PPT</label>
-                        <input type="text" id="penulisan"
+                        <input type="text" id="penulisan" name="penulisan"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('penulisan')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="lg:w-1/3">
                         <label for="presentasi"
                             class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Penyajian/Presentasi
                         </label>
-                        <input type="text" id="presentasi"
+                        <input type="text" id="presentasi" name="penyajian"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('presentasi')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="lg:w-1/3">
                         <label for="penguasaan"
                             class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Penguasaan Materi</label>
-                        <input type="text" id="penguasaan"
+                        <input type="text" id="penguasaan" name="penguasaan"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('penguasaan')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="w-full lg:flex gap-x-4 my-3">
@@ -113,23 +123,32 @@
                         <label for="kemampuan_menjawab"
                             class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Kemampuan
                             Menjawab</label>
-                        <input type="text" id="kemampuan_menjawab"
+                        <input type="text" id="kemampuan_menjawab" name="kemampuan_menjawab"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('kemampuan_menjawab')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="lg:w-1/3">
                         <label for="etika" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Etika
                             dan Sopan Santuan</label>
-                        <input type="text" id="etika"
+                        <input type="text" id="etika" name="etika"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('etika')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                     <div class="lg:w-1/3">
                         <label for="bimbingan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Nilai
                             Bimbingan</label>
-                        <input type="text" id="bimbingan"
+                        <input type="text" id="bimbingan" name="bimbingan"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            minlength="9" required />
+                            required />
+                        @error('bimbingan')
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
                 <div class="w-full flex flex-col my-4">
@@ -139,11 +158,14 @@
                     <div class="flex space-x-2">
                         <label for="tandatangan"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                            <input type="file" id="tandatangan" class="hidden" minlength="9" required />
+                            <input type="file" id="tandatangan" accept=".jpg,.jpeg,.png" name="ttd" class="hidden" required />
                             Unggah
                         </label>
                         <p class="font-poppins text-base text-[#B7B7B7]">Unggah tanda tangan</p>
                     </div>
+                    @error('ttd')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <button type="submit"
