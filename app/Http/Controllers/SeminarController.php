@@ -226,8 +226,13 @@ class SeminarController extends Controller
                         $query->select('id', 'keterangan');
                     }]);
                 },
-                'Revisis' => function ($query) {
-                    $query->with(['StatusRevisis']);
+                'Revisis' => function ($query) use ($request, $id) {
+                    $query
+                    ->where('pengguna_id', $id)
+                    ->where('seminar_id', $request->query('id'))
+                    ->with(['StatusRevisis' => function ($query) {
+                        $query->select('id', 'keterangan');
+                    }]);
                 },
             ])->withCount([
                 'Penilaians as count_penilaian' => function ($query) use ($request, $id) {
