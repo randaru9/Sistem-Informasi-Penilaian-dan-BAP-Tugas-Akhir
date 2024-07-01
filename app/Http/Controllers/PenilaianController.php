@@ -73,6 +73,26 @@ class PenilaianController extends Controller
         return redirect()->route('penilaian');
     }
 
+    public function UpdateNilaiView(Request $request){
+        if($request->query('id') !== null){
+            $id = auth()->user()->id;
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas' => function($query){
+                    $query->select(['id', 'nama']);
+                },
+                'JenisSeminars' => function($query){
+                    $query->select(['id', 'keterangan']);
+                },
+                'Penilaians' => function($query) use ($request, $id){
+                    $query->where('pengguna_id', $id)
+                    ->where('seminar_id', $request->query('id'));
+                } 
+            ])->first()->toArray();
+            return view('dosen.penilaian.ubah-nilai', compact('data'));
+        }
+        return redirect()->route('penilaian');
+    }
+
     // Update Penilaian by Penilaian Id
     public function UpdatePenilaianByPenilaianId(UpdateRequest $request){
         $time = Carbon::now();
