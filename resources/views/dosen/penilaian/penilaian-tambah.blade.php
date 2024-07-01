@@ -5,11 +5,11 @@
             'title' => 'Penilaian',
         ],
         [
-            'href' => '/dosen/penilaian/detail',
+            'href' => route('penilaian-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
         [
-            'href' => '/dosen/penilaian/penilaian-tambah',
+            'href' => route('penilaian-tambah', ['id' => request()->query('id')]),
             'title' => 'Beri Nilai',
         ],
     ];
