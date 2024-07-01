@@ -148,9 +148,7 @@ Route::prefix('dosen')->group(function () {
 
         Route::get('/ubah-nilai', [PenilaianController::class, 'UpdateNilaiView'])->name('penilaian-ubah-nilai');
 
-        Route::get('/ubah-revisi', function () {
-            return view('dosen.penilaian.ubah-revisi');
-        })->name('penilaian-ubah-revisi');
+        Route::get('/ubah-revisi', [RevisiController::class, 'UpdateRevisiView'])->name('penilaian-ubah-revisi');
     });
 
     Route::prefix('bap')->group(function () {
