@@ -86,7 +86,7 @@
                     @if ($data['count_penilaian'] === 0)
                         Belum Diberikan
                     @else
-                        {{$data['penilaians']['status_penilaians']['keterangan']}}
+                        {{$data['penilaians'][0]['status_penilaians']['keterangan']}}
                     @endif
                 </p>
             </div>
