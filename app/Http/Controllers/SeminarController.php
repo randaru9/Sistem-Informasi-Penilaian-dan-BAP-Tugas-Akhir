@@ -238,8 +238,6 @@ class SeminarController extends Controller
                 'Revisis as count_revisi',
             ])->first()->toArray();
 
-            dd($data);
-
             return view('dosen.penilaian.penilaian-detail', compact('data'));
         }
 
