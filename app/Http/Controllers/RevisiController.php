@@ -16,39 +16,43 @@ class RevisiController extends Controller
     // (Mahasiswa) //
 
     // Get All Revisi By Seminar Id with Status
-    public function GetAllRevisiBySeminarIdWithStatus(GetAllBySeminarIdRequest $request){
+    public function GetAllRevisiBySeminarIdWithStatus(GetAllBySeminarIdRequest $request)
+    {
         $data = Revisi::where('seminar_id', $request->safe()->seminar_id)->with('StatusRevisis')->get();
         return response()->json($data);
     }
 
     // Get One Revisi By Id
-    public function GetOneRevisiById(GetOneByIdRequest $request){
+    public function GetOneRevisiById(GetOneByIdRequest $request)
+    {
         $data = Revisi::where('id', $request->safe()->id)->first();
         return response()->json($data);
     }
 
     // (Dosen) //
 
-    public function CreateRevisiView(Request $request){
-        if($request->query('id') !== null){
+    public function CreateRevisiView(Request $request)
+    {
+        if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with([
-                'Penggunas' => function($query){
+                'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 },
-                'JenisSeminars' => function($query){
+                'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
-                } 
+                }
             ])->first()->toArray();
-                
-            return view('dosen.penilaian.revisi-tambah',compact('data'));
-                
+
+            return view('dosen.penilaian.revisi-tambah', compact('data'));
+
         }
         return redirect()->route('penilaian');
     }
 
     // Create Revisi
-    public function CreateRevisi(CreateRequest $request){
-        if($request->query('id') !== null){
+    public function CreateRevisi(CreateRequest $request)
+    {
+        if ($request->query('id') !== null) {
             Revisi::create([
                 'seminar_id' => $request->query('id'),
                 'pengguna_id' => auth()->user()->id,
@@ -60,20 +64,21 @@ class RevisiController extends Controller
         return redirect()->route('penilaian');
     }
 
-    public function CekRevisiView(Request $request){
-        if($request->query('id') !== null){
+    public function CekRevisiView(Request $request)
+    {
+        if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
-                'Penggunas' => function($query){
+                'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 },
-                'JenisSeminars' => function($query){
+                'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
                 },
-                'Revisis' => function($query) use ($request, $id){
+                'Revisis' => function ($query) use ($request, $id) {
                     $query->where('pengguna_id', $id)
-                    ->where('seminar_id', $request->query('id'));
-                } 
+                        ->where('seminar_id', $request->query('id'));
+                }
             ])->first()->toArray();
 
             return view('dosen.penilaian.cek-revisi', compact('data'));
@@ -81,19 +86,42 @@ class RevisiController extends Controller
         return redirect()->route('penilaian');
     }
 
+    public function UpdateRevisiView(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $id = auth()->user()->id;
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas' => function ($query) {
+                    $query->select(['id', 'nama']);
+                },
+                'JenisSeminars' => function ($query) {
+                    $query->select(['id', 'keterangan']);
+                },
+                'Revisis' => function ($query) use ($request, $id) {
+                    $query->where('pengguna_id', $id)
+                        ->where('seminar_id', $request->query('id'));
+                }
+            ])->first()->toArray();
+            return view('dosen.penilaian.ubah-revisi', compact('data'));
+        }
+        return redirect()->route('penilaian');
+    }
+
     // Update Revisi by Revisi Id
-    public function UpdateRevisiByRevisiId(UpdateRequest $request){
+    public function UpdateRevisiByRevisiId(UpdateRequest $request)
+    {
         $data = Revisi::where('id', $request->safe()->id)->update($request->safe()->all());
         return response()->json($data);
     }
 
     // Update Status Revisi to "Selesai"
-    public function UpdateStatusRevisiToDone(GetOneByIdRequest $request){
+    public function UpdateStatusRevisiToDone(GetOneByIdRequest $request)
+    {
         $data = Revisi::where('id', $request->safe()->id)->update([
             'status_revisi_id' => '3', // Must be actual id of 'Selesai'
         ]);
         return response()->json($data);
     }
-    
-    
+
+
 }
