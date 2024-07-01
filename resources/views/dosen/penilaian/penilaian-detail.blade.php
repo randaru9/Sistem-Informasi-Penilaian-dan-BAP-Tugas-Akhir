@@ -97,7 +97,7 @@
                     @if ($data['count_revisi'] === 0)
                         Belum Diberikan
                     @else
-                        {{$data['revisis']['status_revisis']['keterangan']}}
+                        {{$data['revisis'][0]['status_revisis']['keterangan']}}
                     @endif
                 </p>
             </div>
