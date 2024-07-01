@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenilaianController;
+use App\Http\Controllers\RevisiController;
 use App\Http\Controllers\SeminarController;
 use App\Http\Controllers\YudisiumController;
 use Illuminate\Support\Facades\Route;
@@ -137,9 +138,9 @@ Route::prefix('dosen')->group(function () {
 
         Route::post('/penilaian-tambah', [PenilaianController::class, 'CreatePenilaian'])->name('penilaian-tambah-post');
 
-        Route::get('/revisi-tambah', function () {
-            return view('dosen.penilaian.revisi-tambah');
-        })->name('penilaian-revisi-tambah');
+        Route::get('/revisi-tambah', [RevisiController::class, 'CreateRevisiView'])->name('penilaian-revisi-tambah');
+
+
 
         Route::get('/cek-nilai', function () {
             return view('dosen.penilaian.cek-nilai');
