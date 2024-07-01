@@ -22,8 +22,6 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pengguna_id' => 'required|uuid|exists:pengguna,id',
-            'seminar_id' => 'required|uuid|exists:seminar,id',
             'keterangan' => 'required|string',
         ];
     }
@@ -31,8 +29,6 @@ class CreateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'pengguna_id' => 'Pengguna',
-            'seminar_id' => 'Seminar',
             'keterangan' => 'Keterangan',
         ];
     }
@@ -41,8 +37,6 @@ class CreateRequest extends FormRequest
     {
         return [
             'required' => ':attribute harus diisi',
-            'uuid' => ':attribute harus UUID',
-            'exists' => ':attribute tidak ditemukan',
             'string' => ':attribute harus berupa string',
         ];
     }
