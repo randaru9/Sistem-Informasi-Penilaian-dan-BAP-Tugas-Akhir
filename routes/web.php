@@ -135,6 +135,8 @@ Route::prefix('dosen')->group(function () {
 
         Route::get('/penilaian-tambah', [PenilaianController::class, 'CreatePenilaianView'])->name('penilaian-tambah');
 
+        Route::post('/penilaian-tambah', [PenilaianController::class, 'CreatePenilaian'])->name('penilaian-tambah-post');
+
         Route::get('/revisi-tambah', function () {
             return view('dosen.penilaian.revisi-tambah');
         })->name('penilaian-revisi-tambah');
