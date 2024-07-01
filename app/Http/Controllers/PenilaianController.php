@@ -53,7 +53,7 @@ class PenilaianController extends Controller
     }
 
     // Get One Penilaian by Seminar Id and Pengguna Id
-    public function CekNilaiView(GetBySeminarIdAndPenggunaIdRequest $request){
+    public function CekNilaiView(Request $request){
         if($request->query('id') !== null){
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
