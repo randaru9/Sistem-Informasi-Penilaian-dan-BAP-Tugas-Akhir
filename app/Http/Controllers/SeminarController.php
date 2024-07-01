@@ -210,6 +210,7 @@ class SeminarController extends Controller
     public function DetailPenilaianView(Request $request)
     {
         if($request->query('id') !== null){
+            $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
                 'JenisSeminars'=>function($query){
                     $query ->select('id', 'keterangan');
@@ -217,16 +218,27 @@ class SeminarController extends Controller
                 'Penggunas' => function ($query) {
                     $query->select('id', 'nama');
                 },
-                'Penilaians' => function ($query) {
-                    $query->with(['StatusPenilaians']);
+                'Penilaians' => function ($query) use ($request, $id) {
+                    $query->select(['id', 'seminar_id', 'pengguna_id', 'status_penilaian_id'])
+                    ->where('pengguna_id', $id)
+                    ->where('seminar_id', $request->query('id'))
+                    ->with(['StatusPenilaians' => function ($query) {
+                        $query->select('id', 'keterangan');
+                    }]);
                 },
                 'Revisis' => function ($query) {
                     $query->with(['StatusRevisis']);
                 },
             ])->withCount([
-                'Penilaians as count_penilaian', 
-                'Revisis as count_revisi'
+                'Penilaians as count_penilaian' => function ($query) use ($request, $id) {
+                    $query->where('status_penilaian_id', 1)
+                    ->where('seminar_id', $request->query('id'))
+                    ->where('pengguna_id', $id);
+                }, 
+                'Revisis as count_revisi',
             ])->first()->toArray();
+
+            dd($data);
 
             return view('dosen.penilaian.penilaian-detail', compact('data'));
         }
