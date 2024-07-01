@@ -48,13 +48,16 @@ class RevisiController extends Controller
 
     // Create Revisi
     public function CreateRevisi(CreateRequest $request){
-        $data = Revisi::create([
-            'pengguna_id' => $request->safe()->pengguna_id,
-            'seminar_id' => $request->safe()->seminar_id,
-            'status_revisi_id' => '1', // Must be actual id
-            'keterangan' => $request->safe()->keterangan 
-        ]);
-        return response()->json($data);
+        if($request->query('id') !== null){
+            Revisi::create([
+                'seminar_id' => $request->query('id'),
+                'pengguna_id' => auth()->user()->id,
+                'status_revisi_id' => '1',
+                'keterangan' => $request->safe()->keterangan
+            ]);
+            return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
+        }
+        return redirect()->route('penilaian');
     }
 
     // Update Revisi by Revisi Id
