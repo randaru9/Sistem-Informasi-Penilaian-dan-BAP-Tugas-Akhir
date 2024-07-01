@@ -82,13 +82,14 @@
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
-            <form action="" class="w-full">
+            <form action="{{route('penilaian-revisi-tambah-post', ['id' => request()->query('id')])}}" method="POST" class="w-full">
+                @csrf
                 <div class="w-full lg:w-1/2 flex flex-col">
-                    <label for="revisi" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
+                    <label for="keterangan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
                     </label>
                     <textarea
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500"
-                        name="revisi" id="revisi" cols="90" rows="5"></textarea>
+                        name="keterangan" id="keterangan" cols="90" rows="5"></textarea>
                 </div>
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <button type="submit"
