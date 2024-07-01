@@ -32,20 +32,24 @@ class PenilaianController extends Controller
 
     // Create Penilaian and Update Status Penilaian to "Selesai"
     public function CreatePenilaian(CreateRequest $request){
-        $time = Carbon::now();
-        $data = Penilaian::create([
-            'pengguna_id' => $request->safe()->pengguna_id,
-            'seminar_id' => $request->safe()->seminar_id,
-            'status_penilaian_id' => '1', // Must change to actual id
-            'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan_draft_tugas_akhir_dan_ppt,
-            'penyajian_atau_presentasi' => $request->safe()->penyajian_atau_presentasi,
-            'penguasaan_materi' => $request->safe()->penguasaan_materi,
-            'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
-            'etika_dan_sopan_santun' => $request->safe()->etika_dan_sopan_santun,
-            'nilai_bimbingan' => $request->safe()->nilai_bimbingan,
-            'ttd' => $request->safe()->ttd->store('penilaian/'.$request->safe()->pengguna_id.'/'.$time),
-        ]);
-        return response()->json($data);
+        if($request->query('id') !== null){
+            $id = auth()->user()->id;
+            $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id}");
+            Penilaian::create([
+                'pengguna_id' => $id,
+                'seminar_id' => $request->query('id'),
+                'status_penilaian_id' => 1,
+                'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                'penguasaan_materi' => $request->safe()->penguasaan,
+                'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                'etika_dan_sopan_santun' => $request->safe()->etika,
+                'nilai_bimbingan' => $request->safe()->bimbingan,
+                'ttd' => $ttd
+            ]);
+            return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
+        }
+        return redirect()->route('penilaian');
     }
 
     // Get One Penilaian by Seminar Id and Pengguna Id
