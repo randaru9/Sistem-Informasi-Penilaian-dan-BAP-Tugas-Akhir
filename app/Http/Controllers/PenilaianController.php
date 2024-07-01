@@ -53,9 +53,24 @@ class PenilaianController extends Controller
     }
 
     // Get One Penilaian by Seminar Id and Pengguna Id
-    public function GetPenilaianBySeminarIdAndPenggunaId(GetBySeminarIdAndPenggunaIdRequest $request){
-        $data = Penilaian::where('seminar_id', $request->safe()->seminar_id)->where('pengguna_id', $request->safe()->pengguna_id)->first();
-        return response()->json($data);
+    public function CekNilaiView(GetBySeminarIdAndPenggunaIdRequest $request){
+        if($request->query('id') !== null){
+            $id = auth()->user()->id;
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas' => function($query){
+                    $query->select(['id', 'nama']);
+                },
+                'JenisSeminars' => function($query){
+                    $query->select(['id', 'keterangan']);
+                },
+                'Penilaians' => function($query) use ($request, $id){
+                    $query->where('pengguna_id', $id)
+                    ->where('seminar_id', $request->query('id'));
+                } 
+            ])->first()->toArray();
+            return view('dosen.penilaian.cek-nilai', compact('data'));
+        }
+        return redirect()->route('penilaian');
     }
 
     // Update Penilaian by Penilaian Id
