@@ -9,21 +9,23 @@ use App\Models\Penilaian;
 use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PenilaianController extends Controller
 {
 
     // (Dosen) //
 
-    public function CreatePenilaianView(Request $request){
-        if($request->query('id') !== null){
+    public function CreatePenilaianView(Request $request)
+    {
+        if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with([
-                'Penggunas' => function($query){
+                'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 },
-                'JenisSeminars' => function($query){
+                'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
-                } 
+                }
             ])->first()->toArray();
             return view('dosen.penilaian.penilaian-tambah', compact('data'));
         }
@@ -31,8 +33,9 @@ class PenilaianController extends Controller
     }
 
     // Create Penilaian and Update Status Penilaian to "Selesai"
-    public function CreatePenilaian(CreateRequest $request){
-        if($request->query('id') !== null){
+    public function CreatePenilaian(CreateRequest $request)
+    {
+        if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id}");
             Penilaian::create([
@@ -53,40 +56,42 @@ class PenilaianController extends Controller
     }
 
     // Get One Penilaian by Seminar Id and Pengguna Id
-    public function CekNilaiView(Request $request){
-        if($request->query('id') !== null){
+    public function CekNilaiView(Request $request)
+    {
+        if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
-                'Penggunas' => function($query){
+                'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 },
-                'JenisSeminars' => function($query){
+                'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
                 },
-                'Penilaians' => function($query) use ($request, $id){
+                'Penilaians' => function ($query) use ($request, $id) {
                     $query->where('pengguna_id', $id)
-                    ->where('seminar_id', $request->query('id'));
-                } 
+                        ->where('seminar_id', $request->query('id'));
+                }
             ])->first()->toArray();
             return view('dosen.penilaian.cek-nilai', compact('data'));
         }
         return redirect()->route('penilaian');
     }
 
-    public function UpdateNilaiView(Request $request){
-        if($request->query('id') !== null){
+    public function UpdateNilaiView(Request $request)
+    {
+        if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
-                'Penggunas' => function($query){
+                'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 },
-                'JenisSeminars' => function($query){
+                'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
                 },
-                'Penilaians' => function($query) use ($request, $id){
+                'Penilaians' => function ($query) use ($request, $id) {
                     $query->where('pengguna_id', $id)
-                    ->where('seminar_id', $request->query('id'));
-                } 
+                        ->where('seminar_id', $request->query('id'));
+                }
             ])->first()->toArray();
             return view('dosen.penilaian.ubah-nilai', compact('data'));
         }
@@ -94,15 +99,31 @@ class PenilaianController extends Controller
     }
 
     // Update Penilaian by Penilaian Id
-    public function UpdatePenilaianByPenilaianId(UpdateRequest $request){
-        $time = Carbon::now();
-        $penilaian = $request->safe()->all();
-        if($penilaian['ttd'] != null){
-            $penilaian['ttd'] = $request->safe()['ttd']->store('penilaian/'.$penilaian['pengguna_id'].'/'.$time);
+    public function UpdatePenilaian(UpdateRequest $request)
+    {
+        if ($request->query('id') !== null) {
+            $id_seminar = $request->query('id');
+            $id_dosen = auth()->user()->id;
+            $data = Penilaian::where('seminar_id', $id_seminar)->where('pengguna_id', $id_dosen)->first();
+            if ($request->safe()->ttd != null) {
+                Storage::delete($data->ttd);
+                $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id_dosen}");
+                $data->update([
+                    'ttd' => $ttd
+                ]);
+            }
+            $data->update([
+                'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                'penguasaan_materi' => $request->safe()->penguasaan,
+                'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                'etika_dan_sopan_santun' => $request->safe()->etika,
+                'nilai_bimbingan' => $request->safe()->bimbingan,
+            ]);
+            return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
         }
-        $data = Penilaian::where('id', $request->safe()->id)->update($penilaian);
-        return response()->json($data);
+        return redirect()->route('penilaian');
     }
 
-    
+
 }
