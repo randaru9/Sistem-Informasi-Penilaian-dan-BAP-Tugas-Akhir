@@ -27,6 +27,9 @@ class PenggunaController extends Controller
         } elseif (auth()->user()->role_id == 2) {
             $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
             return view('dosen.profil.profil', compact('data'));
+        } else {
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
+            return view('admin.profil.profil', compact('data'));
         }
     }
 
@@ -38,9 +41,9 @@ class PenggunaController extends Controller
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        if(auth()->user()->role_id == 3){
+        if (auth()->user()->role_id == 3) {
             return redirect()->route('profil-verifikasi-email-mahasiswa');
-        }elseif(auth()->user()->role_id == 2){
+        } elseif (auth()->user()->role_id == 2) {
             return redirect()->route('profil-verifikasi-email-dosen');
         }
     }
@@ -54,9 +57,9 @@ class PenggunaController extends Controller
                 'email' => $request->session()->get('email')
             ]);
             $request->session()->forget('email');
-            if(auth()->user()->role_id == 3){
+            if (auth()->user()->role_id == 3) {
                 return redirect()->route('profil-mahasiswa');
-            }elseif(auth()->user()->role_id == 2){
+            } elseif (auth()->user()->role_id == 2) {
                 return redirect()->route('profil-dosen');
             }
         }
@@ -72,9 +75,9 @@ class PenggunaController extends Controller
                 $data->update([
                     'password' => $request->safe()->katasandi_baru
                 ]);
-                if(auth()->user()->role_id == 3){
+                if (auth()->user()->role_id == 3) {
                     return redirect()->route('profil-mahasiswa');
-                }elseif(auth()->user()->role_id == 2){
+                } elseif (auth()->user()->role_id == 2) {
                     return redirect()->route('profil-dosen');
                 }
             }
