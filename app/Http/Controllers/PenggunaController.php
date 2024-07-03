@@ -72,7 +72,11 @@ class PenggunaController extends Controller
                 $data->update([
                     'password' => $request->safe()->katasandi_baru
                 ]);
-                return redirect()->route('profil-mahasiswa');
+                if(auth()->user()->role_id == 3){
+                    return redirect()->route('profil-mahasiswa');
+                }elseif(auth()->user()->role_id == 2){
+                    return redirect()->route('profil-dosen');
+                }
             }
             return back()->with('katasandi_baru', 'Konfirmasi Katasandi Baru Tidak Sesuai');
         }
