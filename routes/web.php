@@ -153,6 +153,8 @@ Route::prefix('dosen')->group(function () {
         Route::get('/ubah-revisi', [RevisiController::class, 'UpdateRevisiView'])->name('penilaian-ubah-revisi');
 
         Route::post('/ubah-revisi', [RevisiController::class, 'UpdateRevisi'])->name('penilaian-ubah-revisi-post');
+
+        Route::post('/ubah-status-revisi', [RevisiController::class, 'UpdateStatusRevisiToDone'])->name('penilaian-ubah-status-revisi-post');
     });
 
     Route::prefix('bap')->group(function () {
