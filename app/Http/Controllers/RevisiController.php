@@ -120,12 +120,15 @@ class RevisiController extends Controller
     }
 
     // Update Status Revisi to "Selesai"
-    public function UpdateStatusRevisiToDone(GetOneByIdRequest $request)
-    {
-        $data = Revisi::where('id', $request->safe()->id)->update([
-            'status_revisi_id' => '3', // Must be actual id of 'Selesai'
-        ]);
-        return response()->json($data);
+    public function UpdateStatusRevisiToDone(Request $request)
+    {   
+        if($request->query('id') !== null) {
+            Revisi::where('seminar_id', $request->query('id'))->where('pengguna_id', auth()->user()->id)->update([
+                'status_revisi_id' => 2,
+            ]);
+            return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
+        }
+        return redirect()->route('penilaian');
     }
 
 
