@@ -38,7 +38,11 @@ class PenggunaController extends Controller
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        return redirect()->route('profil-verifikasi-email-mahasiswa');
+        if(auth()->user()->role_id == 3){
+            return redirect()->route('profil-verifikasi-email-mahasiswa');
+        }elseif(auth()->user()->role_id == 2){
+            return redirect()->route('profil-verifikasi-email-dosen');
+        }
     }
 
     public function VerifikasiOtpEmail(VerifikasiOtp $request)
