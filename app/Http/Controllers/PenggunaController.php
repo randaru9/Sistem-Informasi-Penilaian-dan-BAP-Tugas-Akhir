@@ -54,7 +54,11 @@ class PenggunaController extends Controller
                 'email' => $request->session()->get('email')
             ]);
             $request->session()->forget('email');
-            return redirect()->route('profil-mahasiswa');
+            if(auth()->user()->role_id == 3){
+                return redirect()->route('profil-mahasiswa');
+            }elseif(auth()->user()->role_id == 2){
+                return redirect()->route('profil-dosen');
+            }
         }
         return back()->withInput()->with('otp', 'OTP yang anda masukkan salah');
     }
