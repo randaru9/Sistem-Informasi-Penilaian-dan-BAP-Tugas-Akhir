@@ -84,6 +84,8 @@ class PenggunaController extends Controller
                     return redirect()->route('profil-mahasiswa');
                 } elseif (auth()->user()->role_id == 2) {
                     return redirect()->route('profil-dosen');
+                }else{
+                    return redirect()->route('profil-admin');
                 }
             }
             return back()->with('katasandi_baru', 'Konfirmasi Katasandi Baru Tidak Sesuai');
