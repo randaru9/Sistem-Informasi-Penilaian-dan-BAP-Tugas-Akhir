@@ -20,8 +20,13 @@ class PenggunaController extends Controller
 
     // (Profil) //
     public function ProfilView(){
-        $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
-        return view('mahasiswa.profil.profil', compact('data'));
+        if(auth()->user()->role_id == 3){
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
+            return view('mahasiswa.profil.profil', compact('data'));
+        }elseif(auth()->user()->role_id == 2){
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
+            return view('dosen.profil.profil', compact('data'));
+        }
     }
 
     public function GenerateOtpUpdateEmail(UpdateEmail $request){
