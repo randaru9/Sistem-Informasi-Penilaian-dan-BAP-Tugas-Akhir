@@ -82,7 +82,8 @@
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
-            <form action="" class="w-full">
+            <form action="{{route('penilaian-ubah-nilai-post', ['id' => request()->query('id')])}}" method="POST" class="w-full">
+                @csrf
                 <div class="w-full lg:flex gap-x-4">
                     <div class="lg:w-1/3">
                         <label for="penulisan"
