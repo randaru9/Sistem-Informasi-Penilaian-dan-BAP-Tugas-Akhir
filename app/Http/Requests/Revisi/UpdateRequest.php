@@ -22,15 +22,13 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'uuid|required|exists:revisi,id',
-            'keterangan' => 'string|required',
+            'keterangan' => 'required|string',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'Revisi',
             'keterangan' => 'Keterangan',
         ];
     }
@@ -38,10 +36,8 @@ class UpdateRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'uuid' => ':attribute harus UUID',
-            'exists' => ':attribute tidak ditemukan',
-            'string' => ':attribute harus berupa string',
             'required' => ':attribute harus diisi',
+            'string' => ':attribute harus berupa string',
         ];
     }
 }
