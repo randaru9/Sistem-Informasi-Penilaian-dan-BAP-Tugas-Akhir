@@ -19,17 +19,19 @@ class PenggunaController extends Controller
 {
 
     // (Profil) //
-    public function ProfilView(){
-        if(auth()->user()->role_id == 3){
+    public function ProfilView()
+    {
+        if (auth()->user()->role_id == 3) {
             $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
             return view('mahasiswa.profil.profil', compact('data'));
-        }elseif(auth()->user()->role_id == 2){
+        } elseif (auth()->user()->role_id == 2) {
             $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
             return view('dosen.profil.profil', compact('data'));
         }
     }
 
-    public function GenerateOtpUpdateEmail(UpdateEmail $request){
+    public function GenerateOtpUpdateEmail(UpdateEmail $request)
+    {
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $request->session()->put('email', $request->safe()->email);
         //catch email req and send email
@@ -39,7 +41,8 @@ class PenggunaController extends Controller
         return redirect()->route('profil-verifikasi-email-mahasiswa');
     }
 
-    public function VerifikasiOtpEmail(VerifikasiOtp $request){
+    public function VerifikasiOtpEmail(VerifikasiOtp $request)
+    {
         $data = Pengguna::where('id', auth()->user()->id)->first();
         if ($data->otp == $request->safe()->otp) {
             $data->update([
@@ -62,7 +65,7 @@ class PenggunaController extends Controller
                     'password' => $request->safe()->katasandi_baru
                 ]);
                 return redirect()->route('profil-mahasiswa');
-            }   
+            }
             return back()->with('katasandi_baru', 'Konfirmasi Katasandi Baru Tidak Sesuai');
         }
         return back()->with('katasandi_lama', 'Katasandi Lama Tidak Sesuai');
@@ -85,8 +88,9 @@ class PenggunaController extends Controller
     // Update Biodata
     public function UpdateBiodataDosen(UpdateBiodataDosen $request)
     {
-        $data = Pengguna::where('id', $request->safe()->id)->update($request->safe()->all());
-        return response()->json($data);
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        $data->update($request->safe()->all());
+        return redirect()->route('profil-dosen');
     }
 
     // (Admin) //
@@ -185,16 +189,17 @@ class PenggunaController extends Controller
         return redirect()->route('dosen');
     }
 
-    public function UpdateKoordindator(Request $request){
+    public function UpdateKoordindator(Request $request)
+    {
         $koordinator = Pengguna::where('is_koordinator', 1)->first();
-        if($koordinator != null && $koordinator->id != $request->query('id')){
+        if ($koordinator != null && $koordinator->id != $request->query('id')) {
             $koordinator->update([
                 'is_koordinator' => 0
             ]);
         }
         $new_koordinator = Pengguna::where('id', $request->query('id'))->first();
-        if($new_koordinator != null){
-            if($new_koordinator->is_koordinator == 1){
+        if ($new_koordinator != null) {
+            if ($new_koordinator->is_koordinator == 1) {
                 return back()->with('koordinator', 'Pengguna ini sudah menjadi Koordinator');
             }
             $new_koordinator->update([
@@ -213,7 +218,7 @@ class PenggunaController extends Controller
                 $pengguna->update([
                     'password' => $request->safe()->katasandi
                 ]);
-                if($pengguna->role_id == 3){
+                if ($pengguna->role_id == 3) {
                     return redirect()->route('mahasiswa');
                 }
                 return redirect()->route('dosen');
@@ -228,7 +233,7 @@ class PenggunaController extends Controller
         $pengguna = Pengguna::where('id', $request->query('id'))->first();
         if ($pengguna != null) {
             $pengguna->delete();
-            if($pengguna->role_id == 3){
+            if ($pengguna->role_id == 3) {
                 return redirect()->route('mahasiswa');
             }
             return redirect()->route('dosen');
