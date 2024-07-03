@@ -171,19 +171,27 @@ Route::prefix('dosen')->group(function () {
 
     Route::prefix('profil')->group(function () {
         Route::get('/', [PenggunaController::class, 'ProfilView'])->name('profil-dosen');
+
         Route::get('/ubah-biodata', function () {
             return view('dosen.profil.profil-ubah-biodata');
         })->name('profil-ubah-biodata-dosen');
+
         Route::post('/ubah-biodata-dosen', [PenggunaController::class, 'UpdateBiodataDosen'])->name('profil-ubah-biodata-dosen-post');
+
         Route::get('/ubah-email', function () {
             return view('dosen.profil.profil-ubah-email');
         })->name('profil-ubah-email-dosen');
+
+        Route::post('/ubah-email', [PenggunaController::class, 'GenerateOtpUpdateEmail'])->name('profil-ubah-email-dosen-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('dosen.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-dosen');
+
         Route::get('/verifikasi-email', function () {
             return view('dosen.profil.profil-verifikasi-email');
-        })->name('profil-verifikasi-email');
+        })->name('profil-verifikasi-email-dosen');
+
     });
 });
 
