@@ -45,6 +45,8 @@ class PenggunaController extends Controller
             return redirect()->route('profil-verifikasi-email-mahasiswa');
         } elseif (auth()->user()->role_id == 2) {
             return redirect()->route('profil-verifikasi-email-dosen');
+        }else{
+            return redirect()->route('profil-verifikasi-email-admin');
         }
     }
 
