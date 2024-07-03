@@ -82,7 +82,8 @@
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
-            <form action="" class="w-full">
+            <form action="{{route('penilaian-ubah-status-revisi-post', ['id' => request()->query('id')])}}"  method="POST" class="w-full">
+                @csrf
                 <div class="w-2/3 flex flex-col">
                     <label for="revisi" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
                     </label>
@@ -93,11 +94,9 @@
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <a href="{{ route('penilaian-ubah-revisi', ['id' => $data['id']]) }}"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>
-                    <form action="">
-                        <button type="submit"
-                            class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Tandai
-                            Selesai</button>
-                    </form>
+                    <button type="submit"
+                        class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Tandai
+                        Selesai</button>
                 </div>
             </form>
         </div>
