@@ -307,6 +307,8 @@ Route::prefix('admin')->group(function () {
             return view('admin.profil.profil-verifikasi-email');
         })->name('profil-verifikasi-email-admin');
 
+        Route::post('/verifikasi-email', [PenggunaController::class, 'VerifikasiOtpEmail'])->name('profil-verifikasi-email-admin-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-admin');
