@@ -194,7 +194,7 @@ Route::prefix('dosen')->group(function () {
             return view('dosen.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-dosen');
 
-
+        Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandi'])->name('profil-ubah-katasandi-dosen-post');
     });
 });
 
