@@ -313,5 +313,7 @@ Route::prefix('admin')->group(function () {
             return view('admin.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-admin');
 
+        Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandi'])->name('profil-ubah-katasandi-admin-post');
+
     });
 });
