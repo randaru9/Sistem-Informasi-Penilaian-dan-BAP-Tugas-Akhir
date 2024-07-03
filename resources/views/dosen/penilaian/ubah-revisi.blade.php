@@ -82,7 +82,8 @@
             </div>
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
-            <form action="" class="w-full">
+            <form action="{{route('penilaian-ubah-revisi-post', ['id' => request()->query('id')])}}" method="POST" class="w-full">
+                @csrf
                 <div class="w-full lg:w-1/2 flex flex-col">
                     <label for="keterangan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
                     </label>
