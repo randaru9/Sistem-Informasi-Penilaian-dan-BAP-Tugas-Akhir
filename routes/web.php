@@ -295,17 +295,19 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('profil')->group(function () {
-        Route::get('/', function () {
-            return view('admin.profil.profil');
-        })->name('profil');
+        Route::get('/', [PenggunaController::class, 'ProfilView'])->name('profil-admin');
+
         Route::get('/ubah-email', function () {
             return view('admin.profil.profil-ubah-email');
-        })->name('profil-ubah-email');
+        })->name('profil-ubah-email-admin');
+
         Route::get('/verifikasi-email', function () {
             return view('admin.profil.profil-verifikasi-email');
-        })->name('profil-verifikasi-email');
+        })->name('profil-verifikasi-email-admin');
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.profil.profil-ubah-katasandi');
-        })->name('profil-ubah-katasandi');
+        })->name('profil-ubah-katasandi-admin');
+
     });
 });
