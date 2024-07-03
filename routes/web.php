@@ -174,6 +174,7 @@ Route::prefix('dosen')->group(function () {
         Route::get('/ubah-biodata', function () {
             return view('dosen.profil.profil-ubah-biodata');
         })->name('profil-ubah-biodata-dosen');
+        Route::post('/ubah-biodata-dosen', [PenggunaController::class, 'UpdateBiodataDosen'])->name('profil-ubah-biodata-dosen-post');
         Route::get('/ubah-email', function () {
             return view('dosen.profil.profil-ubah-email');
         })->name('profil-ubah-email-dosen');
