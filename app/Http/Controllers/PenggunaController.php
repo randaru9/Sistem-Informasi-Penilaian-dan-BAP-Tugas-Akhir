@@ -63,7 +63,10 @@ class PenggunaController extends Controller
                 return redirect()->route('profil-mahasiswa');
             } elseif (auth()->user()->role_id == 2) {
                 return redirect()->route('profil-dosen');
+            }else{
+                return redirect()->route('profil-admin');
             }
+
         }
         return back()->withInput()->with('otp', 'OTP yang anda masukkan salah');
     }
