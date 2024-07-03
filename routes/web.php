@@ -184,13 +184,16 @@ Route::prefix('dosen')->group(function () {
 
         Route::post('/ubah-email', [PenggunaController::class, 'GenerateOtpUpdateEmail'])->name('profil-ubah-email-dosen-post');
 
+        Route::get('/verifikasi-email', function () {
+            return view('dosen.profil.profil-verifikasi-email');
+        })->name('profil-verifikasi-email-dosen');
+
+        Route::post('/verifikasi-email', [PenggunaController::class, 'VerifikasiOtpEmail'])->name('profil-verifikasi-email-dosen-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('dosen.profil.profil-ubah-katasandi');
         })->name('profil-ubah-katasandi-dosen');
 
-        Route::get('/verifikasi-email', function () {
-            return view('dosen.profil.profil-verifikasi-email');
-        })->name('profil-verifikasi-email-dosen');
 
     });
 });
