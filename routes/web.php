@@ -148,6 +148,8 @@ Route::prefix('dosen')->group(function () {
 
         Route::get('/ubah-nilai', [PenilaianController::class, 'UpdateNilaiView'])->name('penilaian-ubah-nilai');
 
+        Route::post('/ubah-nilai', [PenilaianController::class, 'UpdatePenilaian'])->name('penilaian-ubah-nilai-post');
+
         Route::get('/ubah-revisi', [RevisiController::class, 'UpdateRevisiView'])->name('penilaian-ubah-revisi');
     });
 
