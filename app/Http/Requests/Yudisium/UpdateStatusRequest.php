@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Yudisium;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,23 +22,21 @@ class UpdateStatusRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => 'required|exists:yudisium',
-            'status_yudisium_id' => 'required|exists:status_yudisiums,id',
+            'alasan_penolakan' => 'required|string',
         ];
     }
 
     public function attributes(): array
     {
         return [
-            'id' => 'Yudisium',
-            'status_yudisium_id' => 'Status Yudisium',
+            'alasan_penolakan' => 'Alasan Penolakan',
         ];
     }
 
     public function messages(): array {
         return [
             'required' => ':attribute harus diisi.',
-            'exists' => ':attribute tidak ditemukan.',
+            'string' => ':attribute harus berupa string.'
         ];
     }
 }
