@@ -233,9 +233,7 @@ Route::prefix('admin')->group(function () {
     });
 
     Route::prefix('yudisium')->group(function () {
-        Route::get('/', function () {
-            return view('admin.yudisium.yudisium');
-        })->name('yudisium');
+        Route::get('/', [YudisiumController::class, 'YudisiumView'])->name('yudisium');
         Route::get('/detail', function () {
             return view('admin.yudisium.yudisium-detail');
         })->name('yudisium-detail');
