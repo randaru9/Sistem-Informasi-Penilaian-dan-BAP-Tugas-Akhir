@@ -235,6 +235,8 @@ Route::prefix('admin')->group(function () {
     Route::prefix('yudisium')->group(function () {
         Route::get('/', [YudisiumController::class, 'YudisiumView'])->name('yudisium');
         Route::get('/detail', [YudisiumController::class, 'DetailYudisiumAdminView'])->name('yudisium-detail');
+        Route::post('/yudisium/accept', [YudisiumController::class, 'AcceptYudisium'])->name('yudisium-accept');
+        Route::post('/yudisium/reject', [YudisiumController::class, 'RejectYudisium'])->name('yudisium-reject');
     });
 
     Route::prefix('dosen')->group(function () {
