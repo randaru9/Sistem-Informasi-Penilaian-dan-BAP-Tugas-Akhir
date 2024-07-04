@@ -47,7 +47,7 @@
                 <div class="w-1/2">
                     <label for="pembimbing2"
                         class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Pembimbing
-                        1</label>
+                        2</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="pembimbing2" id="pembimbing2">
