@@ -137,6 +137,24 @@ class YudisiumController extends Controller
         return view('admin.yudisium.yudisium', compact('data'));
     }
 
+    public function DetailYudisiumAdminView(Request $request){
+        if ($request->query('id') !== null) {
+            $data = Yudisium::where('id', $request->query('id'))->with([
+                'StatusYudisiums' => function ($query) {
+                    $query->select(['id', 'keterangan']);
+                },
+                'PeriodeWisudas' => function ($query) {
+                    $query->select(['id', 'keterangan']);
+                },
+                'Penggunas' => function ($query) {
+                    $query->select(['id', 'nama']);
+                }
+            ])->first()->toArray();
+            return view('admin.yudisium.yudisium-detail', compact('data'));
+        }
+        return redirect()->route('yudisium');
+    }
+
     // Update Status Yudisium
     public function UpdateStatusYudisium(UpdateStatusRequest $request)
     {
