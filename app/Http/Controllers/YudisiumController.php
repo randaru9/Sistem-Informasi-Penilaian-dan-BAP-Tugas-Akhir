@@ -10,6 +10,7 @@ use App\Http\Requests\Yudisium\UpdateRequest;
 use App\Models\PeriodeWisuda;
 use App\Models\Yudisium;
 use Carbon\Carbon;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -112,10 +113,28 @@ class YudisiumController extends Controller
     // (Admin) //
 
     // Get All Yudisium
-    public function GetAllYudisium()
+    public function YudisiumView(Request $request)
     {
-        $data = Yudisium::with(['Penggunas', 'StatusYudisiums', 'PeriodeWisudas'])->paginate(5);
-        return response()->json($data);
+        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id', 'pengguna_id'])->with([
+          'PeriodeWisudas' => function ($query) {
+              $query->select(['id', 'keterangan']);
+          },
+          'StatusYudisiums' => function ($query) {
+              $query->select(['id', 'keterangan']);
+          },
+          'Penggunas' => function ($query) {
+              $query->select(['id', 'nama']);
+          }
+        ])->where(function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->whereHas('Penggunas', function ($query) use ($request) {
+                    $query->where('nama', 'LIKE', "%{$request->search}%");
+                })->orWhereHas('PeriodeWisudas', function ($query) use ($request) {
+                    $query->where('keterangan', 'LIKE', "%{$request->search}%");
+                });
+            }
+        })->paginate(5)->toArray();
+        return view('admin.yudisium.yudisium', compact('data'));
     }
 
     // Update Status Yudisium
