@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UpdateStatusRequest;
+use App\Http\Requests\Yudisium\UpdateStatusRequest;
 use App\Http\Requests\Yudisium\CreateRequest;
 use App\Http\Requests\Yudisium\GetByPenggunaIdRequest;
 use App\Http\Requests\Yudisium\GetOneByIdRequest;
@@ -116,15 +116,15 @@ class YudisiumController extends Controller
     public function YudisiumView(Request $request)
     {
         $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id', 'pengguna_id'])->with([
-          'PeriodeWisudas' => function ($query) {
-              $query->select(['id', 'keterangan']);
-          },
-          'StatusYudisiums' => function ($query) {
-              $query->select(['id', 'keterangan']);
-          },
-          'Penggunas' => function ($query) {
-              $query->select(['id', 'nama']);
-          }
+            'PeriodeWisudas' => function ($query) {
+                $query->select(['id', 'keterangan']);
+            },
+            'StatusYudisiums' => function ($query) {
+                $query->select(['id', 'keterangan']);
+            },
+            'Penggunas' => function ($query) {
+                $query->select(['id', 'nama']);
+            }
         ])->where(function (Builder $query) use ($request) {
             if (isset($request->search)) {
                 $query->whereHas('Penggunas', function ($query) use ($request) {
@@ -137,7 +137,8 @@ class YudisiumController extends Controller
         return view('admin.yudisium.yudisium', compact('data'));
     }
 
-    public function DetailYudisiumAdminView(Request $request){
+    public function DetailYudisiumAdminView(Request $request)
+    {
         if ($request->query('id') !== null) {
             $data = Yudisium::where('id', $request->query('id'))->with([
                 'StatusYudisiums' => function ($query) {
@@ -156,10 +157,29 @@ class YudisiumController extends Controller
     }
 
     // Update Status Yudisium
-    public function UpdateStatusYudisium(UpdateStatusRequest $request)
+    public function RejectYudisium(UpdateStatusRequest $request)
     {
-        $data = Yudisium::where('id', $request->safe()->id)->update(['status_yudisium_id' => $request->safe()->status_yudisium_id]); // Must Change to Actual Id
-        return response()->json($data);
+        if ($request->query('id') !== null) {
+            $data = Yudisium::where('id', $request->query('id'))->first();
+                $data->update([
+                    'catatan' => $request->safe()->alasan_penolakan,
+                    'status_yudisium_id' => 2
+                ]);
+            return redirect()->route('yudisium');
+        }
+        return redirect()->route('yudisium');
+    }
+
+    public function AcceptYudisium(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $data = Yudisium::where('id', $request->query('id'))->first();
+            $data->update([
+                'status_yudisium_id' => 3
+            ]);
+            return redirect()->route('yudisium');
+        }
+        return redirect()->route('yudisium');
     }
 
 
