@@ -201,13 +201,12 @@ Route::prefix('admin')->group(function () {
             return view('admin.bap.bap-rekap-nilai');
         })->name('bap-rekap-nilai');
 
-        Route::get('/detail', function () {
-            return view('admin.bap.bap-detail');
-        })->name('bap-detail');
-        
+        Route::get('/detail', [SeminarController::class, 'BapDetailAdminView'])->name('bap-detail');
+
         Route::get('/detail-proses', function () {
             return view('admin.bap.bap-detail-proses');
         })->name('bap-detail-proses');
+        
         Route::get('/form-penilaian', function () {
             return view('admin.bap.bap-form-penilaian');
         })->name('bap-form-penilaian');
