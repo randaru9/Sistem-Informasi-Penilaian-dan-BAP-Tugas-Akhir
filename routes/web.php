@@ -194,15 +194,17 @@ Route::prefix('dosen')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::prefix('bap')->group(function () {
-        Route::get('/', function () {
-            return view('admin.bap.bap');
-        })->name('bap');
+
+        Route::get('/', [SeminarController::class, 'BapAdminView'])->name('bap-admin');
+
         Route::get('/rekap-nilai', function () {
             return view('admin.bap.bap-rekap-nilai');
         })->name('bap-rekap-nilai');
+
         Route::get('/detail', function () {
             return view('admin.bap.bap-detail');
         })->name('bap-detail');
+        
         Route::get('/detail-proses', function () {
             return view('admin.bap.bap-detail-proses');
         })->name('bap-detail-proses');
