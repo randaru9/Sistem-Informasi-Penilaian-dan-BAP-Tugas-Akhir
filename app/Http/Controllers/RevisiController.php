@@ -29,6 +29,26 @@ class RevisiController extends Controller
         return response()->json($data);
     }
 
+    public function CekRevisiMahasiswaView(Request $request){
+        if ($request->query('id') !== null) {
+            $data = Seminar::select(['id', 'bap1_id', 'bap2_id', 'pengguna_id', 'pembimbing_1_id', 'pembimbing_2_id', 'penguji_1_id', 'penguji_2_id'])->where('id', $request->query('id'))->with([
+                'Revisis' => function ($query) {
+                    $query->select(['id', 'pengguna_id', 'seminar_id', 'status_revisi_id'])->with([
+                        'Penggunas' => function ($query) {
+                            $query->select(['id', 'nama']);
+                        }, 
+                        'StatusRevisis' => function ($query) {
+                            $query->select(['id', 'keterangan']);
+                        }
+                    ]);
+                }
+            ])->get()->toArray();
+            // dd($data);
+            return view('mahasiswa.seminar.seminar-cek-revisi', compact('data'));
+        }
+        return redirect()->route('seminar');
+    }
+
     // (Dosen) //
 
     public function CreateRevisiView(Request $request)
