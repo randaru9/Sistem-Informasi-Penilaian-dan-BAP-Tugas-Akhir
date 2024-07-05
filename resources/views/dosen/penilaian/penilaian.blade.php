@@ -53,7 +53,7 @@
                             </td>
 
                             @if($item['count_revisi'] === 0)
-                            <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
+                            <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                             @elseif($item['count_revisi_selesai'] === 1)
@@ -67,7 +67,7 @@
                             @endif
 
                             @if($item['count_penilaian'] === 0)
-                            <td class="px-6 py-4 font-poppins text-base font-normal text-black">
+                            <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                             @elseif($item['count_penilaian_selesai'] === 1)
