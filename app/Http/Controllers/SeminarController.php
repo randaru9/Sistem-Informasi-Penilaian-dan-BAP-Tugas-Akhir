@@ -176,6 +176,9 @@ class SeminarController extends Controller
                 'Penilaians as count_penilaian_selesai' => function ($query) {
                     $query->where('status_penilaian_id', 1);
                 },
+                'Penilaians as count_penilaian_terlambat' => function ($query) {
+                    $query->where('status_penilaian_id', 2);
+                },
                 'Revisis as count_revisi',
                 'Revisis as count_revisi_selesai' => function ($query) {
                     $query->where('status_revisi_id', 2);
