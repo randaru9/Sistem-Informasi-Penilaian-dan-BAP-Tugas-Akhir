@@ -72,9 +72,7 @@ Route::prefix('mahasiswa')->group(function () {
 
         Route::get('/cek-revisi', [RevisiController::class, 'CekRevisiMahasiswaView'])->name('seminar-cek-revisi');
 
-        Route::get('/cek-revisi/detail', function () {
-            return view('mahasiswa.seminar.seminar-cek-revisi-detail');
-        })->name('seminar-cek-revisi-detail');
+        Route::get('/cek-revisi/detail', [RevisiController::class, 'CekDetailRevisiView'])->name('seminar-cek-revisi-detail');
 
         Route::get('/cek-revisi/detail/unduh', function () {
             return view('mahasiswa.seminar.seminar-form-revisi');
