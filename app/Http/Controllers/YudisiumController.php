@@ -175,7 +175,8 @@ class YudisiumController extends Controller
         if ($request->query('id') !== null) {
             $data = Yudisium::where('id', $request->query('id'))->first();
             $data->update([
-                'status_yudisium_id' => 3
+                'status_yudisium_id' => 3,
+                'catatan' => null
             ]);
             return redirect()->route('yudisium');
         }
