@@ -70,9 +70,11 @@
             </div>
         </div>
         @endif
+        @if ($data['status_yudisium_id'] !== 3)
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
             <a href="{{route('yudisium-ubah', ['id' => $data['id']])}}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>
         </div>
+        @endif
     </div>
 </x-layout-mahasiswa>
