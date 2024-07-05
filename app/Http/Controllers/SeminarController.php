@@ -366,4 +366,28 @@ class SeminarController extends Controller
         return response()->json($data);
     }
 
+    public function BapAdminView(Request $request){
+        $data = Seminar::select(['id', 'jenis_seminar_id', 'pengguna_id'])->with([
+            'JenisSeminars' => function($query){$query->select(['id', 'keterangan']);}, 
+            'Penggunas' => function($query){$query->select(['id', 'nama']);}
+        ])->withCount([
+            'Revisis as count_revisi',
+            'Revisis as count_revisi_selesai' => function ($query) {
+                $query->where('status_revisi_id', 2);
+            },
+            'Penilaians as count_penilaian',
+            'Penilaians as count_penilaian_selesai' => function ($query) {
+                $query->where('status_penilaian_id', 1);
+            },
+            'Penilaians as count_penilaian_terlambat' => function ($query) {
+                $query->where('status_penilaian_id', 2);
+            }
+        ])->whereHas('Penggunas', function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->where('nama', 'LIKE', "%{$request->search}%");
+            }
+        })->paginate(5)->toArray();
+        return view('admin.bap.bap', compact('data'));
+    }
+
 }
