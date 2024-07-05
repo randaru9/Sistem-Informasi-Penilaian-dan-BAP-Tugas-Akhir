@@ -199,9 +199,9 @@ class SeminarController extends Controller
             })
             ->where(function ($query) {
                 $query->where('pembimbing_1_id', auth()->user()->id)
-                      ->orWhere('pembimbing_2_id', auth()->user()->id)
-                      ->orWhere('penguji_1_id', auth()->user()->id)
-                      ->orWhere('penguji_2_id', auth()->user()->id);
+                    ->orWhere('pembimbing_2_id', auth()->user()->id)
+                    ->orWhere('penguji_1_id', auth()->user()->id)
+                    ->orWhere('penguji_2_id', auth()->user()->id);
             })
             ->paginate(5)->toArray();
 
@@ -212,39 +212,43 @@ class SeminarController extends Controller
 
     public function DetailPenilaianView(Request $request)
     {
-        if($request->query('id') !== null){
+        if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
-                'JenisSeminars'=>function($query){
-                    $query ->select('id', 'keterangan');
+                'JenisSeminars' => function ($query) {
+                    $query->select('id', 'keterangan');
                 },
                 'Penggunas' => function ($query) {
                     $query->select('id', 'nama');
                 },
                 'Penilaians' => function ($query) use ($request, $id) {
                     $query->select(['id', 'seminar_id', 'pengguna_id', 'status_penilaian_id'])
-                    ->where('pengguna_id', $id)
-                    ->where('seminar_id', $request->query('id'))
-                    ->with(['StatusPenilaians' => function ($query) {
-                        $query->select('id', 'keterangan');
-                    }]);
+                        ->where('pengguna_id', $id)
+                        ->where('seminar_id', $request->query('id'))
+                        ->with([
+                            'StatusPenilaians' => function ($query) {
+                                $query->select('id', 'keterangan');
+                            }
+                        ]);
                 },
                 'Revisis' => function ($query) use ($request, $id) {
                     $query
-                    ->where('pengguna_id', $id)
-                    ->where('seminar_id', $request->query('id'))
-                    ->with(['StatusRevisis' => function ($query) {
-                        $query->select('id', 'keterangan');
-                    }]);
+                        ->where('pengguna_id', $id)
+                        ->where('seminar_id', $request->query('id'))
+                        ->with([
+                            'StatusRevisis' => function ($query) {
+                                $query->select('id', 'keterangan');
+                            }
+                        ]);
                 },
             ])->withCount([
-                'Penilaians as count_penilaian' => function ($query) use ($request, $id) {
-                    $query->where('status_penilaian_id', 1)
-                    ->where('seminar_id', $request->query('id'))
-                    ->where('pengguna_id', $id);
-                }, 
-                'Revisis as count_revisi',
-            ])->first()->toArray();
+                        'Penilaians as count_penilaian' => function ($query) use ($request, $id) {
+                            $query->where('status_penilaian_id', 1)
+                                ->where('seminar_id', $request->query('id'))
+                                ->where('pengguna_id', $id);
+                        },
+                        'Revisis as count_revisi',
+                    ])->first()->toArray();
 
             return view('dosen.penilaian.penilaian-detail', compact('data'));
         }
@@ -254,28 +258,77 @@ class SeminarController extends Controller
 
     // (Admin) //
 
-    public function BapAdminView(Request $request){
+    public function BapAdminView(Request $request)
+    {
         $data = Seminar::select(['id', 'jenis_seminar_id', 'pengguna_id'])->with([
-            'JenisSeminars' => function($query){$query->select(['id', 'keterangan']);}, 
-            'Penggunas' => function($query){$query->select(['id', 'nama']);}
+            'JenisSeminars' => function ($query) {
+                $query->select(['id', 'keterangan']); },
+            'Penggunas' => function ($query) {
+                $query->select(['id', 'nama']); }
         ])->withCount([
-            'Revisis as count_revisi',
-            'Revisis as count_revisi_selesai' => function ($query) {
-                $query->where('status_revisi_id', 2);
-            },
-            'Penilaians as count_penilaian',
-            'Penilaians as count_penilaian_selesai' => function ($query) {
-                $query->where('status_penilaian_id', 1);
-            },
-            'Penilaians as count_penilaian_terlambat' => function ($query) {
-                $query->where('status_penilaian_id', 2);
-            }
-        ])->whereHas('Penggunas', function (Builder $query) use ($request) {
-            if (isset($request->search)) {
-                $query->where('nama', 'LIKE', "%{$request->search}%");
-            }
-        })->paginate(5)->toArray();
+                    'Revisis as count_revisi',
+                    'Revisis as count_revisi_selesai' => function ($query) {
+                        $query->where('status_revisi_id', 2);
+                    },
+                    'Penilaians as count_penilaian',
+                    'Penilaians as count_penilaian_selesai' => function ($query) {
+                        $query->where('status_penilaian_id', 1);
+                    },
+                    'Penilaians as count_penilaian_terlambat' => function ($query) {
+                        $query->where('status_penilaian_id', 2);
+                    }
+                ])->whereHas('Penggunas', function (Builder $query) use ($request) {
+                    if (isset($request->search)) {
+                        $query->where('nama', 'LIKE', "%{$request->search}%");
+                    }
+                })->paginate(5)->toArray();
         return view('admin.bap.bap', compact('data'));
+    }
+
+    public function BapDetailAdminView(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Pembimbing1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Pembimbing2s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji2s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'PimpinanSidangs' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'JenisSeminars' => function ($query) {
+                    $query->select('id', 'keterangan');
+                },
+                'Penggunas' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+            ])->withCount([
+                        'Revisis as count_revisi',
+                        'Revisis as count_revisi_selesai' => function ($query) {
+                            $query->where('status_revisi_id', 2);
+                        },
+                        'Penilaians as count_penilaian',
+                        'Penilaians as count_penilaian_selesai' => function ($query) {
+                            $query->where('status_penilaian_id', 1);
+                        },
+                        'Penilaians as count_penilaian_terlambat' => function ($query) {
+                            $query->where('status_penilaian_id', 2);
+                        },
+                        'BAP1s as Bap1s_count' => function ($query) {
+                            $query->where('status_tanda_tangan_id', 2);
+                        }
+                    ])->first()->toArray();
+            return view('admin.bap.bap-detail', compact('data'));
+        }
+        return redirect()->route('bap-admin');
     }
 
 }
