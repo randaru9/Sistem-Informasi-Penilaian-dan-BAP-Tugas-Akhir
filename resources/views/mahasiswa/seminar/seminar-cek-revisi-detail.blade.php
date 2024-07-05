@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="flex justify-center mt-4">
-                <a href="/mahasiswa/seminar/cek-revisi/detail/unduh"
+                <a href="{{route('seminar-form-revisi', ['id' => request()->query('id')])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
                 </a>
