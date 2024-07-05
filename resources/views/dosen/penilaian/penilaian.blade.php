@@ -67,12 +67,16 @@
                             @endif
 
                             @if($item['count_penilaian'] === 0)
-                            <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
+                            <td class="px-6 py-4 font-poppins text-base font-normal text-black">
                                 Belum Diberikan
                             </td>
                             @elseif($item['count_penilaian_selesai'] === 1)
                             <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                 Selesai
+                            </td>
+                            @elseif($item['count_penilaian_terlambat'] === 1)
+                            <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
+                                Terlambat
                             </td>
                             @else
                             <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
