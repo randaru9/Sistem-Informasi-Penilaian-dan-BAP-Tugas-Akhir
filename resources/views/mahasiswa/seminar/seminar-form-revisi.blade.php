@@ -40,45 +40,60 @@
                 <p class="mt-2 mb-2">
                     FORM 06
                 </p>
-                <p>
-                    Form Revisi Sidang Proposal / Akhir
-                </p>
+                @if ($data['seminars']['jenis_seminar_id'] == 1)
+                    <p>
+                        Form Revisi Sidang Proposal / <s> Akhir </s>
+                    </p>
+                @else
+                    <p>
+                        Form Revisi Sidang <s> Proposal </s> / Akhir
+                    </p>
+                @endif
             </div>
             <div class="mt-2 space-y-1">
                 <div class="font-tmr font-normal text-base flex space-x-1">
                     <p class="whitespace-nowrap w-16">Nama</p>
                     <p> : </p>
-                    <p>Rangga Ndaru Anggoro</p>
+                    <p>{{ $data['seminars']['penggunas']['nama'] }}</p>
                 </div>
                 <div class="font-tmr font-normal text-base flex space-x-1">
                     <p class="whitespace-nowrap w-16">NIM</p>
                     <p> : </p>
-                    <p>120140019</p>
+                    <p>{{ $data['seminars']['penggunas']['nim'] }}</p>
                 </div>
                 <div class="font-tmr font-medium text-base flex space-x-1">
                     <p class="whitespace-nowrap w-16">Judul TA</p>
                     <p>:</p>
-                    <p class="w-11/12">RANCANG BANGUN SISTEM INFORMASI PENILAIAN DAN BERITA
-                        ACARA PENILAIAN TUGAS AKHIR BERBASIS WEB MENGGUNAKAN METODE
-                        DSDM (Studi Kasus : Prodi Teknik Informatika ITERA)</p>
+                    <p class="w-11/12">{{ $data['seminars']['judul'] }}</p>
                 </div>
             </div>
             <div class="flex flex-col mt-12 font-tmr font-normal text-base h-[350px]">
                 <p>Bahwa teruji perlu melakukan perbaikan dalam hal : </p>
                 <div class="border border-black w-full p-4 h-full font-tmr font-medium text-base">
+                    <p>{{ $data['keterangan'] }}</p>
                 </div>
             </div>
             <div class="mt-4 space-y-1 flex justify-end">
                 <div class="w-fit">
                     <div class="font-tmr text-left text-base">
-                        <p class="font-normal">Lampung Selatan, 2 April 2024</p>
-                        <p class="font-bold">Pembimbing 1</p>
+                        @php
+                            $data['seminars']['tanggal'] = date('d-m-Y', strtotime($data['seminars']['tanggal']));
+                        @endphp
+                        <p class="font-normal">Lampung Selatan, {{ $data['seminars']['tanggal'] }}</p>
+                        @if ($data['pengguna_id'] == $data['seminars']['pembimbing_1_id'])
+                            <p class="font-bold">Pembimbing 1</p>
+                        @elseif($data['pengguna_id'] == $data['seminars']['pembimbing_2_id'])
+                            <p class="font-bold">Pembimbing 2</p>
+                        @elseif($data['pengguna_id'] == $data['seminars']['penguji_1_id'])
+                            <p class="font-bold">Penguji 1</p>
+                        @elseif($data['pengguna_id'] == $data['seminars']['penguji_2_id'])
+                            <p class="font-bold">Penguji 2</p>
+                        @endif
                         <div class="w-[100px] h-[100px]">
-
                         </div>
-                        <p class="font-bold"> Ilham Firman Ashari, S.Kom., M.T.
+                        <p class="font-bold"> {{ $data['penggunas']['nama'] }}
                         </p>
-                        <p class="font-normal"> NIP. 19930314 201903 1 018
+                        <p class="font-normal"> NIP. {{ $data['penggunas']['nip'] }}
                         </p>
                     </div>
                 </div>
