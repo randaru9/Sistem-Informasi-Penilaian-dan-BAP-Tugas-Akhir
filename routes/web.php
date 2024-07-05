@@ -70,9 +70,7 @@ Route::prefix('mahasiswa')->group(function () {
 
         Route::post('/ubah', [SeminarController::class, 'UpdateSeminar'])->name('seminar-ubah-post');
 
-        Route::get('/cek-revisi', function () {
-            return view('mahasiswa.seminar.seminar-cek-revisi');
-        })->name('seminar-cek-revisi');
+        Route::get('/cek-revisi', [RevisiController::class, 'CekRevisiMahasiswaView'])->name('seminar-cek-revisi');
 
         Route::get('/cek-revisi/detail', function () {
             return view('mahasiswa.seminar.seminar-cek-revisi-detail');
