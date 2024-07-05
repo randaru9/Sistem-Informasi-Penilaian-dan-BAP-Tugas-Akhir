@@ -5,43 +5,16 @@
             'title' => 'Seminar',
         ],
         [
-            'href' => '/mahasiswa/seminar/detail',
+            'href' => route('seminar-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
         [
-            'href' => '/mahasiswa/cek-revisi',
+            'href' => route('seminar-cek-revisi', ['id' => request()->query('id')]),
             'title' => 'Cek Revisi',
         ],
     ];
 
     $tablehead = ['No', 'Dosen', 'Posisi Dosen', 'Status Revisi', 'Aksi'];
-
-    $data = [
-        'array' => [
-            [
-                'Dosen' => 'Ilham Firman Ashari, S.Kom., M.T.',
-                'Posisi_dosen' => 'Pembimbing 1',
-                'Status Revisi' => 'Selesai',
-            ],
-            [
-                'Dosen' => 'Andika Setiawan, S.Kom., M.Cs.',
-                'Posisi_dosen' => 'Pembimbing 2',
-                'Status Revisi' => 'Belum Selesai',
-            ],
-            [
-                'Dosen' => 'Ir. Mugi Praseptiawan, S.T., M.Kom.',
-                'Posisi_dosen' => 'Penguji 1',
-                'Status Revisi' => 'Belum Selesai',
-            ],
-            [
-                'Dosen' => 'Miranti Verdiana, M.Si.',
-                'Posisi_dosen' => 'Penguji 2',
-                'Status Revisi' => 'Belum Selesai',
-            ],
-        ],
-        'page' => 3,
-        'current' => 1,
-    ];
 @endphp
 
 <x-layout-mahasiswa :$breads title="Cek Revisi">
@@ -58,23 +31,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($data['array'] as $item)
+                    @foreach ($data[0]['revisis'] as $item)
                         <tr class="bg-white border-b font-poppins text-base font-normal">
                             <td class="px-6 py-4">
                                 {{ $loop->index + 1 }}
                             </td>
                             <td class="px-6 py-4 font-poppins text-base font-normal ">
-                                {{ $item['Dosen'] }}
+                                {{ $item['penggunas']['nama'] }}
                             </td>
-                            <td class="px-6 py-4 font-semibold font-poppins text-base">
-                                {{ $item['Posisi_dosen'] }}
-                            </td>
-                            <td class="px-6 py-4 font-poppins text-base font-normal {{$item['Status Revisi'] == 'Belum Selesai' ? 'text-red-500' : 'text-green-500'}}">
-                                {{ $item['Status Revisi'] }}
-                            </td>
+                            @if ($item['pengguna_id'] == $data[0]['pembimbing_1_id'])
+                                <td class="px-6 py-4 font-semibold font-poppins text-base">
+                                    Pembimbing 1
+                                </td>
+                            @elseif ($item['pengguna_id'] == $data[0]['pembimbing_2_id'])
+                                <td class="px-6 py-4 font-semibold font-poppins text-base">
+                                    Pembimbing 2
+                                </td>
+                            @elseif ($item['pengguna_id'] == $data[0]['penguji_1_id'])
+                                <td class="px-6 py-4 font-semibold font-poppins text-base">
+                                    Penguji 1
+                                </td>
+                            @elseif ($item['pengguna_id'] == $data[0]['penguji_2_id'])
+                                <td class="px-6 py-4 font-semibold font-poppins text-base">
+                                    Penguji 2
+                                </td>
+                            @endif
+                            @if ($item['status_revisis']['id'] === 1)
+                                <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
+                                    Belum Selesai
+                                </td>
+                            @else
+                                <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
+                                    Selesai
+                                </td>
+                            @endif
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="/mahasiswa/seminar/cek-revisi/detail"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail Revisi</a>
+                                <a href="{{ route('seminar-cek-revisi-detail', ['id' => $item['id']]) }}"
+                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail
+                                    </a>
                             </td>
                         </tr>
                     @endforeach
