@@ -106,6 +106,26 @@ class RevisiController extends Controller
         return redirect()->route('penilaian');
     }
 
+    public function CekDetailRevisiView(Request $request){
+        if ($request->query('id') !== null) {
+            $data = Revisi::select(['id', 'pengguna_id', 'seminar_id', 'status_revisi_id', 'keterangan'])->where('id', $request->query('id'))->with([
+                'Seminars' => function ($query) {
+                    $query->select(['id', 'pengguna_id', 'pembimbing_1_id', 'pembimbing_2_id', 'penguji_1_id', 'penguji_2_id', 'judul', 'tanggal', 'waktu', 'jenis_seminar_id'])
+                    ->with([
+                    'Penggunas' => function ($query) {
+                        $query->select(['id', 'nama', 'nim']);
+                    },
+                ]);
+                },
+                'Penggunas' => function ($query) {
+                    $query->select(['id', 'nama', 'nip']);
+                }
+            ])->first()->toArray();
+            return view('mahasiswa.seminar.seminar-cek-revisi-detail', compact('data'));
+        }
+        return redirect()->route('seminar');
+    }
+
     public function UpdateRevisiView(Request $request)
     {
         if ($request->query('id') !== null) {
