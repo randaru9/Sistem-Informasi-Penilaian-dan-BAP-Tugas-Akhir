@@ -27,7 +27,7 @@ class AuthController extends Controller
                 }
 
                 if ($data->role_id == 1) {
-                    return redirect()->route('bap');
+                    return redirect()->route('bap-admin');
                 }
 
                 if ($data->role_id == 2) {
