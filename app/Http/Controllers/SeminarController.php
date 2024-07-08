@@ -380,4 +380,13 @@ class SeminarController extends Controller
         return redirect()->route('bap-admin');
     }
 
+    public function Bap1View(Request $request)
+    {
+        if($request->query('id') !== null){
+            $data = Seminar::where('id', $request->query('id'))->first()->toArray();
+            return view('admin.bap.bap-lihat-bap1');
+        }
+        return redirect()->route('bap-admin');
+    }
+
 }
