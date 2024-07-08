@@ -207,9 +207,8 @@ Route::prefix('admin')->group(function () {
         
         Route::get('/form-penilaian', [PenilaianController::class, 'FormPenilaianView'])->name('bap-form-penilaian');
 
-        Route::get('/unduh-form-penilaian', function () {
-            return view('admin.bap.form-penilaian');
-        })->name('bap-unduh-form-penilaian');
+        Route::get('/unduh-form-penilaian', [PenilaianController::class, 'UnduhFormPenilaianView'])->name('bap-unduh-form-penilaian');
+
         Route::get('/lihat-bap1', function () {
             return view('admin.bap.bap-lihat-bap1');
         })->name('bap-lihat-bap1');
