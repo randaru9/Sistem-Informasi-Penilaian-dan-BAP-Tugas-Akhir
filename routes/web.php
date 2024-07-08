@@ -209,18 +209,20 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/unduh-form-penilaian', [PenilaianController::class, 'UnduhFormPenilaianView'])->name('bap-unduh-form-penilaian');
 
-        Route::get('/lihat-bap1', function () {
-            return view('admin.bap.bap-lihat-bap1');
-        })->name('bap-lihat-bap1');
+        Route::get('/lihat-bap1', [SeminarController::class, 'Bap1View'])->name('bap-lihat-bap1');
+
         Route::get('/unduh-bap1', function () {
             return view('admin.bap.bap1');
         })->name('bap-unduh-bap1');
+
         Route::get('/lihat-bap2', function () {
             return view('admin.bap.bap-lihat-bap2');
         })->name('bap-lihat-bap2');
+
         Route::get('/unduh-bap2', function () {
             return view('admin.bap.bap2');
         })->name('bap-unduh-bap2');
+        
     });
 
     Route::prefix('yudisium')->group(function () {
