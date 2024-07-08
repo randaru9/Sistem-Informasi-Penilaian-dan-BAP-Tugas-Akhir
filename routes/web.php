@@ -203,13 +203,12 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/detail', [SeminarController::class, 'BapDetailAdminView'])->name('bap-detail');
 
-        Route::get('/detail-proses', function () {
-            return view('admin.bap.bap-detail-proses');
-        })->name('bap-detail-proses');
+        Route::get('/detail-proses', [SeminarController::class, 'BAPDetailProsesView'])->name('bap-detail-proses');
         
         Route::get('/form-penilaian', function () {
             return view('admin.bap.bap-form-penilaian');
         })->name('bap-form-penilaian');
+        
         Route::get('/unduh-form-penilaian', function () {
             return view('admin.bap.form-penilaian');
         })->name('bap-unduh-form-penilaian');
