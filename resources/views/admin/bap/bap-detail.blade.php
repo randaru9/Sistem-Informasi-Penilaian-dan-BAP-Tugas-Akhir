@@ -151,10 +151,10 @@
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Detail
                 Proses</a>
             @if ($data['count_penilaian_selesai'] === 4)
-                <a href="/admin/bap/lihat-bap1"
+                <a href="{{route('bap-lihat-bap1', ['id' => request()->query('id')])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                     BAP 1</a>
-                <a href="/admin/bap/lihat-bap2"
+                <a href="{{route('bap-lihat-bap2', ['id' => request()->query('id')])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                     BAP 2</a>
             @endif
