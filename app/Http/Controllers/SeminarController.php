@@ -244,13 +244,14 @@ class SeminarController extends Controller
                 },
             ])->withCount([
                         'Penilaians as count_penilaian' => function ($query) use ($request, $id) {
-                            $query->where('status_penilaian_id', 1)
-                                ->where('seminar_id', $request->query('id'))
+                            $query->where('seminar_id', $request->query('id'))
                                 ->where('pengguna_id', $id);
                         },
-                        'Revisis as count_revisi',
+                        'Revisis as count_revisi' => function ($query) use ($request, $id) {
+                            $query->where('seminar_id', $request->query('id'))
+                                ->where('pengguna_id', $id);
+                        },
                     ])->first()->toArray();
-
             return view('dosen.penilaian.penilaian-detail', compact('data'));
         }
 
