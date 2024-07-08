@@ -173,18 +173,24 @@ class SeminarController extends Controller
     {
         $data = Seminar::select('id', 'tanggal', 'waktu', 'pengguna_id', 'jenis_seminar_id')
             ->withCount([
-                'Penilaians as count_penilaian',
+                'Penilaians as count_penilaian' => function ($query) {
+                    $query->where('pengguna_id', auth()->user()->id);
+                },
                 'Penilaians as count_penilaian_selesai' => function ($query) {
-                    $query->where('status_penilaian_id', 1);
+                    $query->where('pengguna_id', auth()->user()->id)
+                    ->where('status_penilaian_id', 1);
                 },
                 'Penilaians as count_penilaian_terlambat' => function ($query) {
-                    $query->where('status_penilaian_id', 2);
+                    $query->where('pengguna_id', auth()->user()->id)
+                    ->where('status_penilaian_id', 2);
                 },
-                'Revisis as count_revisi',
+                'Revisis as count_revisi' => function ($query) {
+                    $query->where('pengguna_id', auth()->user()->id);
+                },
                 'Revisis as count_revisi_selesai' => function ($query) {
-                    $query->where('status_revisi_id', 2);
+                    $query->where('pengguna_id', auth()->user()->id)
+                    ->where('status_revisi_id', 2);
                 }
-
             ])->with([
                     'Penggunas' => function ($query) {
                         $query->select('id', 'nama');
@@ -205,7 +211,7 @@ class SeminarController extends Controller
                     ->orWhere('penguji_2_id', auth()->user()->id);
             })
             ->paginate(5)->toArray();
-
+            dd($data);
         return view('dosen.penilaian.penilaian', compact('data'));
     }
 
