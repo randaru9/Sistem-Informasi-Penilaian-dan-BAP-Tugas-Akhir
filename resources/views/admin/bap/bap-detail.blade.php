@@ -147,15 +147,17 @@
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-            <a href="{{route('bap-detail-proses', ['id' => request()->query('id')])}}"
+            <a href="{{ route('bap-detail-proses', ['id' => request()->query('id')]) }}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Detail
                 Proses</a>
-            <a href="/admin/bap/lihat-bap1"
-                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
-                BAP 1</a>
-            <a href="/admin/bap/lihat-bap2"
-                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
-                BAP 2</a>
+            @if ($data['count_penilaian_selesai'] === 4)
+                <a href="/admin/bap/lihat-bap1"
+                    class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
+                    BAP 1</a>
+                <a href="/admin/bap/lihat-bap2"
+                    class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
+                    BAP 2</a>
+            @endif
         </div>
     </div>
 </x-layout-admin>
