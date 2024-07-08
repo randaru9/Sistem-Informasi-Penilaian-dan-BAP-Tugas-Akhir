@@ -205,10 +205,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/detail-proses', [SeminarController::class, 'BAPDetailProsesView'])->name('bap-detail-proses');
         
-        Route::get('/form-penilaian', function () {
-            return view('admin.bap.bap-form-penilaian');
-        })->name('bap-form-penilaian');
-        
+        Route::get('/form-penilaian', [PenilaianController::class, 'FormPenilaianView'])->name('bap-form-penilaian');
+
         Route::get('/unduh-form-penilaian', function () {
             return view('admin.bap.form-penilaian');
         })->name('bap-unduh-form-penilaian');
