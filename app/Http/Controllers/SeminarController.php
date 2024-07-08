@@ -214,7 +214,16 @@ class SeminarController extends Controller
         return view('dosen.penilaian.penilaian', compact('data'));
     }
 
-    // Get One Seminar (yang Terlibat) With Penilaian and Revisi
+    public function BAPDosenView(Request $request){
+        $data = Seminar::select(['id','tanggal','waktu','pengguna_id','jenis_seminar_id', 'bap1_id'])->where('pimpinan_sidang_id', auth()->user()->id)->with(['JenisSeminars:id,keterangan', 'Penggunas:id,nama', 'BAP1s:id,status_tanda_tangan_id,ttd', 'Penilaians'])->whereHas('Penggunas', function (Builder $query) use ($request) {
+            if (isset($request->search)) {
+                $query->where('nama', 'LIKE', "%{$request->search}%");
+            }
+        })->whereHas('Penilaians', function (Builder $query) {
+            $query->where('status_penilaian_id', 1);
+        }, '>', 3)->paginate(5)->toArray();
+        return view('dosen.bap.bap', compact('data'));
+    }
 
     public function DetailPenilaianView(Request $request)
     {
