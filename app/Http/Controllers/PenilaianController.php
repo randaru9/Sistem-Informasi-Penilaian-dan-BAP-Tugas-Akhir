@@ -135,4 +135,14 @@ class PenilaianController extends Controller
         return redirect()->route('bap-admin');
     }
 
+    public function UnduhFormPenilaianView(Request $request){
+        if ($request->query('id') !== null) {
+            $data = Penilaian::where('id', $request->query('id'))->with(['Seminars' => function ($query){
+                $query->with(['Penggunas:id,nama,nim']);
+            }, 'Penggunas:id,nama,nip' ])->first()->toArray();
+            return view('admin.bap.form-penilaian', compact('data'));
+        }
+        return redirect()->route('bap-admin');
+    }
+
 }
