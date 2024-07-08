@@ -5,7 +5,7 @@
             'title' => 'BAP',
         ],
         [
-            'href' => route('bap-detail', ['id' => request()->query('id')]),
+            'href' => route('bap-detail', ['id' => $data['seminars']['id']]),
             'title' => 'Detail',
         ],
         [
