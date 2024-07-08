@@ -211,7 +211,6 @@ class SeminarController extends Controller
                     ->orWhere('penguji_2_id', auth()->user()->id);
             })
             ->paginate(5)->toArray();
-            dd($data);
         return view('dosen.penilaian.penilaian', compact('data'));
     }
 
