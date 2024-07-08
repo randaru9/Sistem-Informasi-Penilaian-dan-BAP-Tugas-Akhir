@@ -10,6 +10,7 @@ use App\Models\BAP1;
 use App\Models\BAP2;
 use App\Models\JenisSeminar;
 use App\Models\Pengguna;
+use App\Models\Penilaian;
 use App\Models\Seminar;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -262,9 +263,11 @@ class SeminarController extends Controller
     {
         $data = Seminar::select(['id', 'jenis_seminar_id', 'pengguna_id'])->with([
             'JenisSeminars' => function ($query) {
-                $query->select(['id', 'keterangan']); },
+                $query->select(['id', 'keterangan']);
+            },
             'Penggunas' => function ($query) {
-                $query->select(['id', 'nama']); }
+                $query->select(['id', 'nama']);
+            }
         ])->withCount([
                     'Revisis as count_revisi',
                     'Revisis as count_revisi_selesai' => function ($query) {
@@ -327,6 +330,46 @@ class SeminarController extends Controller
                         }
                     ])->first()->toArray();
             return view('admin.bap.bap-detail', compact('data'));
+        }
+        return redirect()->route('bap-admin');
+    }
+
+    public function BAPDetailProsesView(Request $request)
+    {
+        if ($request->query('id') !== null) {
+            $data = Seminar::select(['id', 'pengguna_id', 'pembimbing_1_id', 'pembimbing_2_id', 'penguji_1_id', 'penguji_2_id', 'pimpinan_sidang_id', 'jenis_seminar_id'])->where('id', $request->query('id'))->with([
+                'Penilaians',
+                'Revisis',
+                'Pembimbing1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Pembimbing2s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji1s' => function ($query) {
+                    $query->select('id', 'nama');
+                },
+                'Penguji2s' => function ($query) {
+                    $query->select('id', 'nama');
+                }
+            ])->first();
+
+            if ($data) {
+                $collection = $data->toArray();
+
+                $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
+
+                $collection['revisi_pembimbing_1'] = optional($data->revisis->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
+                $collection['revisi_pembimbing_2'] = optional($data->revisis->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
+                $collection['revisi_penguji_1'] = optional($data->revisis->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
+                $collection['revisi_penguji_2'] = optional($data->revisis->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
+
+            }
+
+            return view('admin.bap.bap-detail-proses', compact('collection'));
         }
         return redirect()->route('bap-admin');
     }
