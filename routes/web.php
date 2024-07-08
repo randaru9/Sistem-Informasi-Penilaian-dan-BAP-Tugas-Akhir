@@ -153,9 +153,7 @@ Route::prefix('dosen')->group(function () {
 
     Route::prefix('bap')->group(function () {
         Route::get('/', [SeminarController::class, 'BAPDosenView'])->name('bap-dosen');
-        Route::get('/tambah-tanda-tangan', function () {
-            return view('dosen.bap.bap-tambah-tanda-tangan');
-        })->name('bap-tambah-tanda-tangan');
+        Route::get('/tambah-tanda-tangan', [SeminarController::class, 'Bap1DosenView'])->name('bap-tambah-tanda-tangan');
         Route::get('/unduh', function () {
             return view('dosen.bap.bap-ketua-sidang');
         });
