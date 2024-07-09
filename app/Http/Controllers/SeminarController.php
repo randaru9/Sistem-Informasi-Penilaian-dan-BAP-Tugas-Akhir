@@ -289,6 +289,23 @@ class SeminarController extends Controller
         return redirect()->route('bap-dosen');
     }
 
+    public function UnduhBap1DosenView(Request $request)
+    {
+        if($request->query('id') !== null){
+            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
+
+            if($data){
+                $collection = $data->toArray();
+                $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
+            }
+            return view('dosen.bap.bap-ketua-sidang', compact('collection'));
+        }
+        return redirect()->route('bap-dosen');
+    }
+
     // (Admin) //
 
     public function BapAdminView(Request $request)
