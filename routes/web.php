@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BAPController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\PenilaianController;
 use App\Http\Controllers\RevisiController;
@@ -153,7 +154,11 @@ Route::prefix('dosen')->group(function () {
 
     Route::prefix('bap')->group(function () {
         Route::get('/', [SeminarController::class, 'BAPDosenView'])->name('bap-dosen');
+
         Route::get('/tambah-tanda-tangan', [SeminarController::class, 'Bap1DosenView'])->name('bap-tambah-tanda-tangan');
+
+        Route::post('/tambah-tanda-tangan', [BAPController::class, 'AddTTDBAP1'])->name('bap-tambah-tanda-tangan-post');
+
         Route::get('/unduh', function () {
             return view('dosen.bap.bap-ketua-sidang');
         });
