@@ -10,6 +10,7 @@ use App\Models\BAP1;
 use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BAPController extends Controller
 {
@@ -26,5 +27,20 @@ class BAPController extends Controller
         }
         return redirect()->route('bap-dosen');
     }
+
+    public function DeleteTTDBAP1(Request $request){
+        if ($request->query('id')){
+            $data = BAP1::where('id', $request->query('id'))->first();
+            Storage::delete($data->ttd);
+            $data->update([
+                'status_tanda_tangan_id' => 1,
+                'ttd' => null
+            ]);
+            return redirect()->route('bap-dosen');
+        }
+        return redirect()->route('bap-dosen');
+    }
+
+
 
 }
