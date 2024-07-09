@@ -161,9 +161,7 @@ Route::prefix('dosen')->group(function () {
 
         Route::post('/hapus-tanda-tangan', [BAPController::class, 'DeleteTTDBAP1'])->name('bap-hapus-tanda-tangan-post');
 
-        Route::get('/unduh', function () {
-            return view('dosen.bap.bap-ketua-sidang');
-        });
+        Route::get('/unduh', [SeminarController::class, 'UnduhBap1DosenView'])->name('bap-unduh');
     });
 
     Route::prefix('profil')->group(function () {
