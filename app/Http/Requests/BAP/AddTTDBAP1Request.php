@@ -4,7 +4,7 @@ namespace App\Http\Requests\BAP;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateBAP1Request extends FormRequest
+class AddTTDBAP1Request extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,15 +22,13 @@ class CreateBAP1Request extends FormRequest
     public function rules(): array
     {
         return [
-            'seminar_id' => 'required|uuid|exists:seminar,id',
-            'ttd' => 'required|image|mimes:png,jpg,jpeg',
+            'ttd' => 'required|mimes:png,jpg,jpeg|max:5240',
         ];
     }
     
     public function attributes(): array
     {
         return [
-            'seminar_id' => 'Seminar',
             'ttd' => 'Tanda Tangan',
         ];
     }
