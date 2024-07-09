@@ -295,7 +295,7 @@
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Hapus
                             TTD</button>
                     </form>
-                    <a href="/dosen/bap/unduh"
+                    <a href="{{ route('bap-unduh', ['id' => request()->query('id')]) }}"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                         Unduh
                     </a>
