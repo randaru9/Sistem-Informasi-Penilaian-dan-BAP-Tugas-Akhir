@@ -151,6 +151,7 @@
                                                 if ($data['nilai_bimbingan'] === 0) {
                                                     $average = $total / 5;
                                                 }
+                                                $average = number_format($average, 2, '.', '');
                                             @endphp
                                             {{ $average }}
                                         </td>
