@@ -14,32 +14,6 @@ class BAPController extends Controller
 {
     // (Dosen) //
 
-    // Create BAP1 (ttd and author)
-    public function CreateBAP1(CreateBAP1Request $request){
-        $time = Carbon::now();
-        $bap = BAP1::create([
-            'ttd' => $request->safe()->ttd->store('bap/'.$request->safe()->seminar_id.'/'.$time),
-        ]);
-        $data = Seminar::where('id', $request->safe()->seminar_id)->update(['bap_1_id' => $bap->id]);
-        return response()->json($data);
-    }
-
-    // Update BAP1 (ttd and author)
-    public function UpdateBAP1(UpdateBAP1Request $request){
-        $time = Carbon::now();
-        $bap = BAP1::where('id', $request->safe()->id)->update([
-            'ttd' => $request->safe()->ttd->store('bap/'.$request->safe()->seminar_id.'/'.$time),
-        ]);
-        return response()->json($bap);
-    }
-
-    // Lihat BAP 1
-    public function GenerateBAP1 (GetByIdRequest $request){
-        $data = Seminar::where('id', $request->safe()->id)->with(['BAP1s','Penilaians'=>function($query){$query->with(['Penggunas']);},
-        'PimpinanSidangs',
-        ])->first();
-        return response()->json($data);
-    }
     
 
 }
