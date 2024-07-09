@@ -403,7 +403,7 @@ class SeminarController extends Controller
             }
             return view('dosen.bap.bap-tambah-tanda-tangan', compact('collection'));
         }
-        return redirect()->route('bap-admin');
+        return redirect()->route('bap-dosen');
     }
 
 }
