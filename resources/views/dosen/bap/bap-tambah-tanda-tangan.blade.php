@@ -122,6 +122,7 @@
                                                         ] +
                                                         $collection['penilaian_pembimbing_1']['nilai_bimbingan']) /
                                                     6;
+                                                $avgPembimbing1 = number_format($avgPembimbing1, 2, '.', '');
                                             @endphp
                                             {{ $avgPembimbing1 }}
                                         </td>
@@ -147,6 +148,8 @@
                                                         ] +
                                                         $collection['penilaian_pembimbing_2']['nilai_bimbingan']) /
                                                     6;
+
+                                                $avgPembimbing2 = number_format($avgPembimbing2, 2, '.', '');
                                             @endphp
                                             {{ $avgPembimbing2 }}
                                         </td>
@@ -169,6 +172,8 @@
                                                         $collection['penilaian_penguji_1']['kemampuan_menjawab'] +
                                                         $collection['penilaian_penguji_1']['etika_dan_sopan_santun']) /
                                                     5;
+
+                                                $avgPenguji1 = number_format($avgPenguji1, 2, '.', '');
                                             @endphp
                                             {{ $avgPenguji1 }}
                                         </td>
@@ -191,6 +196,8 @@
                                                         $collection['penilaian_penguji_2']['kemampuan_menjawab'] +
                                                         $collection['penilaian_penguji_2']['etika_dan_sopan_santun']) /
                                                     5;
+
+                                                $avgPenguji2 = number_format($avgPenguji2, 2, '.', '');
                                             @endphp
                                             {{ $avgPenguji2 }}
                                         </td>
@@ -208,12 +215,12 @@
                             <p>Berdasarkan nilai yang diperoleh, maka diputuskan bahwa mahasiswa tersebut dinyatakan:
                             </p>
                             <p> <span class="font-tmr font-semibold text-base">
-                                @if ($avg >= 60)
-                                LULUS/ <s>TIDAK LULUS</s>
-                                @else
-                                <s>LULUS</s>/ TIDAK LULUS
-                                @endif
-                            </span> dengan nilai
+                                    @if ($avg >= 60)
+                                        LULUS/ <s>TIDAK LULUS</s>
+                                    @else
+                                        <s>LULUS</s>/ TIDAK LULUS
+                                    @endif
+                                </span> dengan nilai
                                 :</p>
 
                             @if ($avg >= 80)
@@ -248,7 +255,7 @@
                         </div>
                         <div class="mt-4 space-y-1 flex justify-end">
                             @php
-                            $collection['tanggal'] = date('d-m-Y', strtotime($collection['tanggal']));
+                                $collection['tanggal'] = date('d-m-Y', strtotime($collection['tanggal']));
                             @endphp
                             <div class="w-fit">
                                 <div class="font-tmr text-left text-base">
@@ -280,11 +287,37 @@
                     </div>
                 </div>
             </div>
-            <div class="flex justify-center mt-4">
-                <a href="/dosen/bap/unduh"
-                    class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                    Unduh
-                </a>
+            <div class="flex justify-center space-x-3 mt-4">
+                @if ($collection['b_a_p1s']['ttd'] !== null)
+                    <form action="">
+                        @csrf
+                        <button type="submit"
+                            class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Hapus
+                            TTD</button>
+                    </form>
+                    <a href="/dosen/bap/unduh"
+                        class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
+                        Unduh
+                    </a>
+                @else
+                    <form action="{{ route('bap-tambah-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}" method="POST" enctype="multipart/form-data">
+                        <div class="flex space-x-2">
+                            <button type="submit"
+                                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Simpan</button>
+                            <label for="ttd"
+                                class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
+                                @csrf
+                                <input type="file" id="ttd" name="ttd" accept=".jpg,.jpeg,.png"
+                                    name="ttd" class="hidden" />
+                                Unggah
+                            </label>
+                            <p class="font-poppins text-base text-[#B7B7B7]">Unggah tanda tangan</p>
+                        </div>
+                    </form>
+                    @error('ttd')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
+                @endif
             </div>
         </div>
     </div>
