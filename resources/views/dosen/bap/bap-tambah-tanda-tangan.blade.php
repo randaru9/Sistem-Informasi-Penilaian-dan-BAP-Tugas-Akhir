@@ -289,7 +289,7 @@
             </div>
             <div class="flex justify-center space-x-3 mt-4">
                 @if ($collection['b_a_p1s']['ttd'] !== null)
-                    <form action="">
+                    <form action="{{ route('bap-hapus-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}" method="POST">
                         @csrf
                         <button type="submit"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Hapus
