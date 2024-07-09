@@ -159,6 +159,8 @@ Route::prefix('dosen')->group(function () {
 
         Route::post('/tambah-tanda-tangan', [BAPController::class, 'AddTTDBAP1'])->name('bap-tambah-tanda-tangan-post');
 
+        Route::post('/hapus-tanda-tangan', [BAPController::class, 'DeleteTTDBAP1'])->name('bap-hapus-tanda-tangan-post');
+
         Route::get('/unduh', function () {
             return view('dosen.bap.bap-ketua-sidang');
         });
