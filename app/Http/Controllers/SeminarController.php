@@ -392,7 +392,7 @@ class SeminarController extends Controller
     public function Bap1DosenView(Request $request)
     {
         if($request->query('id') !== null){
-            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip'])->first();
+            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
 
             if($data){
                 $collection = $data->toArray();
