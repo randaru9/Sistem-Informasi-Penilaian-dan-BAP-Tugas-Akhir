@@ -39,7 +39,7 @@
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2 flex space-x-2">
                     <p class="text-sm text-[#000000] font-poppins font-normal">Tidak menerima kode OTP ?</p>
-                    <a class="text-sm text-red-500 font-poppins font-normal" href="/login">Kirim ulang</a>
+                    <a class="text-sm text-red-500 font-poppins font-normal" href="{{route('resend-otp-mahasiswa')}}">Kirim ulang</a>
                 </div>
             </div>
             <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
