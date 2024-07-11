@@ -72,9 +72,11 @@ class AuthController extends Controller
                 if ($data->otp == $request->safe()->otp) {
                     $data->update([
                         'otp' => null,
-                        'email' => $request->query('email'),
-                        'password' => $request->query('katasandi')
+                        'email' => session()->get('email'),
+                        'password' => session()->get('katasandi'),
                     ]);
+                    session()->forget('email');
+                    session()->forget('katasandi');
                     return redirect()->route('seminar');
                 }
                 return back()->with('error', 'OTP yang anda masukkan salah');
@@ -103,6 +105,8 @@ class AuthController extends Controller
                         'otp' => null,
                         'password' => $request->safe()->katasandi
                     ]);
+                    session()->forget('email');
+                    session()->forget('otp');
                     return redirect()->route('login');
                 }
                 return back()->with('error', 'Katasandi yang anda masukkan tidak sama');
@@ -124,7 +128,10 @@ class AuthController extends Controller
                 'otp' => random_int(100000, 999999)
             ]);
 
-            return redirect()->route('verifikasi-otp', ['email' => $request->safe()->email, 'katasandi' => $request->safe()->katasandi]);
+            session()->put('email', $request->safe()->email);
+            session()->put('katasandi', $request->safe()->katasandi);
+
+            return redirect()->route('verifikasi-otp');
         }
         return redirect()->route('login');
     }
