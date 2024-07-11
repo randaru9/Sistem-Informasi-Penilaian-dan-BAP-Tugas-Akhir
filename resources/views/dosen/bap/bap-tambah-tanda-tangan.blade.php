@@ -311,8 +311,14 @@
                                     name="ttd" class="hidden" />
                                 Unggah
                             </label>
-                            <p class="font-poppins text-base text-[#B7B7B7]">Unggah tanda tangan</p>
+                            <p id="files_label" class="font-poppins text-base text-[#B7B7B7]">Unggah tanda tangan</p>
                         </div>
+                        <script>
+                            document.getElementById('ttd').addEventListener('change', function(event) {
+                                var fileName = event.target.files[0] ? event.target.files[0].name : 'Unggah tanda tangan';
+                                document.getElementById('files_label').textContent = fileName;
+                            });
+                        </script>
                     </form>
                     @error('ttd')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
