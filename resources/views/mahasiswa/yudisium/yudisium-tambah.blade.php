@@ -60,8 +60,14 @@
                             <input type="file" accept=".zip,.rar" id="berkas" name="berkas" class="hidden" />
                             Unggah
                         </label>
-                        <p class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
+                        <p id="files_label" class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
                     </div>
+                    <script>
+                        document.getElementById('berkas').addEventListener('change', function(event) {
+                            var fileName = event.target.files[0] ? event.target.files[0].name : 'Unggah draft';
+                            document.getElementById('files_label').textContent = fileName;
+                        });
+                    </script>
                     @error('berkas')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
