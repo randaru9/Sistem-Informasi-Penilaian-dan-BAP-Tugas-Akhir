@@ -140,7 +140,7 @@
                     <label for="tandatangan" class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Tanda
                         Tangan
                     </label>
-                    <a href="{{ route('penilaian-unduh-ttd', ['path' => $data['penilaians'][0]['ttd'], 'id' => $data['id'], 'jenis' => $data['jenis_seminar_id']]) }}"
+                    <a href="{{ route('penilaian-unduh-ttd', ['path' => $data['penilaians'][0]['ttd']]) }}"
                         id="ttd"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                         Unduh

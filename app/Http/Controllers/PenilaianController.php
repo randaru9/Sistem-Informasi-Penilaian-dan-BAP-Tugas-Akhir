@@ -79,14 +79,7 @@ class PenilaianController extends Controller
 
     public function UnduhTtdPenilaian(Request $request){
         if ($request->query('path') !== null) {
-            $user = Seminar::where('id', $request->query('id'))->with('Penggunas')->firstOrFail()->toArray();
-            $user = $user['penggunas']['nama'];
-            if($request->query('jenis') == 1){
-                $name = "Tanda Tangan Seminar Proposal $user";
-            }else{
-                $name = "Tanda Tangan Tugas Akhir $user";
-            }
-            return response()->download(Storage::path($request->query('path')), $name);
+            return response()->download(Storage::path($request->query('path')));
         }
     }
 
