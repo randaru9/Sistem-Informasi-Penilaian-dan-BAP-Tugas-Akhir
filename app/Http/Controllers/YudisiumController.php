@@ -110,6 +110,15 @@ class YudisiumController extends Controller
         return redirect()->route('yudisium-mahasiswa');
     }
 
+    public function UnduhBerkas(Request $request){
+        if ($request->query('path') !== null) {
+            $user = auth()->user()->nama;
+            $periode = $request->query('periode');
+            $name = "Berkas Yudisium Periode $periode $user";
+            return response()->download(Storage::path($request->query('path')), $name);
+        }
+    }
+
     // (Admin) //
 
     // Get All Yudisium
