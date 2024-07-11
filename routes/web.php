@@ -192,6 +192,8 @@ Route::prefix('dosen')->middleware('dosen')->group(function () {
             return view('dosen.profil.profil-verifikasi-email');
         })->name('profil-verifikasi-email-dosen');
 
+        Route::get('/resend-otp', [PenggunaController::class, 'regenerateOtp'])->name('resend-otp-dosen');
+
         Route::post('/verifikasi-email', [PenggunaController::class, 'VerifikasiOtpEmail'])->name('profil-verifikasi-email-dosen-post');
 
         Route::get('/ubah-katasandi', function () {
