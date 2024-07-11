@@ -50,6 +50,21 @@ class PenggunaController extends Controller
         }
     }
 
+    public function regenerateOtp(){
+        $data = Pengguna::where('id', auth()->user()->id)->first();
+        $data->update([
+            'otp' => random_int(100000, 999999)
+        ]);
+        // resend otp via email in session 
+        if (auth()->user()->role_id == 3) {
+            return redirect()->route('profil-verifikasi-email-mahasiswa');
+        } elseif (auth()->user()->role_id == 2) {
+            return redirect()->route('profil-verifikasi-email-dosen');
+        }else{
+            return redirect()->route('profil-verifikasi-email-admin');
+        }
+    }
+
     public function VerifikasiOtpEmail(VerifikasiOtp $request)
     {
         $data = Pengguna::where('id', auth()->user()->id)->first();
