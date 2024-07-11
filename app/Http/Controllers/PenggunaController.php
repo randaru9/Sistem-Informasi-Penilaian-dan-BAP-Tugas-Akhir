@@ -35,6 +35,7 @@ class PenggunaController extends Controller
 
     public function GenerateOtpUpdateEmail(UpdateEmail $request)
     {
+        session()->forget('otp');
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $request->session()->put('email', $request->safe()->email);
         //catch email req and send email
