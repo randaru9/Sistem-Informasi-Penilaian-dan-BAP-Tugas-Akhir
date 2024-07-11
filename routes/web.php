@@ -56,7 +56,7 @@ Route::get('/buat-katasandi-baru', function () {
 
 Route::post('/buat-katasandi-baru', [AuthController::class, 'BuatKatasandiBaruWithOtp'])->name('buat-katasandi-baru-post');
 
-Route::prefix('mahasiswa')->group(function () {
+Route::prefix('mahasiswa')->middleware('mahasiswa')->group(function () {
 
     Route::prefix('seminar')->group(function () {
         Route::get('/', [SeminarController::class, 'SeminarMahasiswaView'])->name('seminar');
@@ -122,7 +122,7 @@ Route::prefix('mahasiswa')->group(function () {
     });
 });
 
-Route::prefix('dosen')->group(function () {
+Route::prefix('dosen')->middleware('dosen')->group(function () {
 
     Route::prefix('penilaian')->group(function () {
         Route::get('/', [SeminarController::class, 'PenilaianPage'])->name('penilaian');
@@ -193,7 +193,7 @@ Route::prefix('dosen')->group(function () {
     });
 });
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')->middleware('admin')->group(function () {
     Route::prefix('bap')->group(function () {
 
         Route::get('/', [SeminarController::class, 'BapAdminView'])->name('bap-admin');
