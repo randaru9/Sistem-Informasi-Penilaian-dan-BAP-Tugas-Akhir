@@ -166,6 +166,18 @@ class SeminarController extends Controller
 
     }
 
+    public function UnduhDraft(Request $request){
+        if ($request->query('path') !== null) {
+            $user = auth()->user()->nama;
+            if($request->query('jenis') == 1){
+                $name = "Draft Seminar Proposal $user";
+            }else{
+                $name = "Draft Tugas Akhir $user";
+            }
+            return response()->download(Storage::path($request->query('path')), $name);
+        }
+    }
+
     // (Dosen) //
 
     // Get All Seminar (yang Terlibat) With Penilaian and Revisi
