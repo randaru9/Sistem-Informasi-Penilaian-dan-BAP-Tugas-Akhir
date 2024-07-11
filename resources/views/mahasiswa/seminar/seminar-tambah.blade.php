@@ -156,16 +156,21 @@
                     <div class="flex space-x-2 items-center">
                         <label for="draft_seminar"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                            <input type="file" accept=".zip,.rar" name="draft" id="draft_seminar" class="hidden"
-                                />
+                            <input type="file" accept=".zip,.rar" name="draft" id="draft_seminar" class="hidden" />
                             Unggah
                         </label>
-                        <p class="font-poppins text-base text-[#B7B7B7]">Unggah draft</p>
+                        <p id="files_label" class="font-poppins text-base text-[#B7B7B7]">Unggah draft</p>
                     </div>
                     @error('draft')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+                <script>
+                    document.getElementById('draft_seminar').addEventListener('change', function(event) {
+                        var fileName = event.target.files[0] ? event.target.files[0].name : 'Unggah draft';
+                        document.getElementById('files_label').textContent = fileName;
+                    });
+                </script>
             </div>
             <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
                 <button type="submit"
