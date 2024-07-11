@@ -109,10 +109,10 @@
             <div class="w-1/2">
                 <label for="draft" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft
                     Tugas Akhir</label>
-                <button id="draft"
+                <a href="{{route('seminar-unduh-draft', ['path' => $data['draft'], 'jenis' => $data['jenis_seminar_id']])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
-                </button>
+                </a>
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
