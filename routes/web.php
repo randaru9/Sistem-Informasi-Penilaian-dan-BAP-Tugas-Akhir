@@ -31,6 +31,7 @@ Route::get('/login', function () {
 });
 
 Route::post('/login', [AuthController::class, 'Login'])->name('login');
+Route::get('/logout', [AuthController::class, 'Logout'])->name('logout');
 
 Route::get('/lupa-katasandi', function () {
     return view('auth.lupa-katasandi');
