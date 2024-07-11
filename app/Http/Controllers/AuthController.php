@@ -48,10 +48,20 @@ class AuthController extends Controller
     public function GenerateOtpLupaKatasandi(GenerateOtp $request)
     {
         $data = Pengguna::where('email', $request->safe()->email)->first();
+        session()->put('email', $request->safe()->email);
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        return redirect()->route('verifikasi-otp', ['email' => $request->safe()->email]);
+        return redirect()->route('verifikasi-otp');
+    }
+
+    public function RegenerateOtpLupaKatasandi()
+    {
+        $data = Pengguna::where('email', session()->get('email'))->first();
+        $data->update([
+            'otp' => random_int(100000, 999999)
+        ]);
+        return redirect()->route('verifikasi-otp');
     }
 
     public function VerifikasiOtp(VerifikasiOtp $request)
@@ -72,10 +82,11 @@ class AuthController extends Controller
             return redirect()->route('login');
         }
 
-        $data = Pengguna::where('email', $request->query('email'))->first();
+        $data = Pengguna::where('email', session()->get('email'))->first();
         if ($data !== null) {
             if ($data->otp == $request->safe()->otp) {
-                return redirect()->route('buat-katasandi-baru', ['email' => $request->query('email'), 'otp' => $request->safe()->otp]);
+                $request->session()->put('otp', $request->safe()->otp);
+                return redirect()->route('buat-katasandi-baru');
             }
             return back()->with('error', 'OTP yang anda masukkan salah');
         }
@@ -84,9 +95,9 @@ class AuthController extends Controller
 
     public function BuatKatasandiBaruWithOtp(BuatKatasandiBaruwithOtp $request)
     {
-        $data = Pengguna::where('email', $request->query('email'))->first();
+        $data = Pengguna::where('email', session()->get('email'))->first();
         if ($data !== null) {
-            if ($data->otp == $request->query('otp')) {
+            if ($data->otp == session()->get('otp')) {
                 if ($request->safe()->katasandi == $request->safe()->konfirmasi_katasandi) {
                     $data->update([
                         'otp' => null,
@@ -96,7 +107,7 @@ class AuthController extends Controller
                 }
                 return back()->with('error', 'Katasandi yang anda masukkan tidak sama');
             }
-            return redirect()->route('verifikasi-otp', ['email' => $request->query('email')]);
+            return redirect()->route('verifikasi-otp');
         }
         return redirect()->route('lupa-katasandi');
     }
