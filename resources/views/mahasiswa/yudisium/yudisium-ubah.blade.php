@@ -72,8 +72,14 @@
                             <input type="file" id="berkas" name="berkas" class="hidden" minlength="9" required />
                             Unggah
                         </label>
-                        <p class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
+                        <p id="files_label" class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>
                     </div>
+                    <script>
+                        document.getElementById('berkas').addEventListener('change', function(event) {
+                            var fileName = event.target.files[0] ? event.target.files[0].name : 'Unggah draft';
+                            document.getElementById('files_label').textContent = fileName;
+                        });
+                    </script>
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
