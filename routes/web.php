@@ -161,6 +161,8 @@ Route::prefix('dosen')->middleware('dosen')->group(function () {
         Route::post('/ubah-status-revisi', [RevisiController::class, 'UpdateStatusRevisiToDone'])->name('penilaian-ubah-status-revisi-post');
 
         Route::get('/unduh-draft', [SeminarController::class, 'UnduhDraftPenilaian'])->name('penilaian-unduh-draft');
+
+        Route::get('/unduh-ttd', [PenilaianController::class, 'UnduhTtdPenilaian'])->name('penilaian-unduh-ttd');
     });
 
     Route::prefix('bap')->group(function () {
