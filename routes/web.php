@@ -112,6 +112,8 @@ Route::prefix('mahasiswa')->middleware('mahasiswa')->group(function () {
 
         Route::post('/ubah-email', [PenggunaController::class, 'GenerateOtpUpdateEmail'])->name('profil-ubah-email-mahasiswa-post');
 
+        Route::get('/resend-otp', [PenggunaController::class, 'regenerateOtp'])->name('resend-otp-mahasiswa');
+
         Route::get('/verifikasi-email', function () {
             return view('mahasiswa.profil.profil-verifikasi-email');
         })->name('profil-verifikasi-email-mahasiswa');
