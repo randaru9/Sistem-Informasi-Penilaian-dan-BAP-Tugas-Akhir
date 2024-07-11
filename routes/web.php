@@ -77,6 +77,8 @@ Route::prefix('mahasiswa')->middleware('mahasiswa')->group(function () {
         Route::get('/cek-revisi/detail', [RevisiController::class, 'CekDetailRevisiView'])->name('seminar-cek-revisi-detail');
 
         Route::get('/cek-revisi/detail/unduh', [RevisiController::class, 'FormRevisiView'])->name('seminar-form-revisi');
+
+        Route::get('/unduh-draft', [SeminarController::class, 'UnduhDraft'])->name('seminar-unduh-draft');
     });
 
     Route::prefix('yudisium')->group(function () {
