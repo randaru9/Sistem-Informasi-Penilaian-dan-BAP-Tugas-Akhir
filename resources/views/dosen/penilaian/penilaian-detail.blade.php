@@ -104,8 +104,7 @@
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <label for="berkas_yudisium" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Berkas
-                    Yudisium</label>
+                <label for="berkas_yudisium" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft</label>
                 <a href="{{ route('penilaian-unduh-draft', ['path' => $data['draft'], 'jenis' => $data['jenis_seminar_id'], 'id' => $data['id']])}}" id="berkas_yudisium"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
