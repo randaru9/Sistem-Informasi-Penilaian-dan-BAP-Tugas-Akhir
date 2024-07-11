@@ -89,7 +89,7 @@
                             class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Penulisan Draft Tugas
                             Akhir dan PPT</label>
                         <p id="penulisan" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['penulisan_draft_tugas_akhir_dan_ppt']}}
+                            {{ $data['penilaians'][0]['penulisan_draft_tugas_akhir_dan_ppt'] }}
                         </p>
                     </div>
                     <div class="lg:w-1/3">
@@ -97,7 +97,7 @@
                             class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Penyajian/Presentasi
                         </label>
                         <p id="presentasi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['penyajian_atau_presentasi']}}
+                            {{ $data['penilaians'][0]['penyajian_atau_presentasi'] }}
                         </p>
                     </div>
                     <div class="lg:w-1/3">
@@ -105,7 +105,7 @@
                             class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Penguasaan
                             Materi</label>
                         <p id="penguasaan" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['penguasaan_materi']}}
+                            {{ $data['penilaians'][0]['penguasaan_materi'] }}
                         </p>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                             Menjawab</label>
                         <p id="kemampuan_menjawab"
                             class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['kemampuan_menjawab']}}
+                            {{ $data['penilaians'][0]['kemampuan_menjawab'] }}
                         </p>
                     </div>
                     <div class="lg:w-1/3">
@@ -124,7 +124,7 @@
                             class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Etika
                             dan Sopan Santuan</label>
                         <p id="etika" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['etika_dan_sopan_santun']}}
+                            {{ $data['penilaians'][0]['etika_dan_sopan_santun'] }}
                         </p>
                     </div>
                     <div class="lg:w-1/3">
@@ -132,7 +132,7 @@
                             class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Nilai
                             Bimbingan</label>
                         <p id="bimbinga" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                            {{$data['penilaians'][0]['nilai_bimbingan']}}
+                            {{ $data['penilaians'][0]['nilai_bimbingan'] }}
                         </p>
                     </div>
                 </div>
@@ -140,13 +140,14 @@
                     <label for="tandatangan" class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Tanda
                         Tangan
                     </label>
-                    <button
+                    <a href="{{ route('penilaian-unduh-ttd', ['path' => $data['penilaians'][0]['ttd'], 'id' => $data['id'], 'jenis' => $data['jenis_seminar_id']]) }}"
+                        id="ttd"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                         Unduh
-                    </button>
+                    </a>
                 </div>
                 <div class="w-full flex justify-end gap-x-4 my-3">
-                    <a href="{{route('penilaian-ubah-nilai', ['id' => $data['id']])}}"
+                    <a href="{{ route('penilaian-ubah-nilai', ['id' => $data['id']]) }}"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>
                 </div>
             </div>
