@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#"
+                    <a href="{{route('logout')}}"
                         class="flex items-center px-4 py-3 ring-2 rounded-lg gro up  {{ Request::routeIs('keluar*') ? 'stroke-blue1 bg-white ring-blue1 text-blue1' : 'stroke-white hover:ring-blue1 bg-blue1 hover:bg-white hover:text-blue1 hover:stroke-blue1 ring-white text-white' }}">
                         <svg width="19" height="20" viewBox="0 0 19 20" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
