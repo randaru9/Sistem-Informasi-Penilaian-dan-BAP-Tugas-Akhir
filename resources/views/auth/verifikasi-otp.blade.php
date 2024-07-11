@@ -3,7 +3,8 @@
         <p class="font-poppins font-semibold text-3xl text-[#000000]">Verifikasi</p>
         <p class=" font-poppins font-normal text-lg text-[#000000]">Masukan kode OTP yang dikirim ke email</p>
         <p class="font-poppins font-bold text-lg text-[#000000]">{{ request()->query('email') }}</p>
-        <form class="w-full space-y-4 mt-4" action="{{ route('verifikasi-otp', ['email' => request()->query('email'), 'katasandi' => request()->query('katasandi')]) }}"
+        <form class="w-full space-y-4 mt-4"
+            action="{{ route('verifikasi-otp', ['email' => request()->query('email'), 'katasandi' => request()->query('katasandi')]) }}"
             method="POST">
             <div>
                 <input type="text" id="otp" name="otp"
@@ -21,9 +22,7 @@
             </div>
             <div class="flex justify-center space-x-1">
                 <p class="text-sm text-[#000000] font-poppins font-normal">Tidak menerima kode OTP ?</p>
-                <form action="">
-                    <button class="text-sm text-red-500 font-poppins font-normal" href="/login">Kirim ulang</button>
-                </form>
+                <a class="text-sm text-red-500 font-poppins font-normal" href="{{route('resend-otp')}}">Kirim ulang</a>
             </div>
         </form>
 
