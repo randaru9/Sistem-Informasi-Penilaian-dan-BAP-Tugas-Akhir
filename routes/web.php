@@ -294,6 +294,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
             return view('admin.mahasiswa.mahasiswa-parsing-akun');
         })->name('mahasiswa-parsing-akun');
 
+        Route::post('/parsing-akun', [PenggunaController::class, 'ParsingPenggunaMahasiswa'])->name('mahasiswa-parsing-akun-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.mahasiswa.mahasiswa-ubah-katasandi');
         })->name('mahasiswa-ubah-katasandi');
