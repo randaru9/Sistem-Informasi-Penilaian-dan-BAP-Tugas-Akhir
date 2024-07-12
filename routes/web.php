@@ -96,7 +96,7 @@ Route::prefix('mahasiswa')->middleware('mahasiswa')->group(function () {
 
         Route::post('/ubah', [YudisiumController::class, 'UpdateYudisium'])->name('yudisium-ubah-post');
 
-        Route::get('/unduh-draft', [YudisiumController::class, 'UnduhBerkas'])->name('yudisium-unduh-berkas');
+        Route::get('/unduh-berkas', [YudisiumController::class, 'UnduhBerkas'])->name('yudisium-unduh-berkas');
     });
 
     Route::prefix('profil')->group(function () {
