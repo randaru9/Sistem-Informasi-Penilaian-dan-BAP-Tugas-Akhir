@@ -140,6 +140,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    @if(auth()->user()->id !== $data['penguji_1_id'] && auth()->user()->id !== $data['penguji_2_id'])
                     <div class="lg:w-1/3">
                         <label for="bimbingan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Nilai
                             Bimbingan</label>
@@ -150,6 +151,7 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    @endif
                 </div>
                 <div class="w-full flex flex-col my-4">
                     <label for="tandatangan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tanda
