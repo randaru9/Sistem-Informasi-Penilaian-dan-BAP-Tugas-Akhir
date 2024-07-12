@@ -97,10 +97,10 @@
             <div class="w-1/2">
                 <label for="berkas_yudisium" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Berkas
                     Yudisium</label>
-                <button id="berkas_yudisium"
+                <a href="{{route('yudisium-unduh-berkas-admin', ['path' => $data['berkas'], 'periode' => $data['periode_wisudas']['keterangan'], 'nama' => $data['penggunas']['nama']])}}" id="berkas_yudisium"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
-                </button>
+                </a>
             </div>
         </div>
         @if ($data['catatan'] != null)
