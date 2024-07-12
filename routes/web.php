@@ -323,5 +323,6 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
         Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandi'])->name('profil-ubah-katasandi-admin-post');
 
+        Route::get('/resend-otp', [PenggunaController::class, 'regenerateOtp'])->name('resend-otp-admin');
     });
 });
