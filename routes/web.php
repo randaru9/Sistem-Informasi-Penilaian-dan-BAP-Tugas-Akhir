@@ -213,9 +213,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
         Route::get('/', [SeminarController::class, 'BapAdminView'])->name('bap-admin');
 
-        Route::get('/rekap-nilai', function () {
-            return view('admin.bap.bap-rekap-nilai');
-        })->name('bap-rekap-nilai');
+        Route::get('/rekap-nilai', [SeminarController::class, 'RekapNilaiView'])->name('bap-rekap-nilai');
 
         Route::get('/detail', [SeminarController::class, 'BapDetailAdminView'])->name('bap-detail');
 
