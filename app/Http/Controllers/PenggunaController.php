@@ -12,6 +12,7 @@ use App\Http\Requests\Pengguna\UpdateEmail;
 use App\Http\Requests\Pengguna\UpdateKatasandiForPenggunaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Imports\DosenImport;
+use App\Imports\MahasiswaImport;
 use App\Models\Pengguna;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -210,6 +211,11 @@ class PenggunaController extends Controller
     public function ParsingPenggunaDosen(ParsingPenggunaRequest $request){
         Excel::import(new DosenImport, $request->safe()->file);
         return redirect()->route('dosen');
+    }
+
+    public function ParsingPenggunaMahasiswa(ParsingPenggunaRequest $request){
+        Excel::import(new MahasiswaImport, $request->safe()->file);
+        return redirect()->route('mahasiswa');
     }
 
     // Get All Pengguna (Dosen)
