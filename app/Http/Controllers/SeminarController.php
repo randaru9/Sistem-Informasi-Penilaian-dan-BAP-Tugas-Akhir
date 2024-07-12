@@ -362,6 +362,11 @@ class SeminarController extends Controller
         return view('admin.bap.bap', compact('data'));
     }
 
+    public function RekapNilaiView(){
+        $data = JenisSeminar::all();
+        return view('admin.bap.bap-rekap-nilai', compact('data'));
+    }
+
     public function BapDetailAdminView(Request $request)
     {
         if ($request->query('id') !== null) {
