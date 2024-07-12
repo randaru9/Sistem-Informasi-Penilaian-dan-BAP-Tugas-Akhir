@@ -265,6 +265,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
             return view('admin.dosen.dosen-parsing-akun');
         })->name('dosen-parsing-akun');
 
+        Route::post('/parsing-akun', [PenggunaController::class, 'ParsingPenggunaDosen'])->name('dosen-parsing-akun-post');
+
         Route::get('/ubah-katasandi', function () {
             return view('admin.dosen.dosen-ubah-katasandi');
         })->name('dosen-ubah-katasandi');
