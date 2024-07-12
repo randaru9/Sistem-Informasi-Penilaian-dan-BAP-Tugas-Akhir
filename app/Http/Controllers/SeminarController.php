@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\NilaiExport;
 use App\Http\Requests\Seminar\CreateRequest;
+use App\Http\Requests\Seminar\ExportRekapNilai;
 use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Http\Requests\Seminar\GetByPenggunaIdRequest;
 use App\Http\Requests\Seminar\UpdateRequest;
@@ -365,6 +367,68 @@ class SeminarController extends Controller
     public function RekapNilaiView(){
         $data = JenisSeminar::all();
         return view('admin.bap.bap-rekap-nilai', compact('data'));
+    }
+
+    public function RekapNilaiExport(ExportRekapNilai $request){
+
+        $data = Seminar::query()->where('jenis_seminar_id', $request->safe()->jenis)->whereBetween('created_at', [$request->safe()->tglAwal, $request->safe()->tglAkhir])->with('Penggunas', 'Penilaians')->get();
+
+        if($data->isEmpty()){
+            return back()->withInput()->with('error', 'Belum ada nilai yang dapat direkap');
+        }
+
+        foreach ($data as $index => $value) {
+
+            $nilaiPembimbing1 = $value['penilaians']->where('pengguna_id', $value['pembimbing_1_id'])->first()->toArray();
+
+            $nilaiPembimbing2 = $value['penilaians']->where('pengguna_id', $value['pembimbing_2_id'])->first()->toArray();
+
+            $nilaiPenguji1 = $value['penilaians']->where('pengguna_id', $value['penguji_1_id'])->first()->toArray();
+
+            $nilaiPenguji2 = $value['penilaians']->where('pengguna_id', $value['penguji_2_id'])->first()->toArray();
+
+            $nilaiPembimbing1 = ($nilaiPembimbing1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing1['penyajian_atau_presentasi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['nilai_bimbingan'] + $nilaiPembimbing1['etika_dan_sopan_santun'] ) / 6;
+
+            $nilaiPembimbing2 = ($nilaiPembimbing2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing2['penyajian_atau_presentasi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['nilai_bimbingan'] + $nilaiPembimbing2['etika_dan_sopan_santun'] ) / 6;
+
+            $nilaiPenguji1 = ($nilaiPenguji1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji1['penyajian_atau_presentasi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['etika_dan_sopan_santun'] ) / 5;
+            
+            $nilaiPenguji2 = ($nilaiPenguji2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji2['penyajian_atau_presentasi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['etika_dan_sopan_santun'] ) / 5;
+
+            $nilaiAkhir = (($nilaiPembimbing1 + $nilaiPembimbing2)*60/100 + ($nilaiPenguji1 + $nilaiPenguji2)*40/100)/2;
+
+            if ($nilaiAkhir >= 80) {
+                $nilaiHuruf = 'A';
+            } elseif ($nilaiAkhir >= 75) {
+                $nilaiHuruf = 'AB';
+            } elseif ($nilaiAkhir >= 70) {
+                $nilaiHuruf = 'B';
+            } elseif ($nilaiAkhir >= 65) {
+                $nilaiHuruf = 'BC';
+            } elseif ($nilaiAkhir >= 60) {
+                $nilaiHuruf = 'C';
+            } elseif($nilaiAkhir >= 55) {
+                $nilaiHuruf = 'D';
+            }elseif($nilaiAkhir < 50) {
+                $nilaiHuruf = 'E';
+            }
+        
+            $mahasiswa[$index] = [
+                'no' => $index + 1,
+                'nama' => $value['Penggunas']['nama'],
+                'nim' => $value['Penggunas']['nim'],
+                'nilai_akhir' => $nilaiAkhir,
+                'nilai_huruf' => $nilaiHuruf
+            ];
+        }
+
+        if($request->safe()->jenis == 1) {
+            $jenis = 'Seminar Proposal';
+        }elseif($request->safe()->jenis == 2) {
+            $jenis = 'Seminar Akhir';
+        }
+
+        return (new NilaiExport($mahasiswa))->download("Rekap Nilai {$jenis} {$request->safe()->tglAwal} - {$request->safe()->tglAkhir} .xlsx");
     }
 
     public function BapDetailAdminView(Request $request)
