@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Auth\VerifikasiOtp;
 use App\Http\Requests\Pengguna\CreateDosen;
 use App\Http\Requests\Pengguna\CreateMahasiswa;
+use App\Http\Requests\Pengguna\ParsingPenggunaRequest;
 use App\Http\Requests\Pengguna\UpdateBiodataDosen;
 use App\Http\Requests\Pengguna\UpdateBiodataMahasiswaRequest;
 use App\Http\Requests\Pengguna\UpdateEmail;
 use App\Http\Requests\Pengguna\UpdateKatasandiForPenggunaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
+use App\Imports\DosenImport;
 use App\Models\Pengguna;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PenggunaController extends Controller
 {
@@ -204,6 +207,10 @@ class PenggunaController extends Controller
         return redirect()->route('dosen');
     }
 
+    public function ParsingPenggunaDosen(ParsingPenggunaRequest $request){
+        Excel::import(new DosenImport, $request->safe()->file);
+        return redirect()->route('dosen');
+    }
 
     // Get All Pengguna (Dosen)
     public function GetAllPenggunaDosen(Request $request)
