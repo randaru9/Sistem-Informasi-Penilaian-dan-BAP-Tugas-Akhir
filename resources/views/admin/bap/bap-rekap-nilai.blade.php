@@ -28,16 +28,29 @@
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="jenis_sidang" id="jenis_sidang">
-                        <option value=""></option>
+                        <option disabled selected hidden> Pilih Jenis Sidang </option>
+                        @foreach ($data as $item)
+                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
 
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
-                    <label for="tanggal_seminar"
-                        class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Bulan Sidang</label>
-                    <input type="month" id="tanggal_seminar"
+                    <label for="tglAwal"
+                        class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tanggal Awal</label>
+                    <input type="date" id="tglAwal" name="tglAwal"
+                        class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
+                        minlength="9" required />
+                </div>
+            </div>
+
+            <div class="w-full px-5 flex py-2 gap-2">
+                <div class="w-1/2">
+                    <label for="tglAkhir"
+                        class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tanggal Akhir</label>
+                    <input type="date" id="tglAkhir" name="tglAkhir"
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
                         minlength="9" required />
                 </div>
