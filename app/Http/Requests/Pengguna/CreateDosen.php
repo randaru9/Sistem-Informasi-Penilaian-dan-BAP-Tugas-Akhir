@@ -24,7 +24,7 @@ class CreateDosen extends FormRequest
     {
         return [
             'nama' => ['required', 'string', Rule::unique('pengguna')->withoutTrashed()],
-            'nip' => ['required', 'string', 'max_digits:18', 'min_digits:18' ,Rule::unique('pengguna')->withoutTrashed()],
+            'nip' => ['required', 'string', 'max_digits:18', 'min_digits:16' ,Rule::unique('pengguna')->withoutTrashed()],
             'email' => ['required', 'email', Rule::unique('pengguna')->withoutTrashed()],
             'katasandi' => 'required|string|min_digits:8',
         ];
