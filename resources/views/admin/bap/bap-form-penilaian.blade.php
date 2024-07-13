@@ -176,6 +176,7 @@
                                         <p class="font-bold">Penguji 2</p>
                                     @endif
                                     <div class="w-[100px] h-[100px]">
+                                        <img src="{{ url(asset("storage/{$data['ttd']}")) }}" alt="">
                                     </div>
                                     <p class="font-bold"> {{ $data['penggunas']['nama'] }}
                                     </p>
