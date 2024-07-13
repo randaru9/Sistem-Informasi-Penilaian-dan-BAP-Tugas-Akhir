@@ -371,7 +371,7 @@ class SeminarController extends Controller
 
     public function RekapNilaiExport(ExportRekapNilai $request){
 
-        $data = Seminar::query()->where('jenis_seminar_id', $request->safe()->jenis)->whereBetween('created_at', [$request->safe()->tglAwal, $request->safe()->tglAkhir])->with('Penggunas', 'Penilaians')->get();
+        $data = Seminar::query()->where('jenis_seminar_id', $request->safe()->jenis)->whereBetween('tanggal', [$request->safe()->tglAwal, $request->safe()->tglAkhir])->with('Penggunas', 'Penilaians')->get();
 
         if($data->isEmpty()){
             return back()->withInput()->with('error', 'Belum ada nilai yang dapat direkap');
