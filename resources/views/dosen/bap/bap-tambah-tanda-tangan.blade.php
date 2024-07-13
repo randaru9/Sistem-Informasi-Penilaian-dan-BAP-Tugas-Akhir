@@ -262,7 +262,7 @@
                                     <p class="font-normal">Lampung Selatan, {{ $collection['tanggal'] }} </p>
                                     <p class="font-bold">Ketua Sidang Proposal,</p>
                                     <div class="w-[100px] h-[100px]">
-
+                                        <img src="{{ url(asset("storage/{$collection['b_a_p1s']['ttd']}")) }}" alt="">
                                     </div>
                                     <p class="font-bold"> {{ $collection['pimpinan_sidangs']['nama'] }}
                                     </p>
@@ -289,7 +289,8 @@
             </div>
             <div class="flex justify-center space-x-3 mt-4">
                 @if ($collection['b_a_p1s']['ttd'] !== null)
-                    <form action="{{ route('bap-hapus-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}" method="POST">
+                    <form action="{{ route('bap-hapus-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}"
+                        method="POST">
                         @csrf
                         <button type="submit"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Hapus
@@ -300,7 +301,8 @@
                         Unduh
                     </a>
                 @else
-                    <form action="{{ route('bap-tambah-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('bap-tambah-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}"
+                        method="POST" enctype="multipart/form-data">
                         <div class="flex space-x-2">
                             <button type="submit"
                                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Simpan</button>

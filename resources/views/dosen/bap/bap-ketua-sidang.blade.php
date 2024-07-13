@@ -265,7 +265,7 @@
                             <p class="font-normal">Lampung Selatan, {{ $collection['tanggal'] }} </p>
                             <p class="font-bold">Ketua Sidang Proposal,</p>
                             <div class="w-[100px] h-[100px]">
-
+                                <img src="{{ url(asset("storage/{$collection['b_a_p1s']['ttd']}")) }}" alt="">
                             </div>
                             <p class="font-bold"> {{ $collection['pimpinan_sidangs']['nama'] }}
                             </p>
@@ -276,9 +276,8 @@
                 </div>
                 <div class="flex flex-col font-tmr mt-2 font-normal text-xs">
                     <p>( <span class="font-tmr font-semibold"> A </span> = 80 – 100 ; <span
-                            class="font-tmr font-semibold"> AB </span> = 75 – 79 ; <span
-                            class="font-tmr font-semibold"> B </span> = 70 – 74 ; <span
-                            class="font-tmr font-semibold"> BC </span> = 65 – 69 ; <span
+                            class="font-tmr font-semibold"> AB </span> = 75 – 79 ; <span class="font-tmr font-semibold">
+                            B </span> = 70 – 74 ; <span class="font-tmr font-semibold"> BC </span> = 65 – 69 ; <span
                             class="font-tmr font-semibold"> C </span> = 60 – 64)
                     </p>
                     <p class="font-semibold">&bull; ** Coret salah satu</p>
