@@ -112,12 +112,12 @@
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-            @if ($data['count_penilaian'] === 0)
+            @if ($data['count_penilaian'] === 0 || $data['penilaians'][0]['status_penilaian_id'] === 2)
                 <a href="{{ route('penilaian-tambah', ['id' => $data['id']]) }}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
                     Nilai</a>
             @else
-                <a href="{{ route('penilaian-cek-nilai', ['id' => $data['id']]) }}"
+                <a href="{{ route('penilaian-cek-nilai', ['id' => $data['id']]) && $data['penilaians'][0]['status_penilaian_id'] !== 2 }}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Cek
                     Nilai</a>
             @endif
