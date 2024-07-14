@@ -548,4 +548,23 @@ class SeminarController extends Controller
         }
         return redirect()->route('bap-admin');
     }
+
+    public function Bap2View(Request $request){
+        if ($request->query('id') !== null) {
+            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s', 'BAP2s' => function($query){
+                $query->with('Koordinators:id,nama,nip');
+            },])->first();
+
+            if($data){
+                $collection = $data->toArray();
+                $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
+                $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
+            }
+
+            return view('admin.bap.bap-lihat-bap2', compact('collection'));
+        }
+        return redirect()->route('bap-admin');
+    }
 }
