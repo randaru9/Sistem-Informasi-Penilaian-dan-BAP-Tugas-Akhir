@@ -38,31 +38,58 @@ class PenilaianController extends Controller
         if ($request->query('id') !== null) {
             $id = auth()->user()->id;
             $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id}");
-            if($request->bimbingan !== null){
-                Penilaian::create([
-                    'pengguna_id' => $id,
-                    'seminar_id' => $request->query('id'),
-                    'status_penilaian_id' => 1,
-                    'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
-                    'penyajian_atau_presentasi' => $request->safe()->penyajian,
-                    'penguasaan_materi' => $request->safe()->penguasaan,
-                    'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
-                    'etika_dan_sopan_santun' => $request->safe()->etika,
-                    'nilai_bimbingan' => $request->safe()->bimbingan,
-                    'ttd' => $ttd
-                ]);
-            }else{
-                Penilaian::create([
-                    'pengguna_id' => $id,
-                    'seminar_id' => $request->query('id'),
-                    'status_penilaian_id' => 1,
-                    'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
-                    'penyajian_atau_presentasi' => $request->safe()->penyajian,
-                    'penguasaan_materi' => $request->safe()->penguasaan,
-                    'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
-                    'etika_dan_sopan_santun' => $request->safe()->etika,
-                    'ttd' => $ttd
-                ]);
+            if ($request->bimbingan !== null) {
+                $data = Penilaian::where('seminar_id', $request->query('id'))->where('pengguna_id', $id)->first();
+                if ($data !== null) {
+                    $data->update([
+                        'status_penilaian_id' => 1,
+                        'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                        'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                        'penguasaan_materi' => $request->safe()->penguasaan,
+                        'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                        'etika_dan_sopan_santun' => $request->safe()->etika,
+                        'nilai_bimbingan' => $request->safe()->bimbingan,
+                        'ttd' => $ttd
+                    ]);
+                } else {
+                    Penilaian::create([
+                        'pengguna_id' => $id,
+                        'seminar_id' => $request->query('id'),
+                        'status_penilaian_id' => 1,
+                        'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                        'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                        'penguasaan_materi' => $request->safe()->penguasaan,
+                        'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                        'etika_dan_sopan_santun' => $request->safe()->etika,
+                        'nilai_bimbingan' => $request->safe()->bimbingan,
+                        'ttd' => $ttd
+                    ]);
+                }
+            } else {
+                $data = Penilaian::where('seminar_id', $request->query('id'))->where('pengguna_id', $id)->first();
+                if ($data !== null) {
+                    $data->update([
+                        'status_penilaian_id' => 1,
+                        'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                        'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                        'penguasaan_materi' => $request->safe()->penguasaan,
+                        'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                        'etika_dan_sopan_santun' => $request->safe()->etika,
+                        'ttd' => $ttd
+                    ]);
+                } else {
+                    Penilaian::create([
+                        'pengguna_id' => $id,
+                        'seminar_id' => $request->query('id'),
+                        'status_penilaian_id' => 1,
+                        'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                        'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                        'penguasaan_materi' => $request->safe()->penguasaan,
+                        'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                        'etika_dan_sopan_santun' => $request->safe()->etika,
+                        'ttd' => $ttd
+                    ]);
+                }
             }
             return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
         }
@@ -91,7 +118,8 @@ class PenilaianController extends Controller
         return redirect()->route('penilaian');
     }
 
-    public function UnduhTtdPenilaian(Request $request){
+    public function UnduhTtdPenilaian(Request $request)
+    {
         if ($request->query('path') !== null) {
             return response()->download(Storage::path($request->query('path')));
         }
@@ -145,21 +173,29 @@ class PenilaianController extends Controller
         return redirect()->route('penilaian');
     }
 
-    public function FormPenilaianView(Request $request){
+    public function FormPenilaianView(Request $request)
+    {
         if ($request->query('id') !== null) {
-            $data = Penilaian::where('id', $request->query('id'))->with(['Seminars' => function ($query){
-                $query->with(['Penggunas:id,nama,nim']);
-            }, 'Penggunas:id,nama,nip' ])->first()->toArray();
+            $data = Penilaian::where('id', $request->query('id'))->with([
+                'Seminars' => function ($query) {
+                    $query->with(['Penggunas:id,nama,nim']);
+                },
+                'Penggunas:id,nama,nip'
+            ])->first()->toArray();
             return view('admin.bap.bap-form-penilaian', compact('data'));
         }
         return redirect()->route('bap-admin');
     }
 
-    public function UnduhFormPenilaianView(Request $request){
+    public function UnduhFormPenilaianView(Request $request)
+    {
         if ($request->query('id') !== null) {
-            $data = Penilaian::where('id', $request->query('id'))->with(['Seminars' => function ($query){
-                $query->with(['Penggunas:id,nama,nim']);
-            }, 'Penggunas:id,nama,nip' ])->first()->toArray();
+            $data = Penilaian::where('id', $request->query('id'))->with([
+                'Seminars' => function ($query) {
+                    $query->with(['Penggunas:id,nama,nim']);
+                },
+                'Penggunas:id,nama,nip'
+            ])->first()->toArray();
             return view('admin.bap.form-penilaian', compact('data'));
         }
         return redirect()->route('bap-admin');
