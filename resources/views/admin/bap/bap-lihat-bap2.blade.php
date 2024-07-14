@@ -219,7 +219,7 @@
                 </div>
             </div>
             <div class="flex justify-center mt-4">
-                <a href="{{route('bap-unduh-bap2'), ['id' => request()->query('id') ]}}"
+                <a href="{{route('bap-unduh-bap2', ['id' => request()->query('id') ])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
                 </a>
