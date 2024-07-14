@@ -16,7 +16,23 @@
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4 min-w-full max-w-2xl max-h-96 min-h-96 overflow-y-scroll">
+                @foreach ($data as $item)
                 <div class="bg-white ring-2 ring-blue1 p-5 rounded-[10px] space-y-4">
+                    <h3 class="font-poppins text-lg font-semibold border-b-2 text-red-500">
+                        Tenggat Penilaian
+                    </h3>
+                    <p class="font-poppins font-semibold text-xs text-[#000000]">
+                        @php
+                            $item['updated_at'] = Carbon\Carbon::parse($item['updated_at'])->translatedFormat('l j F');
+                        @endphp
+                        {{ $item['updated_at'] }}
+                    </p>
+                    <p class="font-poppins font-normal text-sm text-[#000000]">
+                        Batas waktu penilaian untuk Seminar Proposal mahasiswa atas nama {{$item['seminars']['penggunas']['nama']}} tersisa 1 hari lagi. Segera berikan penilaian anda kepada mahasiswa yang berkaitan.
+                    </p>
+                </div>
+                @endforeach
+                {{-- <div class="bg-white ring-2 ring-blue1 p-5 rounded-[10px] space-y-4">
                     <h3 class="font-poppins text-lg font-semibold border-b-2 text-red-500">
                         Tenggat Revisi
                     </h3>
@@ -33,7 +49,7 @@
                     <p class="font-poppins font-normal text-sm text-[#000000]">
                         Pengajuan berkas yudisium anda ditolak, silahkan cek catatan pada detail pengajuan anda.
                     </p>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
