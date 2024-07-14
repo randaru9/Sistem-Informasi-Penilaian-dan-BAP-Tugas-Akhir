@@ -36,7 +36,7 @@
     <x-sidebar-admin modal="notif" />
     <div class="flex flex-col p-4 sm:ml-72 bg-white min-h-screen lg:h-screen md:rounded md:rounded-l-[30px]">
         <x-navbar modal="notif" />
-        <x-modal-notif modal="notif" />
+        <x-ModalNotif modal="notif" />
         <x-breadcrumbs :$breads />
         {{ $slot }}
     </div>
