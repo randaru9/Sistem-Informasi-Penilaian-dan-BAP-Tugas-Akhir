@@ -231,9 +231,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
         Route::get('/lihat-bap2', [SeminarController::class, 'Bap2View'])->name('bap-lihat-bap2');
 
-        Route::get('/unduh-bap2', function () {
-            return view('admin.bap.bap2');
-        })->name('bap-unduh-bap2');
+        Route::get('/unduh-bap2', [SeminarController::class, 'UnduhBap2View'])->name('bap-unduh-bap2');
         
     });
 
