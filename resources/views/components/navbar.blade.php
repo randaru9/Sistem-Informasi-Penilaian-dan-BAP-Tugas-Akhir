@@ -2,9 +2,11 @@
         <img src="{{ url(asset('storage/assets/logo_dashboard_login.svg')) }}"
             class="h-full w-1/2 md:w-fit hidden lg:flex lg:flex-col" alt="logo_prodi">
         <div class="flex space-x-5 justify-center items-center mr-6">
-            <button data-modal-target={{ $modal }} data-modal-toggle={{ $modal }}>
-                <img src="{{ url(asset('storage/assets/logo_notif.svg')) }}" alt="logo_notif">
-            </button>
+            @if (Auth::user()->role_id == 2)
+                <button data-modal-target={{ $modal }} data-modal-toggle={{ $modal }}>
+                    <img src="{{ url(asset('storage/assets/logo_notif.svg')) }}" alt="logo_notif">
+                </button>
+            @endif
             <div>
                 <p class="font-poppins font-semibold text-base">
                     {{ Auth::user()->nama }}
