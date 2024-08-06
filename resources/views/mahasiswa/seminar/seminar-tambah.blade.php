@@ -164,6 +164,9 @@
                     @error('draft')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
+                    @error('koordinator')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <script>
                     document.getElementById('draft_seminar').addEventListener('change', function(event) {
