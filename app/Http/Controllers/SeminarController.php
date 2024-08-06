@@ -49,7 +49,11 @@ class SeminarController extends Controller
     public function CreateSeminar(CreateRequest $request)
     {
 
-        $koordinator = Pengguna::where('is_koordinator', 1)->first();
+        $koordinator = Pengguna::where('is_koordinator', 1)->firsto();
+
+        if ($koordinator == null) {
+            return back()->with('koordinator', 'Koordinator Tugas Akhir belum ditetapkan');
+        }
 
         $bap1 = BAP1::create([
             'status_tanda_tangan_id' => 1,
