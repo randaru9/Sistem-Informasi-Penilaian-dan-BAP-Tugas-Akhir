@@ -5,7 +5,7 @@
             'title' => 'BAP',
         ],
         [
-            'href' => '/admin/bap/detail',
+            'href' => route('bap-detail', ['id' => request()->query('id')]),
             'title' => 'Detail',
         ],
         [
