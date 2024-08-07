@@ -9,6 +9,11 @@
                     class="bg-gray-50 border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1.5 w-full "
                     placeholder="abcdef@gmail.com" required />
             </div>
+            @if (Session::has('error'))
+                <div class="flex justify-center">
+                    <p class="text-red-500">{{ Session::get('error') }}</p>
+                </div>
+            @endif
             @error('email')
                 <div class="flex justify-center">
                     <p class="text-red-500">{{ $message }}</p>
@@ -16,7 +21,8 @@
             @enderror
             <div>
                 <button type="submit"
-                    class="bg-gold w-full font-poppins font-semibold text-white text-base py-2 me-2 mb-2 rounded-lg hover:ring-4 hover:ring-yellow-500 ">Kirim OTP</button>
+                    class="bg-gold w-full font-poppins font-semibold text-white text-base py-2 me-2 mb-2 rounded-lg hover:ring-4 hover:ring-yellow-500 ">Kirim
+                    OTP</button>
             </div>
             <div class="flex justify-center">
                 <a class="text-sm text-[#000000] font-poppins font-normal" href="/login">Kembali ke Halaman Login</a>
