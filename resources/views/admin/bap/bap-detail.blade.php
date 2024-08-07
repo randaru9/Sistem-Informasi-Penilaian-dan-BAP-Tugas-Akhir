@@ -150,7 +150,7 @@
             <a href="{{ route('bap-detail-proses', ['id' => request()->query('id')]) }}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Detail
                 Proses</a>
-            @if ($data['count_penilaian_selesai'] === 4)
+            @if ($data['count_penilaian_selesai'] === 4 && $data['Bap1s_count'] !== 0 )
                 <a href="{{route('bap-lihat-bap1', ['id' => request()->query('id')])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                     BAP 1</a>
