@@ -7,10 +7,12 @@ use App\Http\Requests\Auth\GenerateOtp;
 use App\Http\Requests\Auth\LengkapiDataDiri;
 use App\Http\Requests\Auth\Login;
 use App\Http\Requests\Auth\VerifikasiOtp;
+use App\Mail\OTP;
 use App\Models\Pengguna;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -48,19 +50,38 @@ class AuthController extends Controller
     public function GenerateOtpLupaKatasandi(GenerateOtp $request)
     {
         $data = Pengguna::where('email', $request->safe()->email)->first();
+        if ($data == null) {
+            return back()->with('error', 'Email yang anda masukkan tidak terdaftar');
+        }
         session()->put('email', $request->safe()->email);
-        $data->update([
-            'otp' => random_int(100000, 999999)
-        ]);
+        try {
+            $data->update([
+                'otp' => random_int(100000, 999999)
+            ]);
+            Mail::to($data->email)->send(new OTP($data->only(['nama', 'otp'])));
+        } catch (\Exception $e) {
+            $data->update([
+                'otp' => null
+            ]);
+            return back()->with('error', 'Email yang anda masukkan tidak aktif');
+        }
         return redirect()->route('verifikasi-otp');
     }
 
     public function RegenerateOtpLupaKatasandi()
     {
         $data = Pengguna::where('email', session()->get('email'))->first();
-        $data->update([
-            'otp' => random_int(100000, 999999)
-        ]);
+        try {
+            $data->update([
+                'otp' => random_int(100000, 999999)
+            ]);
+            Mail::to($data->email)->send(new OTP($data->only(['nama', 'otp'])));
+        } catch (\Exception $e) {
+            $data->update([
+                'otp' => null
+            ]);
+            return back()->with('error', 'Email yang anda masukkan tidak aktif');
+        }
         return redirect()->route('verifikasi-otp');
     }
 
