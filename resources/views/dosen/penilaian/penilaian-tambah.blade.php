@@ -146,7 +146,7 @@
                             Bimbingan</label>
                         <input type="text" id="bimbingan" name="bimbingan"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            required />
+                            />
                         @error('bimbingan')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
