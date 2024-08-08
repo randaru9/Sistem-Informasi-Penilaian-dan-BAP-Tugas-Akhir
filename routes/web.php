@@ -267,7 +267,7 @@ Route::prefix('admin')->middleware('admin')->group(function () {
 
         Route::post('/ubah-katasandi', [PenggunaController::class, 'UpdateKatasandiForPengguna'])->name('dosen-ubah-katasandi-post');
 
-        Route::post('/update-koordinator', [PenggunaController::class, 'UpdateKoordindator'])->name('dosen-update-koordinator');
+        Route::post('/update-koordinator', [PenggunaController::class, 'UpdateKoordinator'])->name('dosen-update-koordinator');
 
         Route::post('/hapus-pengguna', [PenggunaController::class, 'HapusPengguna'])->name('hapus-pengguna-dosen');
     });

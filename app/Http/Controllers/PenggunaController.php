@@ -240,7 +240,7 @@ class PenggunaController extends Controller
         return redirect()->route('dosen');
     }
 
-    public function UpdateKoordindator(Request $request)
+    public function UpdateKoordinator(Request $request)
     {
         $koordinator = Pengguna::where('is_koordinator', 1)->first();
         if ($koordinator != null && $koordinator->id != $request->query('id')) {
