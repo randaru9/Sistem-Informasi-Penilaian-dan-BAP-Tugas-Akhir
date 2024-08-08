@@ -15,7 +15,19 @@ class DosenImport implements ToCollection
     {
         foreach ($rows as $row) {
             if ($row->filter()->isNotEmpty()) {
-                Pengguna::create([
+                $dosen = Pengguna::withTrashed()->where('nip', $row[1])->orWhere('nama', $row[0])->first();
+                if ($dosen == null) {
+                    Pengguna::create([
+                        'nama' => $row[0],
+                        'nip' => $row[1],
+                        'email' => $row[2],
+                        'password' => $row[1],
+                        'role_id' => 2,
+                    ]);
+                    return redirect()->route('dosen');
+                }
+                $dosen->restore();
+                $dosen->update([
                     'nama' => $row[0],
                     'nip' => $row[1],
                     'email' => $row[2],
