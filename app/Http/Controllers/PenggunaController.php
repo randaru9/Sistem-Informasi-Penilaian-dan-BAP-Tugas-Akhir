@@ -186,8 +186,8 @@ class PenggunaController extends Controller
     // Create Pengguna (Dosen)
     public function CreatePenggunaDosen(CreateDosen $request)
     {
-        $mahasiswa = Pengguna::withTrashed()->where('nip', $request->safe()->nip)->orWhere('nama', $request->safe()->nama)->first();
-        if ($mahasiswa == null) {
+        $dosen = Pengguna::withTrashed()->where('nip', $request->safe()->nip)->orWhere('nama', $request->safe()->nama)->first();
+        if ($dosen == null) {
             Pengguna::create([
                 'nama' => $request->safe()->nama,
                 'nip' => $request->safe()->nip,
@@ -197,8 +197,8 @@ class PenggunaController extends Controller
             ]);
             return redirect()->route('dosen');
         }
-        $mahasiswa->restore();
-        $mahasiswa->update([
+        $dosen->restore();
+        $dosen->update([
             'nama' => $request->safe()->nama,
             'nip' => $request->safe()->nip,
             'email' => $request->safe()->email,
