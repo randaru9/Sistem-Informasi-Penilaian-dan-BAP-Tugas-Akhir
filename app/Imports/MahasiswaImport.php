@@ -23,7 +23,6 @@ class MahasiswaImport implements ToCollection
                         'password' => $row[1],
                         'role_id' => 3,
                     ]);
-                    return redirect()->route('mahasiswa');
                 }
                 $mahasiswa->restore();
                 $mahasiswa->update([

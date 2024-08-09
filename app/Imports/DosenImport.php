@@ -24,7 +24,6 @@ class DosenImport implements ToCollection
                         'password' => $row[1],
                         'role_id' => 2,
                     ]);
-                    return redirect()->route('dosen');
                 }
                 $dosen->restore();
                 $dosen->update([
