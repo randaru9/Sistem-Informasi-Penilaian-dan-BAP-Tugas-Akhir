@@ -149,6 +149,7 @@ class AuthController extends Controller
                 'otp' => random_int(100000, 999999)
             ]);
 
+            Mail::to($request->safe()->email)->send(new OTP($data->only(['nama', 'otp'])));
             session()->put('email', $request->safe()->email);
             session()->put('katasandi', $request->safe()->katasandi);
 
