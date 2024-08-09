@@ -87,8 +87,7 @@
                 <div class="w-2/3 flex flex-col">
                     <label for="revisi" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Revisi :
                     </label>
-                    <p id="revisi" class="text-sm text-[#000000] font-poppins font-normal text-justify">
-                        {{ $data['revisis'][0]['keterangan'] }}
+                    <p id="revisi" class="text-sm rounded-md border border-gray-300 text-[#000000] font-poppins font-normal whitespace-pre-line p-3 h-28 overflow-y-auto">{{ $data['revisis'][0]['keterangan'] }}
                     </p>
                 </div>
                 <div class="w-full flex justify-end gap-x-4 my-3">
