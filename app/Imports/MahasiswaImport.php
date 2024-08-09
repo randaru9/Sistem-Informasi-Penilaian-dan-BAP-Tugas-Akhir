@@ -23,14 +23,15 @@ class MahasiswaImport implements ToCollection
                         'password' => $row[1],
                         'role_id' => 3,
                     ]);
+                } else {
+                    $mahasiswa->restore();
+                    $mahasiswa->update([
+                        'nama' => $row[0],
+                        'nim' => $row[1],
+                        'password' => $row[1],
+                        'role_id' => 3,
+                    ]);
                 }
-                $mahasiswa->restore();
-                $mahasiswa->update([
-                    'nama' => $row[0],
-                    'nim' => $row[1],
-                    'password' => $row[1],
-                    'role_id' => 3,
-                ]);
             }
         }
     }

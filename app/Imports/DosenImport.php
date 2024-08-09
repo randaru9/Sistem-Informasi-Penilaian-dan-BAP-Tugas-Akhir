@@ -24,15 +24,16 @@ class DosenImport implements ToCollection
                         'password' => $row[1],
                         'role_id' => 2,
                     ]);
+                } else {
+                    $dosen->restore();
+                    $dosen->update([
+                        'nama' => $row[0],
+                        'nip' => $row[1],
+                        'email' => $row[2],
+                        'password' => $row[1],
+                        'role_id' => 2,
+                    ]);
                 }
-                $dosen->restore();
-                $dosen->update([
-                    'nama' => $row[0],
-                    'nip' => $row[1],
-                    'email' => $row[2],
-                    'password' => $row[1],
-                    'role_id' => 2,
-                ]);
             }
         }
     }
