@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
             'pimpinan' => 'required|uuid|exists:pengguna,id',
             'jenis' => 'required|exists:jenis_seminar,id',
             'judul' => 'required|string',
-            'draft' => 'required|mimes:zip,rar|max:10240',
+            'draft' => 'required|mimes:zip,rar|max:51200',
             'tanggal' => 'required',
             'waktu' => 'required',
         ];
@@ -59,7 +59,7 @@ class CreateRequest extends FormRequest
             'string' => ':attribute harus berupa string.',
             'uuid' => ':attribute harus berupa UUID.',
             'mimes' => ':attribute harus berupa file PDF.',
-            'max' => ':attribute maksimal 10 MB.',
+            'max' => ':attribute maksimal 50 MB.',
         ];  
     }
 
