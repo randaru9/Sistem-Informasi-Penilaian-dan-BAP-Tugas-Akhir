@@ -6,7 +6,7 @@
         ],
     ];
 
-    $tablehead = ['No', 'Tanggal/Waktu Seminar', 'Status Seminar', 'Status Revisi', 'Aksi'];
+    $tablehead = ['No', 'Tanggal/Waktu Seminar', 'Jenis Seminar', 'Status Revisi', 'Aksi'];
 
 @endphp
 
