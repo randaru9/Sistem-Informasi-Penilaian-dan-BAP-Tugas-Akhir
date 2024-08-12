@@ -69,9 +69,7 @@
             </div>
             <div class="flex flex-col mt-12 font-tmr font-normal text-base h-[350px]">
                 <p>Bahwa teruji perlu melakukan perbaikan dalam hal : </p>
-                <div class="border border-black w-full p-4 h-full font-tmr font-medium text-base">
-                    <p>{{ $data['keterangan'] }}</p>
-                </div>
+                <div class="border border-black w-full p-4 h-full font-tmr font-medium text-base whitespace-pre-line"><p>{{ $data['keterangan'] }}</p></div>
             </div>
             <div class="mt-4 space-y-1 flex justify-end">
                 <div class="w-fit">
