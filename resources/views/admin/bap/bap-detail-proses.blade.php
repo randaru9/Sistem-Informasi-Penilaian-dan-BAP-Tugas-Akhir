@@ -80,8 +80,12 @@
                         @endif
                         @if ($collection['penilaian_pembimbing_1'] === [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <p
-                                    class="font-medium text-gray-500 whitespace-nowrap">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
+                                    Penilaian Belum Ada</p>
+                            </td>
+                        @elseif($collection['penilaian_pembimbing_1']['status_penilaian_id'] === 2)
+                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
@@ -141,8 +145,12 @@
                         @endif
                         @if ($collection['penilaian_pembimbing_2'] === [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <p
-                                    class="font-medium text-gray-500 whitespace-nowrap">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
+                                    Penilaian Belum Ada</p>
+                            </td>
+                        @elseif($collection['penilaian_pembimbing_2']['status_penilaian_id'] === 2)
+                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
@@ -202,8 +210,12 @@
                         @endif
                         @if ($collection['penilaian_penguji_1'] === [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <p
-                                    class="font-medium text-gray-500 whitespace-nowrap">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
+                                    Penilaian Belum Ada</p>
+                            </td>
+                        @elseif($collection['penilaian_penguji_1']['status_penilaian_id'] === 2)
+                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
@@ -263,8 +275,12 @@
                         @endif
                         @if ($collection['penilaian_penguji_2'] === [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <p
-                                    class="font-medium text-gray-500 whitespace-nowrap">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
+                                    Penilaian Belum Ada</p>
+                            </td>
+                        @elseif($collection['penilaian_penguji_2']['status_penilaian_id'] === 2)
+                            <td class="px-6 py-4 font-poppins text-base font-normal">
+                                <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
