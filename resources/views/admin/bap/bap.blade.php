@@ -72,7 +72,7 @@
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                     Selesai
                                 </td>
-                            @elseif($item['count_penilaian_terlambat'] === 1)
+                            @elseif($item['count_penilaian_terlambat'] !== 0)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Terlambat
                                 </td>
