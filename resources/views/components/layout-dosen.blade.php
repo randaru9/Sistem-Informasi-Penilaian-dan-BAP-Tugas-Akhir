@@ -35,8 +35,7 @@
 <body class="bg-blue1">
     <x-sidebar-dosen modal="notif" />
     <div class="flex flex-col p-4 sm:ml-72 bg-white min-h-screen lg:h-screen md:rounded md:rounded-l-[30px]">
-        <x-navbar modal="notif" />
-        <x-ModalNotif modal="notif" />
+        <x-Navbar/>
         <x-breadcrumbs :$breads />
         {{ $slot }}
     </div>
