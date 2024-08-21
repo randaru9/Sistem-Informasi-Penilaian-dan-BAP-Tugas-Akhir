@@ -42,8 +42,11 @@
                             <td class="px-6 py-4 font-normal font-poppins text-base">
                                 {{ $item['penggunas']['nama'] }}
                             </td>
+                            @php
+                                $item['created_at'] = Carbon\Carbon::parse($item['created_at'])->translatedFormat('Y');
+                            @endphp
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
-                                {{ $item['periode_wisudas']['keterangan'] }}
+                                {{ $item['periode_wisudas']['keterangan'] }} {{$item['created_at']}}
                             </td>
                             @if ($item['status_yudisium_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
