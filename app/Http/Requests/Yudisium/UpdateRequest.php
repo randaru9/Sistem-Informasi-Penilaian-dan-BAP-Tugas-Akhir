@@ -23,7 +23,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'periode_wisuda' => 'required|exists:periode_wisuda,id',
-            'berkas' => 'required|mimes:zip,rar|max:10240',
+            'berkas' => 'required|mimes:zip,rar|max:51200',
         ];
     }
 
@@ -41,6 +41,7 @@ class UpdateRequest extends FormRequest
             'required' => ':attribute wajib diisi',
             'exists' => ':attribute tidak ditemukan',
             'mimes' => ':attribute harus berupa berkas zip atau rar',
+            'max' => ':attribute maksimal 50 MB',
         ];
     }
 
