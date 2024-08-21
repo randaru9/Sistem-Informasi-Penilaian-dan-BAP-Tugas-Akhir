@@ -124,7 +124,7 @@ class YudisiumController extends Controller
     // Get All Yudisium
     public function YudisiumView(Request $request)
     {
-        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id', 'pengguna_id'])->with([
+        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id', 'pengguna_id', 'created_at'])->with([
             'PeriodeWisudas' => function ($query) {
                 $query->select(['id', 'keterangan']);
             },
@@ -140,9 +140,10 @@ class YudisiumController extends Controller
                     $query->where('nama', 'LIKE', "%{$request->search}%");
                 })->orWhereHas('PeriodeWisudas', function ($query) use ($request) {
                     $query->where('keterangan', 'LIKE', "%{$request->search}%");
-                });
+                })->orWhere('created_at', 'LIKE', "%{$request->search}%");
             }
         })->paginate(5)->toArray();
+        // dd($data);
         return view('admin.yudisium.yudisium', compact('data'));
     }
 
