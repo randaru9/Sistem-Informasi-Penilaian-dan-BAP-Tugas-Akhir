@@ -136,11 +136,19 @@ class YudisiumController extends Controller
             }
         ])->where(function (Builder $query) use ($request) {
             if (isset($request->search)) {
-                $query->whereHas('Penggunas', function ($query) use ($request) {
-                    $query->where('nama', 'LIKE', "%{$request->search}%");
-                })->orWhereHas('PeriodeWisudas', function ($query) use ($request) {
-                    $query->where('keterangan', 'LIKE', "%{$request->search}%");
-                })->orWhere('created_at', 'LIKE', "%{$request->search}%");
+                if ($search = $request->search) {
+                    $terms = explode(' ', $search);
+    
+                    foreach ($terms as $term) {
+                        $query->orWhereHas('Penggunas', function ($query) use ($term) {
+                            $query->where('nama', 'LIKE', "%{$term}%");
+                        })
+                        ->orWhereHas('PeriodeWisudas', function ($query) use ($term) {
+                            $query->where('keterangan', 'LIKE', "%{$term}%");
+                        })
+                        ->orWhere('created_at', 'LIKE', "%{$term}%");
+                    }
+                }
             }
         })->paginate(5)->toArray();
         // dd($data);
