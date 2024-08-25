@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\YudisiumExport;
+use App\Http\Requests\Yudisium\ExportYudisium;
 use App\Http\Requests\Yudisium\UpdateStatusRequest;
 use App\Http\Requests\Yudisium\CreateRequest;
-use App\Http\Requests\Yudisium\GetByPenggunaIdRequest;
-use App\Http\Requests\Yudisium\GetOneByIdRequest;
 use App\Http\Requests\Yudisium\UpdateRequest;
 use App\Models\PeriodeWisuda;
 use App\Models\Yudisium;
-use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -208,6 +207,41 @@ class YudisiumController extends Controller
             $name = "Berkas Yudisium Periode $periode $user";
             return response()->download(Storage::path($request->query('path')), $name);
         }
+    }
+
+    public function RekapYudisiumView()
+    {
+        $periode = PeriodeWisuda::all();
+        return view('admin.yudisium.yudisium-rekap', compact('periode'));
+    }
+
+    public function RekapYudisiumExport(ExportYudisium $request)
+    {
+        $yudisium = [];
+        $data = Yudisium::where('status_yudisium_id', 3)->where('periode_wisuda_id', $request->safe()->periode)->whereYear('created_at', $request->safe()->tahun)->with(['Penggunas', 'PeriodeWisudas'])->get();
+
+        if ($data->isEmpty()) {
+            return back()->withInput()->with('error', 'Belum ada yudisium yang dapat direkap');
+        }
+
+        $data = $data->toArray();
+
+        foreach ($data as $index => $value) {
+
+            $yudisium[$index] = [
+                'no' => $index + 1,
+                'nama' => $value['penggunas']['nama'],
+                'periode' => $value['periode_wisudas']['keterangan'],
+                'tahun' => $request->safe()->tahun,
+            ];
+
+        }
+
+        if ($yudisium==[]) {
+            return back()->withInput()->with('error', 'Belum ada yudisium yang dapat direkap');
+        }
+
+        return (new YudisiumExport($yudisium))->download("Rekap Yudisium Periode {$request->safe()->periode} Tahun {$request->safe()->tahun}.xlsx");
     }
 
 
