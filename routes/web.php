@@ -241,6 +241,8 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::post('/yudisium/accept', [YudisiumController::class, 'AcceptYudisium'])->name('yudisium-accept');
         Route::post('/yudisium/reject', [YudisiumController::class, 'RejectYudisium'])->name('yudisium-reject');
         Route::get('/unduh-berkas', [YudisiumController::class, 'UnduhBerkasAdmin'])->name('yudisium-unduh-berkas-admin');
+        Route::get('/rekap', [YudisiumController::class, 'RekapYudisiumView'])->name('yudisium-rekap');
+        Route::post('/yudisium/rekap', [YudisiumController::class, 'RekapYudisiumExport'])->name('yudisium-rekap-post');
     });
 
     Route::prefix('dosen')->group(function () {
