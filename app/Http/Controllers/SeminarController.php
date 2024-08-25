@@ -172,12 +172,13 @@ class SeminarController extends Controller
 
     }
 
-    public function UnduhDraft(Request $request){
+    public function UnduhDraft(Request $request)
+    {
         if ($request->query('path') !== null) {
             $user = auth()->user()->nama;
-            if($request->query('jenis') == 1){
+            if ($request->query('jenis') == 1) {
                 $name = "Draft Seminar Proposal $user";
-            }else{
+            } else {
                 $name = "Draft Tugas Akhir $user";
             }
             return response()->download(Storage::path($request->query('path')), $name);
@@ -186,13 +187,14 @@ class SeminarController extends Controller
 
     // (Dosen) //
 
-    public function UnduhDraftPenilaian(Request $request){
+    public function UnduhDraftPenilaian(Request $request)
+    {
         if ($request->query('path') !== null) {
             $user = Seminar::where('id', $request->query('id'))->with('Penggunas')->firstOrFail()->toArray();
             $user = $user['penggunas']['nama'];
-            if($request->query('jenis') == 1){
+            if ($request->query('jenis') == 1) {
                 $name = "Draft Seminar Proposal $user";
-            }else{
+            } else {
                 $name = "Draft Tugas Akhir $user";
             }
             return response()->download(Storage::path($request->query('path')), $name);
@@ -209,18 +211,18 @@ class SeminarController extends Controller
                 },
                 'Penilaians as count_penilaian_selesai' => function ($query) {
                     $query->where('pengguna_id', auth()->user()->id)
-                    ->where('status_penilaian_id', 1);
+                        ->where('status_penilaian_id', 1);
                 },
                 'Penilaians as count_penilaian_terlambat' => function ($query) {
                     $query->where('pengguna_id', auth()->user()->id)
-                    ->where('status_penilaian_id', 2);
+                        ->where('status_penilaian_id', 2);
                 },
                 'Revisis as count_revisi' => function ($query) {
                     $query->where('pengguna_id', auth()->user()->id);
                 },
                 'Revisis as count_revisi_selesai' => function ($query) {
                     $query->where('pengguna_id', auth()->user()->id)
-                    ->where('status_revisi_id', 2);
+                        ->where('status_revisi_id', 2);
                 }
             ])->with([
                     'Penggunas' => function ($query) {
@@ -245,8 +247,9 @@ class SeminarController extends Controller
         return view('dosen.penilaian.penilaian', compact('data'));
     }
 
-    public function BAPDosenView(Request $request){
-        $data = Seminar::select(['id','tanggal','waktu','pengguna_id','jenis_seminar_id', 'bap1_id'])->where('pimpinan_sidang_id', auth()->user()->id)->with(['JenisSeminars:id,keterangan', 'Penggunas:id,nama', 'BAP1s:id,status_tanda_tangan_id,ttd', 'Penilaians'])->whereHas('Penggunas', function (Builder $query) use ($request) {
+    public function BAPDosenView(Request $request)
+    {
+        $data = Seminar::select(['id', 'tanggal', 'waktu', 'pengguna_id', 'jenis_seminar_id', 'bap1_id'])->where('pimpinan_sidang_id', auth()->user()->id)->with(['JenisSeminars:id,keterangan', 'Penggunas:id,nama', 'BAP1s:id,status_tanda_tangan_id,ttd', 'Penilaians'])->whereHas('Penggunas', function (Builder $query) use ($request) {
             if (isset($request->search)) {
                 $query->where('nama', 'LIKE', "%{$request->search}%");
             }
@@ -305,10 +308,10 @@ class SeminarController extends Controller
 
     public function Bap1DosenView(Request $request)
     {
-        if($request->query('id') !== null){
+        if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
@@ -322,10 +325,10 @@ class SeminarController extends Controller
 
     public function UnduhBap1DosenView(Request $request)
     {
-        if($request->query('id') !== null){
+        if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
@@ -368,38 +371,47 @@ class SeminarController extends Controller
         return view('admin.bap.bap', compact('data'));
     }
 
-    public function RekapNilaiView(){
+    public function RekapNilaiView()
+    {
         $data = JenisSeminar::all();
         return view('admin.bap.bap-rekap-nilai', compact('data'));
     }
 
-    public function RekapNilaiExport(ExportRekapNilai $request){
+    public function RekapNilaiExport(ExportRekapNilai $request)
+    {
+        $mahasiswa = [];
 
         $data = Seminar::query()->where('jenis_seminar_id', $request->safe()->jenis)->whereBetween('tanggal', [$request->safe()->tglAwal, $request->safe()->tglAkhir])->with('Penggunas', 'Penilaians')->get();
 
-        if($data->isEmpty()){
+        if ($data->isEmpty()) {
             return back()->withInput()->with('error', 'Belum ada nilai yang dapat direkap');
         }
 
         foreach ($data as $index => $value) {
 
-            $nilaiPembimbing1 = $value['penilaians']->where('pengguna_id', $value['pembimbing_1_id'])->first()->toArray();
+            $nilaiPembimbing1 = $value['penilaians']->where('pengguna_id', $value['pembimbing_1_id'])->first();
+            $nilaiPembimbing2 = $value['penilaians']->where('pengguna_id', $value['pembimbing_2_id'])->first();
+            $nilaiPenguji1 = $value['penilaians']->where('pengguna_id', $value['penguji_1_id'])->first();
+            $nilaiPenguji2 = $value['penilaians']->where('pengguna_id', $value['penguji_2_id'])->first();
 
-            $nilaiPembimbing2 = $value['penilaians']->where('pengguna_id', $value['pembimbing_2_id'])->first()->toArray();
+            if (is_null($nilaiPembimbing1) || is_null($nilaiPembimbing2) || is_null($nilaiPenguji1) || is_null($nilaiPenguji2)) {
+                continue;
+            }
 
-            $nilaiPenguji1 = $value['penilaians']->where('pengguna_id', $value['penguji_1_id'])->first()->toArray();
+            $nilaiPembimbing1 = $nilaiPembimbing1->toArray();
+            $nilaiPembimbing2 = $nilaiPembimbing2->toArray();
+            $nilaiPenguji1 = $nilaiPenguji1->toArray();
+            $nilaiPenguji2 = $nilaiPenguji2->toArray();
 
-            $nilaiPenguji2 = $value['penilaians']->where('pengguna_id', $value['penguji_2_id'])->first()->toArray();
+            $nilaiPembimbing1 = ($nilaiPembimbing1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing1['penyajian_atau_presentasi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['nilai_bimbingan'] + $nilaiPembimbing1['etika_dan_sopan_santun']) / 6;
 
-            $nilaiPembimbing1 = ($nilaiPembimbing1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing1['penyajian_atau_presentasi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['penguasaan_materi'] + $nilaiPembimbing1['nilai_bimbingan'] + $nilaiPembimbing1['etika_dan_sopan_santun'] ) / 6;
+            $nilaiPembimbing2 = ($nilaiPembimbing2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing2['penyajian_atau_presentasi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['nilai_bimbingan'] + $nilaiPembimbing2['etika_dan_sopan_santun']) / 6;
 
-            $nilaiPembimbing2 = ($nilaiPembimbing2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPembimbing2['penyajian_atau_presentasi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['penguasaan_materi'] + $nilaiPembimbing2['nilai_bimbingan'] + $nilaiPembimbing2['etika_dan_sopan_santun'] ) / 6;
+            $nilaiPenguji1 = ($nilaiPenguji1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji1['penyajian_atau_presentasi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['etika_dan_sopan_santun']) / 5;
 
-            $nilaiPenguji1 = ($nilaiPenguji1['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji1['penyajian_atau_presentasi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['penguasaan_materi'] + $nilaiPenguji1['etika_dan_sopan_santun'] ) / 5;
-            
-            $nilaiPenguji2 = ($nilaiPenguji2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji2['penyajian_atau_presentasi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['etika_dan_sopan_santun'] ) / 5;
+            $nilaiPenguji2 = ($nilaiPenguji2['penulisan_draft_tugas_akhir_dan_ppt'] + $nilaiPenguji2['penyajian_atau_presentasi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['penguasaan_materi'] + $nilaiPenguji2['etika_dan_sopan_santun']) / 5;
 
-            $nilaiAkhir = (($nilaiPembimbing1 + $nilaiPembimbing2)*60/100 + ($nilaiPenguji1 + $nilaiPenguji2)*40/100)/2;
+            $nilaiAkhir = (($nilaiPembimbing1 + $nilaiPembimbing2) * 60 / 100 + ($nilaiPenguji1 + $nilaiPenguji2) * 40 / 100) / 2;
 
             if ($nilaiAkhir >= 80) {
                 $nilaiHuruf = 'A';
@@ -411,12 +423,12 @@ class SeminarController extends Controller
                 $nilaiHuruf = 'BC';
             } elseif ($nilaiAkhir >= 60) {
                 $nilaiHuruf = 'C';
-            } elseif($nilaiAkhir >= 55) {
+            } elseif ($nilaiAkhir >= 55) {
                 $nilaiHuruf = 'D';
-            }elseif($nilaiAkhir < 50) {
+            } elseif ($nilaiAkhir < 50) {
                 $nilaiHuruf = 'E';
             }
-        
+
             $mahasiswa[$index] = [
                 'no' => $index + 1,
                 'nama' => $value['Penggunas']['nama'],
@@ -426,10 +438,14 @@ class SeminarController extends Controller
             ];
         }
 
-        if($request->safe()->jenis == 1) {
+        if ($request->safe()->jenis == 1) {
             $jenis = 'Seminar Proposal';
-        }elseif($request->safe()->jenis == 2) {
+        } elseif ($request->safe()->jenis == 2) {
             $jenis = 'Seminar Akhir';
+        }
+
+        if ($mahasiswa==[]) {
+            return back()->withInput()->with('error', 'Belum ada nilai yang dapat direkap');
         }
 
         return (new NilaiExport($mahasiswa))->download("Rekap Nilai {$jenis} {$request->safe()->tglAwal} - {$request->safe()->tglAkhir} .xlsx");
@@ -521,11 +537,12 @@ class SeminarController extends Controller
         return redirect()->route('bap-admin');
     }
 
-    public function Bap1View(Request $request){
+    public function Bap1View(Request $request)
+    {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
@@ -537,11 +554,12 @@ class SeminarController extends Controller
         return redirect()->route('bap-admin');
     }
 
-    public function UnduhBap1View(Request $request){
+    public function UnduhBap1View(Request $request)
+    {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
@@ -553,13 +571,24 @@ class SeminarController extends Controller
         return redirect()->route('bap-admin');
     }
 
-    public function Bap2View(Request $request){
+    public function Bap2View(Request $request)
+    {
         if ($request->query('id') !== null) {
-            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s', 'BAP2s' => function($query){
-                $query->with('Koordinators:id,nama,nip');
-            },])->first();
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas:id,nama,nim',
+                'Penilaians',
+                'Pembimbing1s:id,nama,nip',
+                'Pembimbing2s:id,nama,nip',
+                'Penguji1s:id,nama,nip',
+                'Penguji2s:id,nama,nip',
+                'PimpinanSidangs:id,nama,nip',
+                'BAP1s',
+                'BAP2s' => function ($query) {
+                    $query->with('Koordinators:id,nama,nip');
+                },
+            ])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
@@ -572,13 +601,24 @@ class SeminarController extends Controller
         return redirect()->route('bap-admin');
     }
 
-    public function UnduhBap2View(Request $request){
+    public function UnduhBap2View(Request $request)
+    {
         if ($request->query('id') !== null) {
-            $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s', 'BAP2s' => function($query){
-                $query->with('Koordinators:id,nama,nip');
-            },])->first();
+            $data = Seminar::where('id', $request->query('id'))->with([
+                'Penggunas:id,nama,nim',
+                'Penilaians',
+                'Pembimbing1s:id,nama,nip',
+                'Pembimbing2s:id,nama,nip',
+                'Penguji1s:id,nama,nip',
+                'Penguji2s:id,nama,nip',
+                'PimpinanSidangs:id,nama,nip',
+                'BAP1s',
+                'BAP2s' => function ($query) {
+                    $query->with('Koordinators:id,nama,nip');
+                },
+            ])->first();
 
-            if($data){
+            if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_pembimbing_2'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_2_id)->first())->toArray() ?? [];
