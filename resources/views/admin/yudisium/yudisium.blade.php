@@ -20,6 +20,10 @@
                 Cari
             </button>
         </form>
+        <a href="/admin/yudisium/rekap"
+            class="py-2 px-4 font-poppins font-medium text-white bg-gold whitespace-nowrap rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
+            Unduh Rekap Yudisium
+        </a>
     </div>
     <div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg ring-2 ring-blue1">
