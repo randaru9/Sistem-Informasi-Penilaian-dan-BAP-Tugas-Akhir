@@ -16,6 +16,13 @@ class MahasiswaImport implements ToCollection
         foreach ($rows as $row) {
             if ($row->filter()->isNotEmpty()) {
                 $mahasiswa = Pengguna::withTrashed()->where('nim', $row[1])->orWhere('nama', $row[0])->first();
+                if (
+                    Pengguna::where('nama', $row[0])
+                        ->orWhere('nim', $row[1])
+                        ->exists()
+                ) {
+                    continue;
+                }
                 if ($mahasiswa == null) {
                     Pengguna::create([
                         'nama' => $row[0],
