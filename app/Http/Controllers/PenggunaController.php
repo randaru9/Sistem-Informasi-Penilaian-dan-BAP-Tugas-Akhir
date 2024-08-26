@@ -283,6 +283,11 @@ class PenggunaController extends Controller
     {
         $pengguna = Pengguna::where('id', $request->query('id'))->first();
         if ($pengguna != null) {
+            if ($pengguna->is_koordinator == 1) {
+                $pengguna->update([
+                    'is_koordinator' => 0
+                ]);
+            }
             $pengguna->delete();
             if ($pengguna->role_id == 3) {
                 return redirect()->route('mahasiswa');
