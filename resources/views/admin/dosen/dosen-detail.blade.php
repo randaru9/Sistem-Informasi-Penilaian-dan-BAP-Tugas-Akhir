@@ -93,6 +93,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <form action="{{route('hapus-pengguna-dosen', ['id' => request()->query('id')])}}" method="POST" class="p-4 md:p-5 text-center">
+                    @csrf
                     <svg class="mx-auto mb-4 text-gold w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                         fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
