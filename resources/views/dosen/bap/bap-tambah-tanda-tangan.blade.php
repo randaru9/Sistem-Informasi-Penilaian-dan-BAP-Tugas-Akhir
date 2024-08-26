@@ -303,12 +303,12 @@
                 @else
                     <form action="{{ route('bap-tambah-tanda-tangan-post', ['id' => $collection['b_a_p1s']['id']]) }}"
                         method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="flex space-x-2">
                             <button type="submit"
                                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">Simpan</button>
                             <label for="ttd"
                                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                                @csrf
                                 <input type="file" id="ttd" name="ttd" accept=".jpg,.jpeg,.png"
                                     name="ttd" class="hidden" />
                                 Unggah

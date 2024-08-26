@@ -6,6 +6,7 @@
         <form class="w-full space-y-4 mt-4"
             action="{{ route('verifikasi-otp', ['email' => request()->query('email'), 'katasandi' => request()->query('katasandi')]) }}"
             method="POST">
+            @csrf
             <div>
                 <input type="text" id="otp" name="otp"
                     class="bg-gray-50 border rounded-md border-gray-300 text-gray-900 text-sm text-center focus:ring-blue-500 focus:border-blue-500 block p-1.5 w-full "

@@ -4,6 +4,7 @@
         <p class="font-poppins font-normal text-lg text-[#000000]">Harap Masukan Data Diri Anda</p>
         
         <form method="POST" action="{{ route('login') }}" class="w-full space-y-2">
+            @csrf
             <div>
                 <label for="nim_nip" class="block ml-1 text-base text-[#000000] font-poppins font-normal">NIM/NIP</label>
                 <input type="text" id="nim_nip" name="nim_nip" class="bg-gray-50 border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1.5 w-full " placeholder="123456789" minlength="9" required />

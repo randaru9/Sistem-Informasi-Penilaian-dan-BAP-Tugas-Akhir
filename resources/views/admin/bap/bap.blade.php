@@ -12,6 +12,7 @@
 <x-layout-admin :$breads title="BAP">
     <div class="flex justify-between mb-4">
         <form action="" class="w-full flex space-x-4">
+            @csrf
             <input type="text" id="search" name="search"
                 class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
                 placeholder="Cari nama mahasiswa" value="{{ request()->query('search') }}"/>

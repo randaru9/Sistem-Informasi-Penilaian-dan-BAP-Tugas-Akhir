@@ -14,6 +14,7 @@
 <x-layout-admin :$breads title="Parsing Akun Mahasiswa">
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
         <form action="{{route('mahasiswa-parsing-akun-post')}}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="w-full px-5 flex py-2 gap-2">
                 <div class="w-1/2">
                     <p for="nama" class="block mb-2 text-xl text-[#000000] font-poppins font-bold">Parsing Akun Mahasiswa

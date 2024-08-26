@@ -3,6 +3,7 @@
         <p class="font-poppins font-semibold text-3xl text-[#000000]">Lengkapi Data Diri</p>
         <p class="font-poppins font-normal text-lg text-[#000000]">Harap Masukan Data Diri Anda</p>
         <form class="w-full space-y-2" action="{{ route('lengkapi-data-diri-post') }}" method="POST">
+            @csrf
             <div>
                 <label for="email" class="block ml-1 text-base text-[#000000] font-poppins font-normal">Email</label>
                 <input type="email" id="email" name="email"

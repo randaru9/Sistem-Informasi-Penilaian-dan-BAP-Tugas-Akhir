@@ -4,6 +4,7 @@
         <p class="font-poppins font-normal text-lg text-[#000000]">Minimal menggunakan 8 Karakter Huruf</p>
         <form class="w-full space-y-2"
             action="{{ route('buat-katasandi-baru-post', ['email' => request()->query('email'), 'otp' => request()->query('otp')]) }}" method="POST">
+            @csrf
             <div>
                 <label for="katasandi-baru" class="block ml-1 text-base text-[#000000] font-poppins font-normal">Kata
                     sandi baru</label>

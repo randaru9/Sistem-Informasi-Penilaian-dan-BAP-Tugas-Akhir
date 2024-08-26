@@ -14,6 +14,7 @@
 <x-layout-mahasiswa :$breads title="Tambah Seminar">
     <div class="bg-white ring-2 ring-blue1 rounded-[10px] w-full h-full overflow-y-auto">
         <form action="{{ route('seminar-tambah-post') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="w-full px-5 py-2">
                 <div>
                     <label for="judul_tugas_akhir"
