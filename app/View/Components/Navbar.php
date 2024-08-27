@@ -22,7 +22,7 @@ class Navbar extends Component
     public function render(): View|Closure|string
     {
         $data = Penilaian::where('pengguna_id', auth()->user()->id)->where('status_penilaian_id', 2)->with(['Seminars' => function($query) {
-            $query->select(['id','pengguna_id'])->with(['Penggunas' => function($query) {
+            $query->select(['id','pengguna_id', 'jenis_seminar_id'])->with(['Penggunas' => function($query) {
                 $query->select(['id', 'nama']);
             }]);
         }])->get()->toArray();
