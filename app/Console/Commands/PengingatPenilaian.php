@@ -2,11 +2,13 @@
 
 namespace App\Console\Commands;
 
+use App\Mail\Pengingat;
 use App\Models\Pengguna;
 use App\Models\Penilaian;
 use App\Models\Seminar;
 use Illuminate\Console\Command;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class PengingatPenilaian extends Command
 {
@@ -57,9 +59,10 @@ class PengingatPenilaian extends Command
         $daftarDosen = Pengguna::findMany($daftarDosen->unique()->toArray());
         $daftarDosen->each(function (Pengguna $dosen) {
             // MAIL
-            // try{
-                
-            // }catch(\Exception $e){}
+            try {
+                Mail::to($dosen->email)->send(new Pengingat($dosen->only(['nama'])));
+            } catch (\Exception $e) {
+            }
         });
 
         return;
