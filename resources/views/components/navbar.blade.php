@@ -56,7 +56,7 @@
                             {{ $item['updated_at'] }}
                         </p>
                         <p class="font-poppins font-normal text-sm text-[#000000]">
-                            Batas waktu penilaian untuk Seminar Proposal mahasiswa atas nama {{$item['seminars']['penggunas']['nama']}} sudah melewati batas waktu 2 hari. Segera berikan penilaian anda kepada mahasiswa yang berkaitan.
+                            Batas waktu penilaian untuk @if($item['seminars']['jenis_seminar_id'] ==  1) Seminar Proposal @else Seminar Akhir @endif mahasiswa atas nama {{$item['seminars']['penggunas']['nama']}} sudah melewati batas waktu 2 hari. Segera berikan penilaian anda kepada mahasiswa yang berkaitan.
                         </p>
                     </div>
                     @endforeach
