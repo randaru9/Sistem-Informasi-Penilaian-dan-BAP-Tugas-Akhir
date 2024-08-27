@@ -70,12 +70,12 @@ class AuthController extends Controller
 
     public function RegenerateOtpLupaKatasandi()
     {
-        $data = Pengguna::where('email', session()->get('email'))->first();
+        $data = Pengguna::where('id', auth()->user()->id)->first();
         try {
             $data->update([
                 'otp' => random_int(100000, 999999)
             ]);
-            Mail::to($data->email)->send(new OTP($data->only(['nama', 'otp'])));
+            Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
         } catch (\Exception $e) {
             $data->update([
                 'otp' => null
