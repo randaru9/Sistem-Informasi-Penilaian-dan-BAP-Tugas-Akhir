@@ -13,10 +13,12 @@ use App\Http\Requests\Pengguna\UpdateKatasandiForPenggunaRequest;
 use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Imports\DosenImport;
 use App\Imports\MahasiswaImport;
+use App\Mail\OTP;
 use App\Models\Pengguna;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PenggunaController extends Controller
@@ -43,6 +45,7 @@ class PenggunaController extends Controller
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $request->session()->put('email', $request->safe()->email);
         //catch email req and send email
+        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
@@ -61,6 +64,7 @@ class PenggunaController extends Controller
             'otp' => random_int(100000, 999999)
         ]);
         // resend otp via email in session 
+        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
         if (auth()->user()->role_id == 3) {
             return redirect()->route('profil-verifikasi-email-mahasiswa');
         } elseif (auth()->user()->role_id == 2) {
