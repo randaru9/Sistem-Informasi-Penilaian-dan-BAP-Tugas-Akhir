@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'role_id' => 1, 'nama' => 'Admin', 'nip' => '123456789123456789', 'password' => Hash::make('123123123') , 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
+            ['id' => \Ramsey\Uuid\Uuid::uuid4()->toString(), 'role_id' => 1, 'nama' => 'Admin', 'nip' => '123123123', 'password' => Hash::make('123123123') , 'created_at' => Carbon::now()->format('Y-m-d H:i:s')],
         ];
 
         DB::table('pengguna')->insert($data);
