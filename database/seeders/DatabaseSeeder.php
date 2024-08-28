@@ -17,7 +17,6 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             JenisSeminarSeeder::class,
             StatusPenilaianSeeder::class,
-            StatusPeriodeWisudaSeeder::class,
             StatusRevisiSeeder::class,
             StatusTandaTanganSeeder::class,
             StatusYudisiumSeeder::class,
