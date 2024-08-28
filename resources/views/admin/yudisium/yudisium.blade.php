@@ -15,7 +15,8 @@
             @csrf
             <input type="text" id="search" name="search"
                 class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
-                placeholder="Cari yudisium" value="{{ request()->query('search') }}" />
+                placeholder="Cari nama mahasiswa" value="{{ request()->query('search') }}" />
+            <input type="month" id="month" name="month" class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12" value="{{ request()->query('month') }}" >
             <button type="submit"
                 class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
                 Cari
@@ -48,10 +49,10 @@
                                 {{ $item['penggunas']['nama'] }}
                             </td>
                             @php
-                                $item['created_at'] = Carbon\Carbon::parse($item['created_at'])->translatedFormat('Y');
+                                $date = Carbon\Carbon::parse($item['periode_wisuda'])->translatedFormat('F Y');
                             @endphp
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
-                                {{ $item['periode_wisudas']['keterangan'] }} {{$item['created_at']}}
+                                {{ $date }}
                             </td>
                             @if ($item['status_yudisium_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">

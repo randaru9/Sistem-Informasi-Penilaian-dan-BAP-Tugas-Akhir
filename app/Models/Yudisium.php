@@ -18,7 +18,8 @@ class Yudisium extends Model
     protected $fillable = [
         'pengguna_id',
         'status_yudisium_id',
-        'periode_wisuda_id',
+        // 'status_yudisium',
+        'periode_wisuda',
         'tempat_dan_bidang_kerja',
         'saran_dan_kritik',
         'berkas',
@@ -35,9 +36,9 @@ class Yudisium extends Model
         return $this->belongsTo(StatusYudisium::class, 'status_yudisium_id');
     }
 
-    public function PeriodeWisudas(): BelongsTo
-    {
-        return $this->belongsTo(PeriodeWisuda::class, 'periode_wisuda_id');
-    }
+    // public function PeriodeWisudas(): BelongsTo
+    // {
+    //     return $this->belongsTo(PeriodeWisuda::class, 'periode_wisuda_id');
+    // }
 
 }

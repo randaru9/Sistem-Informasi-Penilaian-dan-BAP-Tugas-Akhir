@@ -23,13 +23,17 @@
                 <div class="w-1/2">
                     <label for="periode_wisuda" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Periode
                         Wisuda</label>
-                    <select
+                        @php
+                            $date = Carbon\Carbon::parse($data['periode_wisuda'])->translatedFormat('Y-m');
+                        @endphp
+                        <input type="month" class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full" name="periode_wisuda" id="periode_wisuda" value="{{$date}}">
+                    {{-- <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
                         name="periode_wisuda" id="periode_wisuda" value="{{$data['status_yudisium_id']}}">
                         @foreach ($periode as $item)
                             <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
                         @endforeach
-                    </select>
+                    </select> --}}
                 </div>
             </div>
             <div class="w-full px-5 flex py-2 gap-2">
@@ -69,7 +73,7 @@
                     <div class="flex space-x-2 items-center">
                         <label for="berkas"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
-                            <input type="file" id="berkas" name="berkas" class="hidden" minlength="9" required />
+                            <input type="file" id="berkas" name="berkas" class="hidden" />
                             Unggah
                         </label>
                         <p id="files_label" class="font-poppins text-base text-[#B7B7B7]">Unggah berkas</p>

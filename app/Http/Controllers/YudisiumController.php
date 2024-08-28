@@ -7,8 +7,8 @@ use App\Http\Requests\Yudisium\ExportYudisium;
 use App\Http\Requests\Yudisium\UpdateStatusRequest;
 use App\Http\Requests\Yudisium\CreateRequest;
 use App\Http\Requests\Yudisium\UpdateRequest;
-use App\Models\PeriodeWisuda;
 use App\Models\Yudisium;
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -19,8 +19,7 @@ class YudisiumController extends Controller
 
     public function CreateYudisiumView()
     {
-        $periode = PeriodeWisuda::all();
-        return view('mahasiswa.yudisium.yudisium-tambah', compact('periode'));
+        return view('mahasiswa.yudisium.yudisium-tambah');
     }
 
     // Create Yudisium
@@ -28,10 +27,12 @@ class YudisiumController extends Controller
     {
         $id = auth()->user()->id;
         $berkas = $request->safe()->berkas->store("yudisium/{$id}");
+        $date = Carbon::parse($request->periode_wisuda)->format('Y-m-d');
         Yudisium::create([
             'pengguna_id' => $id,
             'status_yudisium_id' => 1,
-            'periode_wisuda_id' => $request->safe()->periode_wisuda,
+            // 'periode_wisuda_id' => $request->safe()->periode_wisuda,
+            'periode_wisuda' => $date,
             'tempat_dan_bidang_kerja' => $request->tempat_bidang_kerja,
             'saran_dan_kritik' => $request->saran,
             'berkas' => $berkas
@@ -42,10 +43,10 @@ class YudisiumController extends Controller
     // Get All Yudisium by Pengguna Id
     public function GetAllYudisiumByPenggunaId(Request $request)
     {
-        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id'])->with([
-            'PeriodeWisudas' => function ($query) {
-                $query->select(['id', 'keterangan']);
-            },
+        $data = Yudisium::select(['id', 'status_yudisium_id', 'periode_wisuda'])->with([
+            // 'PeriodeWisudas' => function ($query) {
+            //     $query->select(['id', 'keterangan']);
+            // },
             'StatusYudisiums' => function ($query) {
                 $query->select(['id', 'keterangan']);
             }
@@ -62,9 +63,9 @@ class YudisiumController extends Controller
                 'StatusYudisiums' => function ($query) {
                     $query->select(['id', 'keterangan']);
                 },
-                'PeriodeWisudas' => function ($query) {
-                    $query->select(['id', 'keterangan']);
-                }
+                // 'PeriodeWisudas' => function ($query) {
+                //     $query->select(['id', 'keterangan']);
+                // }
             ])->first()->toArray();
             return view('mahasiswa.yudisium.yudisium-detail', compact('data'));
         }
@@ -76,9 +77,9 @@ class YudisiumController extends Controller
     public function UpdateYudisiumView(Request $request)
     {
         if ($request->query('id') !== null) {
-            $periode = PeriodeWisuda::all();
+            // $periode = PeriodeWisuda::all();
             $data = Yudisium::where('id', $request->query('id'))->first();
-            return view('mahasiswa.yudisium.yudisium-ubah', compact(['data', 'periode']));
+            return view('mahasiswa.yudisium.yudisium-ubah', compact(['data']));
         }
         return redirect()->route('yudisium-mahasiswa');
     }
@@ -96,10 +97,11 @@ class YudisiumController extends Controller
                     'berkas' => $berkas
                 ]);
             }
-
+            $date = Carbon::parse($request->periode_wisuda)->format('Y-m-d');
             $data->update([
                 'status_yudisium_id' => 1,
-                'periode_wisuda_id' => $request->safe()->periode_wisuda,
+                // 'periode_wisuda_id' => $request->safe()->periode_wisuda,
+                'periode_wisuda' => $date,
                 'tempat_dan_bidang_kerja' => $request->tempat_bidang_kerja,
                 'saran_dan_kritik' => $request->saran,
             ]);
@@ -109,7 +111,8 @@ class YudisiumController extends Controller
         return redirect()->route('yudisium-mahasiswa');
     }
 
-    public function UnduhBerkas(Request $request){
+    public function UnduhBerkas(Request $request)
+    {
         if ($request->query('path') !== null) {
             $user = auth()->user()->nama;
             $periode = $request->query('periode');
@@ -123,10 +126,10 @@ class YudisiumController extends Controller
     // Get All Yudisium
     public function YudisiumView(Request $request)
     {
-        $data = Yudisium::select(['id', 'periode_wisuda_id', 'status_yudisium_id', 'pengguna_id', 'created_at'])->with([
-            'PeriodeWisudas' => function ($query) {
-                $query->select(['id', 'keterangan']);
-            },
+        $data = Yudisium::select(['id', 'periode_wisuda', 'status_yudisium_id', 'pengguna_id', 'created_at'])->with([
+            // 'PeriodeWisudas' => function ($query) {
+            //     $query->select(['id', 'keterangan']);
+            // },
             'StatusYudisiums' => function ($query) {
                 $query->select(['id', 'keterangan']);
             },
@@ -136,17 +139,14 @@ class YudisiumController extends Controller
         ])->where(function (Builder $query) use ($request) {
             if (isset($request->search)) {
                 if ($search = $request->search) {
-                    $terms = explode(' ', $search);
-    
-                    foreach ($terms as $term) {
-                        $query->orWhereHas('Penggunas', function ($query) use ($term) {
-                            $query->where('nama', 'LIKE', "%{$term}%");
-                        })
-                        ->orWhereHas('PeriodeWisudas', function ($query) use ($term) {
-                            $query->where('keterangan', 'LIKE', "%{$term}%");
-                        })
-                        ->orWhere('created_at', 'LIKE', "%{$term}%");
-                    }
+                    $query->orWhereHas('Penggunas', function ($query) use ($search) {
+                        $query->where('nama', 'LIKE', "%{$search}%");
+                    });
+                }
+            } elseif (isset($request->month)) {
+                if ($month = $request->month) {
+                    $date = Carbon::parse($month)->format('Y-m-d');
+                    $query->whereDate('periode_wisuda', '=' ,$date);
                 }
             }
         })->paginate(5)->toArray();
@@ -161,9 +161,9 @@ class YudisiumController extends Controller
                 'StatusYudisiums' => function ($query) {
                     $query->select(['id', 'keterangan']);
                 },
-                'PeriodeWisudas' => function ($query) {
-                    $query->select(['id', 'keterangan']);
-                },
+                // 'PeriodeWisudas' => function ($query) {
+                //     $query->select(['id', 'keterangan']);
+                // },
                 'Penggunas' => function ($query) {
                     $query->select(['id', 'nama']);
                 }
@@ -178,10 +178,10 @@ class YudisiumController extends Controller
     {
         if ($request->query('id') !== null) {
             $data = Yudisium::where('id', $request->query('id'))->first();
-                $data->update([
-                    'catatan' => $request->safe()->alasan_penolakan,
-                    'status_yudisium_id' => 2
-                ]);
+            $data->update([
+                'catatan' => $request->safe()->alasan_penolakan,
+                'status_yudisium_id' => 2
+            ]);
             return redirect()->route('yudisium');
         }
         return redirect()->route('yudisium');
@@ -200,7 +200,8 @@ class YudisiumController extends Controller
         return redirect()->route('yudisium');
     }
 
-    public function UnduhBerkasAdmin(Request $request){
+    public function UnduhBerkasAdmin(Request $request)
+    {
         if ($request->query('path') !== null) {
             $user = $request->query('nama');
             $periode = $request->query('periode');
@@ -211,14 +212,14 @@ class YudisiumController extends Controller
 
     public function RekapYudisiumView()
     {
-        $periode = PeriodeWisuda::all();
-        return view('admin.yudisium.yudisium-rekap', compact('periode'));
+        // $periode = PeriodeWisuda::all();
+        return view('admin.yudisium.yudisium-rekap');
     }
 
     public function RekapYudisiumExport(ExportYudisium $request)
     {
         $yudisium = [];
-        $data = Yudisium::where('status_yudisium_id', 3)->where('periode_wisuda_id', $request->safe()->periode)->whereYear('created_at', $request->safe()->tahun)->with(['Penggunas', 'PeriodeWisudas'])->get();
+        $data = Yudisium::where('status_yudisium_id', 3)->whereDate('periode_wisuda', '=' , Carbon::parse($request->safe()->periode)->translatedFormat('Y-m-d'))->with(['Penggunas'])->get();
 
         if ($data->isEmpty()) {
             return back()->withInput()->with('error', 'Belum ada yudisium yang dapat direkap');
@@ -231,17 +232,17 @@ class YudisiumController extends Controller
             $yudisium[$index] = [
                 'no' => $index + 1,
                 'nama' => $value['penggunas']['nama'],
-                'periode' => $value['periode_wisudas']['keterangan'],
-                'tahun' => $request->safe()->tahun,
+                'periode' => Carbon::parse($value['periode_wisuda'])->translatedFormat('F Y'),
+                'tahun' => Carbon::parse($value['periode_wisuda'])->translatedFormat('Y'),
             ];
 
         }
 
-        if ($yudisium==[]) {
+        if ($yudisium == []) {
             return back()->withInput()->with('error', 'Belum ada yudisium yang dapat direkap');
         }
-
-        return (new YudisiumExport($yudisium))->download("Rekap Yudisium Periode {$request->safe()->periode} Tahun {$request->safe()->tahun}.xlsx");
+        $date = Carbon::parse($request->safe()->periode)->translatedFormat('F Y');
+        return (new YudisiumExport($yudisium))->download("Rekap Yudisium Periode {$date}.xlsx");
     }
 
 

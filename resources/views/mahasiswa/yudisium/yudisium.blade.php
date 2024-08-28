@@ -35,7 +35,10 @@
                                 {{ $loop->index + 1 }}
                             </td>
                             <td class="px-6 py-4 font-semibold font-poppins text-base">
-                                {{ $item['periode_wisudas']['keterangan'] }}
+                                @php
+                                    $date = Carbon\Carbon::parse($item['periode_wisuda'])->translatedFormat('F Y');    
+                                @endphp
+                                {{ $date }}
                             </td>
                             @if ($item['status_yudisiums']['id'] == '1')
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">

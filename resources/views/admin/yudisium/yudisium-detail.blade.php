@@ -35,17 +35,16 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4 min-w-full max-w-2xl max-h-96 min-h-96 overflow-y-scroll">
-                    <form
-                        action="{{ route('yudisium-reject', ['id' => request()->query('id')]) }}"
-                        method="POST">
+                    <form action="{{ route('yudisium-reject', ['id' => request()->query('id')]) }}" method="POST">
                         @csrf
                         <div class="flex flex-col">
                             <label class="text-base text-[#000000] font-poppins font-normal"
                                 for="alasan_penolakan">Catatan : </label>
-                            <textarea class="border border-gray-300" name="alasan_penolakan" id="alasan_penolakan" cols="30" rows="10" required></textarea>
+                            <textarea class="border border-gray-300" name="alasan_penolakan" id="alasan_penolakan" cols="30" rows="10"
+                                required></textarea>
                         </div>
                         @error('alasan_penolakan')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                         <button type="submit"
                             class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold w-full mt-2 px-4 py-2 rounded-[5px] font-poppins text-base">
@@ -69,8 +68,11 @@
             <div class="w-1/2">
                 <label for="periode_wisuda" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Periode
                     Wisuda</label>
+                @php
+                    $date = Carbon\Carbon::parse($data['periode_wisuda'])->translatedFormat('F Y');
+                @endphp
                 <p id="periode_wisuda" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    {{ $data['periode_wisudas']['keterangan'] }}
+                    {{ $data['periode_wisuda'] }}
                 </p>
             </div>
         </div>
@@ -97,7 +99,8 @@
             <div class="w-1/2">
                 <label for="berkas_yudisium" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Berkas
                     Yudisium</label>
-                <a href="{{route('yudisium-unduh-berkas-admin', ['path' => $data['berkas'], 'periode' => $data['periode_wisudas']['keterangan'], 'nama' => $data['penggunas']['nama']])}}" id="berkas_yudisium"
+                <a href="{{ route('yudisium-unduh-berkas-admin', ['path' => $data['berkas'], 'periode' => $date, 'nama' => $data['penggunas']['nama']]) }}"
+                    id="berkas_yudisium"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
                 </a>

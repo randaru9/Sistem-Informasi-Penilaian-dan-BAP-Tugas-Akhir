@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'periode_wisuda' => 'required|exists:periode_wisuda,id',
+            'periode_wisuda' => 'required|date',
             'berkas' => 'required|mimes:zip,rar|max:51200',
         ];
     }
@@ -39,7 +39,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'required' => ':attribute wajib diisi',
-            'exists' => ':attribute tidak ditemukan',
+            'date' => ':attribute harus berupa tanggal',
             'mimes' => ':attribute harus berupa berkas zip atau rar',
             'max' => ':attribute maksimal 50 MB',
         ];

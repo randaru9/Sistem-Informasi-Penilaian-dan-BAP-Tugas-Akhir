@@ -22,21 +22,19 @@ class ExportYudisium extends FormRequest
     public function rules(): array
     {
         return [
-            'periode' => 'required|exists:periode_wisuda,id',
-            'tahun' => 'required',
+            'periode' => 'required|date',
         ];
     }
 
     public function attributes(){
         return [
             'periode' => 'periode wisuda',
-            'tahun' => 'tahun',
         ];
     }
 
     public function messages(){
         return [
-            'exists' => ':attribute tidak ditemukan',
+            'date' => ':attribute harus berupa tanggal',
             'required' => ':attribute harus diisi',
         ];
     }
