@@ -85,7 +85,7 @@
 
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <a href="{{ route('bap-detail', ['id' => $item['id']]) }}"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline">Detail</a>
+                                    class="font-medium text-blue1 bg-blue1 text-white px-2 py-1 rounded-md hover:bg-blue-600">Detail</a>
                             </td>
                         </tr>
                     @endforeach

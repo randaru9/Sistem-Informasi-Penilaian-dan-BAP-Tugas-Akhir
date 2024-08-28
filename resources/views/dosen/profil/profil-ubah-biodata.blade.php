@@ -37,7 +37,7 @@
                     <label for="nip" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">NIP</label>
                     <input type="text" id="nip" name="nip"
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                        required minlength="18" value="{{ Auth::user()->nip }}" />
+                        required minlength="16" value="{{ Auth::user()->nip }}" />
                     @error('nip')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror

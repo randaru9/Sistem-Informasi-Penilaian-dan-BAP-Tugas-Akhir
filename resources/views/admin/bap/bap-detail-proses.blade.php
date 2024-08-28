@@ -89,10 +89,13 @@
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
-                            <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_pembimbing_1']['id']]) }}"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline whitespace-nowrap">Lihat
-                                    Penilaian</a>
+                            <td class="px-6 py-4 font-poppins text-sm font-normal">
+                                <div
+                                    class=" text-blue1 bg-blue1 text-white px-2 py-1 rounded-md hover:bg-blue-600 flex justify-center">
+                                    <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_pembimbing_1']['id']]) }}"
+                                        class="flex-shrink-0">Lihat
+                                        Penilaian</a>
+                                </div>
                             </td>
                         @endif
                     </tr>
@@ -154,10 +157,13 @@
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
-                            <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_pembimbing_2']['id']]) }}"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline whitespace-nowrap">Lihat
-                                    Penilaian</a>
+                            <td class="px-6 py-4 font-poppins text-sm font-normal">
+                                <div
+                                    class="font-medium text-blue1 bg-blue1 text-white px-2 py-1 rounded-md hover:bg-blue-600 flex justify-center">
+                                    <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_pembimbing_2']['id']]) }}"
+                                        class="flex-shrink-0">Lihat
+                                        Penilaian</a>
+                                </div>
                             </td>
                         @endif
                     </tr>
@@ -219,10 +225,13 @@
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
-                            <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_penguji_1']['id']]) }}"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline whitespace-nowrap">Lihat
-                                    Penilaian</a>
+                            <td class="px-6 py-4 font-poppins text-sm font-normal">
+                                <div
+                                    class="font-medium text-blue1 bg-blue1 text-white px-2 py-1 rounded-md hover:bg-blue-600 flex justify-center">
+                                    <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_penguji_1']['id']]) }}"
+                                        class="flex-shrink-0">Lihat
+                                        Penilaian</a>
+                                </div>
                             </td>
                         @endif
                     </tr>
@@ -284,10 +293,13 @@
                                     Penilaian Belum Ada</p>
                             </td>
                         @else
-                            <td class="px-6 py-4 font-poppins text-base font-normal">
-                                <a href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_penguji_2']['id']]) }}"
-                                    class="font-medium text-blue1 hover:text-[#0F548D] dark:text-blue-500 underline whitespace-nowrap">Lihat
-                                    Penilaian</a>
+                            <td class="px-6 py-4 font-poppins text-sm font-normal">
+                                <div
+                                    class="font-medium text-blue1 bg-blue1 text-white px-2 py-1 rounded-md hover:bg-blue-600 flex justify-center">
+                                    <a class="flex-shrink-0"
+                                        href="{{ route('bap-form-penilaian', ['id' => $collection['penilaian_penguji_2']['id']]) }}">Lihat
+                                        Penilaian</a>
+                                </div>
                             </td>
                         @endif
                     </tr>
