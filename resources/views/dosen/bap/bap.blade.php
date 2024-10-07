@@ -53,7 +53,7 @@
                                 @endphp
                                 {{ $item['tanggal'] }} / {{ $item['waktu'] }}
                             </td>
-                            @if ($item['b_a_p1s']['ttd'] === null)
+                            @if ($item['b_a_p1s']['ttd'] == null)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Belum Di Tandatangani
                                 </td>

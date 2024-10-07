@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         // $schedule->command('app:pengingat-penilaian')->dailyAt('23:59');
-        $schedule->command('app:pengingat-penilaian')->everyTenSeconds();
+        // $schedule->command('app:pengingat-penilaian')->everyTenSeconds();
     }
 
     /**

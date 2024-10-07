@@ -44,12 +44,12 @@
                         <td class="px-6 py-4 font-semibold font-poppins text-base">
                             Pembimbing 1
                         </td>
-                        @if ($collection['revisi_pembimbing_1'] === [])
+                        @if ($collection['revisi_pembimbing_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['revisi_pembimbing_1']['status_revisi_id'] === 1)
+                            @if ($collection['revisi_pembimbing_1']['status_revisi_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
                                     Belum Selesai
                                 </td>
@@ -59,16 +59,16 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_pembimbing_1'] === [])
+                        @if ($collection['penilaian_pembimbing_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['penilaian_pembimbing_1']['status_penilaian_id'] === 1)
+                            @if ($collection['penilaian_pembimbing_1']['status_penilaian_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                     Selesai
                                 </td>
-                            @elseif ($collection['penilaian_pembimbing_1']['status_penilaian_id'] === 2)
+                            @elseif ($collection['penilaian_pembimbing_1']['status_penilaian_id'] == 2)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Terlambat
                                 </td>
@@ -78,12 +78,12 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_pembimbing_1'] === [])
+                        @if ($collection['penilaian_pembimbing_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
-                        @elseif($collection['penilaian_pembimbing_1']['status_penilaian_id'] === 2)
+                        @elseif($collection['penilaian_pembimbing_1']['status_penilaian_id'] == 2)
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
@@ -112,12 +112,12 @@
                         <td class="px-6 py-4 font-semibold font-poppins text-base">
                             Pembimbing 2
                         </td>
-                        @if ($collection['revisi_pembimbing_2'] === [])
+                        @if ($collection['revisi_pembimbing_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['revisi_pembimbing_2']['status_revisi_id'] === 1)
+                            @if ($collection['revisi_pembimbing_2']['status_revisi_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
                                     Belum Selesai
                                 </td>
@@ -127,16 +127,16 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_pembimbing_2'] === [])
+                        @if ($collection['penilaian_pembimbing_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['penilaian_pembimbing_2']['status_penilaian_id'] === 1)
+                            @if ($collection['penilaian_pembimbing_2']['status_penilaian_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                     Selesai
                                 </td>
-                            @elseif ($collection['penilaian_pembimbing_2']['status_penilaian_id'] === 2)
+                            @elseif ($collection['penilaian_pembimbing_2']['status_penilaian_id'] == 2)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Terlambat
                                 </td>
@@ -146,12 +146,12 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_pembimbing_2'] === [])
+                        @if ($collection['penilaian_pembimbing_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
-                        @elseif($collection['penilaian_pembimbing_2']['status_penilaian_id'] === 2)
+                        @elseif($collection['penilaian_pembimbing_2']['status_penilaian_id'] == 2)
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
@@ -180,12 +180,12 @@
                         <td class="px-6 py-4 font-semibold font-poppins text-base">
                             Penguji 1
                         </td>
-                        @if ($collection['revisi_penguji_1'] === [])
+                        @if ($collection['revisi_penguji_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['revisi_penguji_1']['status_revisi_id'] === 1)
+                            @if ($collection['revisi_penguji_1']['status_revisi_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
                                     Belum Selesai
                                 </td>
@@ -195,16 +195,16 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_penguji_1'] === [])
+                        @if ($collection['penilaian_penguji_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['penilaian_penguji_1']['status_penilaian_id'] === 1)
+                            @if ($collection['penilaian_penguji_1']['status_penilaian_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                     Selesai
                                 </td>
-                            @elseif ($collection['penilaian_penguji_1']['status_penilaian_id'] === 2)
+                            @elseif ($collection['penilaian_penguji_1']['status_penilaian_id'] == 2)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Terlambat
                                 </td>
@@ -214,12 +214,12 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_penguji_1'] === [])
+                        @if ($collection['penilaian_penguji_1'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
-                        @elseif($collection['penilaian_penguji_1']['status_penilaian_id'] === 2)
+                        @elseif($collection['penilaian_penguji_1']['status_penilaian_id'] == 2)
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
@@ -248,12 +248,12 @@
                         <td class="px-6 py-4 font-semibold font-poppins text-base">
                             Penguji 2
                         </td>
-                        @if ($collection['revisi_penguji_2'] === [])
+                        @if ($collection['revisi_penguji_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['revisi_penguji_2']['status_revisi_id'] === 1)
+                            @if ($collection['revisi_penguji_2']['status_revisi_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-yellow-500">
                                     Belum Selesai
                                 </td>
@@ -263,16 +263,16 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_penguji_2'] === [])
+                        @if ($collection['penilaian_penguji_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal text-blue-500">
                                 Belum Diberikan
                             </td>
                         @else
-                            @if ($collection['penilaian_penguji_2']['status_penilaian_id'] === 1)
+                            @if ($collection['penilaian_penguji_2']['status_penilaian_id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-green-500">
                                     Selesai
                                 </td>
-                            @elseif ($collection['penilaian_penguji_2']['status_penilaian_id'] === 2)
+                            @elseif ($collection['penilaian_penguji_2']['status_penilaian_id'] == 2)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Terlambat
                                 </td>
@@ -282,12 +282,12 @@
                                 </td>
                             @endif
                         @endif
-                        @if ($collection['penilaian_penguji_2'] === [])
+                        @if ($collection['penilaian_penguji_2'] == [])
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>
                             </td>
-                        @elseif($collection['penilaian_penguji_2']['status_penilaian_id'] === 2)
+                        @elseif($collection['penilaian_penguji_2']['status_penilaian_id'] == 2)
                             <td class="px-6 py-4 font-poppins text-base font-normal">
                                 <p class="font-medium text-gray-500 whitespace-nowrap">
                                     Penilaian Belum Ada</p>

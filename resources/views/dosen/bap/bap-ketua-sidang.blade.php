@@ -41,7 +41,7 @@
                     <p class="my-2">
                         FORM 04 - (BAP 1)
                     </p>
-                    @if ($collection['jenis_seminar_id'] === 1)
+                    @if ($collection['jenis_seminar_id'] == 1)
                         <p class="mb-2">
                             BERITA ACARA SIDANG (PROPOSAL/<s>AKHIR</s>)
                         </p>
@@ -76,7 +76,7 @@
                             {{ $collection['waktu'] }} - {{ $waktuSelesai }} </span>
                         telah dilaksanakan
                         Ujian Sidang
-                        @if ($collection['jenis_seminar_id'] === 1)
+                        @if ($collection['jenis_seminar_id'] == 1)
                             (**Proposal/ <s>Akhir</s>)
                         @else
                             (** <s>Proposal</s>/Akhir)
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 <div class="flex flex-col font-tmr mt-2 font-normal text-base">
-                    <p>Setelah melihat, mendengar dan memperhatikan jalannya Ujian Sidang @if ($collection['jenis_seminar_id'] === 1)
+                    <p>Setelah melihat, mendengar dan memperhatikan jalannya Ujian Sidang @if ($collection['jenis_seminar_id'] == 1)
                             ** (Proposal/ <s>Akhir</s>)
                         @else
                             ** (<s>Proposal</s>/Akhir)

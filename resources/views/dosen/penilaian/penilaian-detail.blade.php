@@ -58,13 +58,13 @@
                 <label for="posisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Posisi Dalam
                     Sidang</label>
                 <p id="posisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if (auth()->user()->id === $data['pembimbing_1_id'])
+                    @if (auth()->user()->id == $data['pembimbing_1_id'])
                         Pembimbing 1
-                    @elseif(auth()->user()->id === $data['pembimbing_2_id'])
+                    @elseif(auth()->user()->id == $data['pembimbing_2_id'])
                         Pembimbing 2
-                    @elseif(auth()->user()->id === $data['penguji_1_id'])
+                    @elseif(auth()->user()->id == $data['penguji_1_id'])
                         Penguji 1
-                    @elseif(auth()->user()->id === $data['penguji_2_id'])
+                    @elseif(auth()->user()->id == $data['penguji_2_id'])
                         Penguji 2
                     @endif
                 </p>
@@ -83,7 +83,7 @@
                     class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Penilaian</label>
                 <p id="status_penilaian" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['count_penilaian'] === 0)
+                    @if ($data['count_penilaian'] == 0)
                         Belum Diberikan
                     @else
                         {{ $data['penilaians'][0]['status_penilaians']['keterangan'] }}
@@ -94,7 +94,7 @@
                 <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Revisi</label>
                 <p id="status_revisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['count_revisi'] === 0)
+                    @if ($data['count_revisi'] == 0)
                         Belum Diberikan
                     @else
                         {{ $data['revisis'][0]['status_revisis']['keterangan'] }}
@@ -112,7 +112,7 @@
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-            @if ($data['count_penilaian'] === 0 || $data['penilaians'][0]['status_penilaian_id'] === 2)
+            @if ($data['count_penilaian'] == 0 || $data['penilaians'][0]['status_penilaian_id'] == 2)
                 <a href="{{ route('penilaian-tambah', ['id' => $data['id']]) }}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
                     Nilai</a>
@@ -121,7 +121,7 @@
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Cek
                     Nilai</a>
             @endif
-            @if ($data['count_revisi'] === 0)
+            @if ($data['count_revisi'] == 0)
                 <a href="{{ route('penilaian-revisi-tambah', ['id' => $data['id']]) }}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
                     Revisi</a>

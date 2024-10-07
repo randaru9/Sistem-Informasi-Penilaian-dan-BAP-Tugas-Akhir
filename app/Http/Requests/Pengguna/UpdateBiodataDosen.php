@@ -22,8 +22,8 @@ class UpdateBiodataDosen extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'string|unique:pengguna',
-            'nip' => 'string|min_digits:18|unique:pengguna',
+            'nama' => 'nullable|string|unique:pengguna',
+            'nip' => 'nullable|string|min_digits:18|unique:pengguna',
         ];
     }
 

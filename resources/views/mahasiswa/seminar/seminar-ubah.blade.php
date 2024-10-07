@@ -39,9 +39,9 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pembimbing1" id="pembimbing1" value="{{ $data['pembimbing_1_id'] }}">
+                        name="pembimbing1" id="pembimbing1">
                         @foreach ($dosen as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['pembimbing_1_id'])>{{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('pembimbing1')
@@ -54,9 +54,9 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pembimbing2" id="pembimbing2" value={{ $data['pembimbing_2_id'] }}>
+                        name="pembimbing2" id="pembimbing2">
                         @foreach ($dosen as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['pembimbing_2_id'])>{{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('pembimbing2')
@@ -70,9 +70,9 @@
                         1</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="penguji1" id="penguji1" value{{ $data['penguji_1_id'] }}>
+                        name="penguji1" id="penguji1">
                         @foreach ($dosen as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['penguji_1_id'])>{{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('penguji1')
@@ -84,9 +84,9 @@
                         2</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="penguji2" id="penguji2" value={{ $data['penguji_2_id'] }}>
+                        name="penguji2" id="penguji2">
                         @foreach ($dosen as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['penguji_2_id'])>{{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('penguji2')
@@ -100,9 +100,9 @@
                         Sidang</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="pimpinan" id="pimpinan" value={{ $data['pimpinan_sidang_id'] }}>
+                        name="pimpinan" id="pimpinan">
                         @foreach ($dosen as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['pimpinan_sidang_id'])>{{ $item->nama }}</option>
                         @endforeach
                     </select>
                     @error('pembimbing2')
@@ -114,9 +114,9 @@
                         Sidang</label>
                     <select
                         class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full"
-                        name="jenis" id="jenis" value={{ $data['jenis_seminar_id'] }}>
+                        name="jenis" id="jenis">
                         @foreach ($jenis as $item)
-                            <option value="{{ $item->id }}">{{ $item->keterangan }}</option>
+                            <option value="{{ $item->id }}" @selected($item->id == $data['jenis_seminar_id'])>{{ $item->keterangan }}</option>
                         @endforeach
                     </select>
                     @error('jenis')

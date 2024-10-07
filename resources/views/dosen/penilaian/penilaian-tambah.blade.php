@@ -62,13 +62,13 @@
                 <label for="posisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Posisi Dalam
                     Sidang</label>
                 <p id="posisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if (auth()->user()->id === $data['pembimbing_1_id'])
+                    @if (auth()->user()->id == $data['pembimbing_1_id'])
                         Pembimbing 1
-                    @elseif(auth()->user()->id === $data['pembimbing_2_id'])
+                    @elseif(auth()->user()->id == $data['pembimbing_2_id'])
                         Pembimbing 2
-                    @elseif(auth()->user()->id === $data['penguji_1_id'])
+                    @elseif(auth()->user()->id == $data['penguji_1_id'])
                         Penguji 1
-                    @elseif(auth()->user()->id === $data['penguji_2_id'])
+                    @elseif(auth()->user()->id == $data['penguji_2_id'])
                         Penguji 2
                     @endif
                 </p>

@@ -45,10 +45,10 @@ class PenggunaController extends Controller
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $request->session()->put('email', $request->safe()->email);
         //catch email req and send email
-        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
+        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
         if (auth()->user()->role_id == 3) {
             return redirect()->route('profil-verifikasi-email-mahasiswa');
         } elseif (auth()->user()->role_id == 2) {
@@ -124,7 +124,10 @@ class PenggunaController extends Controller
     public function UpdateBiodataMahasiswa(UpdateBiodataMahasiswaRequest $request)
     {
         $data = Pengguna::where('id', auth()->user()->id)->first();
-        $data->update($request->safe()->all());
+        $data->update([
+            'nama' => $request->safe()->nama ?? $data->nama,
+            'nim' => $request->safe()->nim ?? $data->nim
+        ]);
         return redirect()->route('profil-mahasiswa');
     }
 
@@ -135,7 +138,10 @@ class PenggunaController extends Controller
     public function UpdateBiodataDosen(UpdateBiodataDosen $request)
     {
         $data = Pengguna::where('id', auth()->user()->id)->first();
-        $data->update($request->safe()->all());
+        $data->update([
+            'nama' => $request->safe()->nama ?? $data->nama,
+            'nip' => $request->safe()->nip ?? $data->nip
+        ]);
         return redirect()->route('profil-dosen');
     }
 

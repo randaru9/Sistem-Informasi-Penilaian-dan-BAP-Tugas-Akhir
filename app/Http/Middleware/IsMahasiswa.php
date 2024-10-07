@@ -16,7 +16,7 @@ class IsMahasiswa
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
-            if (auth()->user()->role_id === 3) {
+            if (auth()->user()->role_id == 3) {
                 return $next($request);
             }
             auth()->logout();

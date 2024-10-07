@@ -106,9 +106,9 @@
                 <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Revisi</label>
                 <p id="status_revisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['count_revisi'] === 0)
+                    @if ($data['count_revisi'] == 0)
                         Belum Diberikan
-                    @elseif($data['count_revisi_selesai'] === 4)
+                    @elseif($data['count_revisi_selesai'] == 4)
                         Selesai
                     @else
                         Belum Selesai
@@ -120,9 +120,9 @@
                     class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Penilaian</label>
                 <p id="status_penilaian" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['count_penilaian'] === 0)
+                    @if ($data['count_penilaian'] == 0)
                         Belum Diberikan
-                    @elseif($data['count_penilaian_selesai'] === 4)
+                    @elseif($data['count_penilaian_selesai'] == 4)
                         Selesai
                     @elseif($data['count_penilaian_terlambat'] !== 0)
                         Terlambat
@@ -138,7 +138,7 @@
                     class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Tanda Tangan</label>
                 <p id="status_penilaian" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['Bap1s_count'] === 0)
+                    @if ($data['Bap1s_count'] == 0)
                         Belum Diberikan
                     @else
                         Sudah Diberikan
@@ -150,7 +150,7 @@
             <a href="{{ route('bap-detail-proses', ['id' => request()->query('id')]) }}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Detail
                 Proses</a>
-            @if ($data['count_penilaian_selesai'] === 4 && $data['Bap1s_count'] !== 0 )
+            @if ($data['count_penilaian_selesai'] == 4 && $data['Bap1s_count'] !== 0 )
                 <a href="{{route('bap-lihat-bap1', ['id' => request()->query('id')])}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Lihat
                     BAP 1</a>

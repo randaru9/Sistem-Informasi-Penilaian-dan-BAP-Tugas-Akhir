@@ -97,9 +97,9 @@
                 <label for="status_revisi" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Status
                     Revisi</label>
                 <p id="status_revisi" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
-                    @if ($data['count_revisi'] === 0)
+                    @if ($data['count_revisi'] == 0)
                         Belum Diberikan
-                    @elseif($data['count_revisi_selesai'] === 4)
+                    @elseif($data['count_revisi_selesai'] == 4)
                         Selesai
                     @else
                         Belum Selesai
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="w-full px-5 flex justify-end items-center py-2 gap-2">
-            @if ($data['count_revisi'] === 0)
+            @if ($data['count_revisi'] == 0)
             <a href="{{route('seminar-ubah', ['id' => $data['id']])}}"
                 class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>
             @endif

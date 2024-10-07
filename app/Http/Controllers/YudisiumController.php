@@ -212,7 +212,6 @@ class YudisiumController extends Controller
 
     public function RekapYudisiumView()
     {
-        // $periode = PeriodeWisuda::all();
         return view('admin.yudisium.yudisium-rekap');
     }
 

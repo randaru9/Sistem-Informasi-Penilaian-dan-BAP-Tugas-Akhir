@@ -22,8 +22,8 @@ class UpdateBiodataMahasiswaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'string|unique:pengguna',
-            'nim' => 'string|max_digits:9|min_digits:9|unique:pengguna',
+            'nama' => 'nullable|string|unique:pengguna',
+            'nim' => 'nullable|string|max_digits:9|min_digits:9|unique:pengguna',
         ];
     }
 

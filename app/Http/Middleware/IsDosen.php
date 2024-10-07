@@ -16,7 +16,7 @@ class IsDosen
     public function handle(Request $request, Closure $next): Response
     {
         if (auth()->check()) {
-            if (auth()->user()->role_id === 2) {
+            if (auth()->user()->role_id == 2) {
                 return $next($request);
             }
             auth()->logout();

@@ -56,7 +56,7 @@
                                     Penguji 2
                                 </td>
                             @endif
-                            @if ($item['status_revisis']['id'] === 1)
+                            @if ($item['status_revisis']['id'] == 1)
                                 <td class="px-6 py-4 font-poppins text-base font-normal text-red-500">
                                     Belum Selesai
                                 </td>

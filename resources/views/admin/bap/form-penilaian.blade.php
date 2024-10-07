@@ -154,7 +154,7 @@
                             <td class="border border-black p-2 text-center font-tmr text-base">
                                 @php
                                     $average = $total / 6;
-                                    if ($data['nilai_bimbingan'] === null) {
+                                    if ($data['nilai_bimbingan'] == null) {
                                         $average = $total / 5;
                                     }
                                     $average = number_format($average, 2, '.', '');
