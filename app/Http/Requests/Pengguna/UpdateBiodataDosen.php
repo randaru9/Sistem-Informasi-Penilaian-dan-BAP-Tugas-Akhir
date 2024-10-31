@@ -24,6 +24,7 @@ class UpdateBiodataDosen extends FormRequest
         return [
             'nama' => 'nullable|string|unique:pengguna',
             'nip' => 'nullable|string|min_digits:18|unique:pengguna',
+            'ttd' => 'nullable|mimes:png,jpg,jpeg|max:5240',
         ];
     }
 
@@ -32,6 +33,7 @@ class UpdateBiodataDosen extends FormRequest
         return [
             'nama' => 'Nama',
             'nip' => 'NIP',
+            'ttd' => 'Tanda Tangan',
         ];
     }
 
@@ -42,6 +44,7 @@ class UpdateBiodataDosen extends FormRequest
             'string' => ':attribute harus string',
             'max_digits' => ':attribute harus lebih kecil sama dengan 9 digit',
             'min_digits' => ':attribute harus lebih besar sama dengan 9 digit',
+            'mimes' => ':attribute harus berupa gambar dengan format png, jpg, jpeg',
         ];
     }
 

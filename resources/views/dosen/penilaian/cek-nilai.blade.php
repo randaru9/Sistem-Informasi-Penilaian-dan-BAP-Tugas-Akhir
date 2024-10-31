@@ -25,6 +25,13 @@
                     {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
+            <div class="w-1/2">
+                <label for="nim" class="block mb-2 text-base text-[#000000] font-poppins font-normal">NIM
+                    Teruji</label>
+                <p id="nim" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
+                    {{ $data['penggunas']['nim'] }}
+                </p>
+            </div>
         </div>
         <div class="w-full px-5 py-2">
             <div>
@@ -136,7 +143,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="w-full flex flex-col lg:my-3">
+                {{-- <div class="w-full flex flex-col lg:my-3">
                     <label for="tandatangan" class="block lg:mb-2 text-sm text-[#000000] font-poppins font-normal">Tanda
                         Tangan
                     </label>
@@ -145,7 +152,7 @@
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                         Unduh
                     </a>
-                </div>
+                </div> --}}
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <a href="{{ route('penilaian-ubah-nilai', ['id' => $data['id']]) }}"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Ubah</a>

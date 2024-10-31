@@ -27,8 +27,7 @@ class UpdateRequest extends FormRequest
             'penguasaan' => 'required|numeric|between:0,100',
             'kemampuan_menjawab' => 'required|numeric|between:0,100',
             'etika' => 'required|numeric|between:0,100',
-            'bimbingan' => 'numeric|between:0,100',
-            'ttd' => 'nullable|mimes:png,jpg,jpeg|max:5240',
+            'bimbingan' => 'nullable|numeric|between:0,100',
         ];
     }
 
@@ -41,7 +40,6 @@ class UpdateRequest extends FormRequest
             'kemampuan_menjawab' => 'Kemampuan Menjawab',
             'etika' => 'Etika dan Sopan Santun',
             'bimbingan' => 'Nilai Bimbingan',
-            'ttd' => 'Tanda Tangan',
         ];
     }
 
@@ -51,7 +49,6 @@ class UpdateRequest extends FormRequest
             'required' => ':attribute wajib diisi',
             'exists' => ':attribute tidak ditemukan',
             'numeric' => ':attribute harus berupa angka',
-            'mimes' => ':attribute harus berupa file PNG, JPG, JPEG',
             'between' => ':attribute harus antara :min sampai :max',
         ];
     }

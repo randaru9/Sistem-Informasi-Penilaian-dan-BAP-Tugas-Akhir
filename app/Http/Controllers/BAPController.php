@@ -15,10 +15,13 @@ use Illuminate\Support\Facades\Storage;
 class BAPController extends Controller
 {
     // (Dosen) //
-    public function AddTTDBAP1(AddTTDBAP1Request $request){
+    public function AddTTDBAP1(Request $request){
         if ($request->query('id')){
             $data = BAP1::where('id', $request->query('id'))->first();
-            $ttd = $request->safe()->ttd->store("/ttd/bap/{$data->id}");
+            if(auth()->user()->ttd == null){
+                return back()->with('ttd', 'Silahkan isi tanda tangan pada profil terlebih dahulu');
+            }
+            $ttd = auth()->user()->ttd;
             $data->update([
                 'status_tanda_tangan_id' => 2,
                 'ttd' => $ttd
@@ -31,7 +34,6 @@ class BAPController extends Controller
     public function DeleteTTDBAP1(Request $request){
         if ($request->query('id')){
             $data = BAP1::where('id', $request->query('id'))->first();
-            Storage::delete($data->ttd);
             $data->update([
                 'status_tanda_tangan_id' => 1,
                 'ttd' => null

@@ -267,7 +267,7 @@ class SeminarController extends Controller
                     $query->select('id', 'keterangan');
                 },
                 'Penggunas' => function ($query) {
-                    $query->select('id', 'nama');
+                    $query->select('id', 'nama', 'nim');
                 },
                 'Penilaians' => function ($query) use ($request, $id) {
                     $query->select(['id', 'seminar_id', 'pengguna_id', 'status_penilaian_id'])

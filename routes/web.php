@@ -163,6 +163,8 @@ Route::prefix('dosen')->middleware('dosen')->group(function () {
         Route::get('/unduh-draft', [SeminarController::class, 'UnduhDraftPenilaian'])->name('penilaian-unduh-draft');
 
         Route::get('/unduh-ttd', [PenilaianController::class, 'UnduhTtdPenilaian'])->name('penilaian-unduh-ttd');
+
+        Route::get('/unduh-form-penilaian-dosen', [PenilaianController::class, 'UnduhFormPenilaianView'])->name('bap-unduh-form-penilaian-dosen');
     });
 
     Route::prefix('bap')->group(function () {

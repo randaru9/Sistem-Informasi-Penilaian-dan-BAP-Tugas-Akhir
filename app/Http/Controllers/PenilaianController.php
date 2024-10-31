@@ -21,7 +21,7 @@ class PenilaianController extends Controller
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
@@ -37,7 +37,11 @@ class PenilaianController extends Controller
     {
         if ($request->query('id') !== null) {
             $id = auth()->user()->id;
-            $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id}");
+            // $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id}");
+            if (auth()->user()->ttd == null) {
+                return back()->with('ttd', 'Silahkan isi tanda tangan pada profil terlebih dahulu');
+            }
+            $ttd = auth()->user()->ttd;
             if ($request->bimbingan !== null) {
                 $data = Penilaian::where('seminar_id', $request->query('id'))->where('pengguna_id', $id)->first();
                 if ($data !== null) {
@@ -103,7 +107,7 @@ class PenilaianController extends Controller
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
@@ -131,7 +135,7 @@ class PenilaianController extends Controller
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
@@ -153,21 +157,31 @@ class PenilaianController extends Controller
             $id_seminar = $request->query('id');
             $id_dosen = auth()->user()->id;
             $data = Penilaian::where('seminar_id', $id_seminar)->where('pengguna_id', $id_dosen)->first();
-            if ($request->safe()->ttd != null) {
-                Storage::delete($data->ttd);
-                $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id_dosen}");
+            // if ($request->safe()->ttd != null) {
+            //     Storage::delete($data->ttd);
+            //     $ttd = $request->safe()->ttd->store("/ttd/penilaian/{$id_dosen}");
+            //     $data->update([
+            //         'ttd' => $ttd
+            //     ]);
+            // }
+            if (request()->bimbingan != null) {
                 $data->update([
-                    'ttd' => $ttd
+                    'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                    'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                    'penguasaan_materi' => $request->safe()->penguasaan,
+                    'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                    'etika_dan_sopan_santun' => $request->safe()->etika,
+                    'nilai_bimbingan' => $request->safe()->bimbingan,
+                ]);
+            } else {
+                $data->update([
+                    'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
+                    'penyajian_atau_presentasi' => $request->safe()->penyajian,
+                    'penguasaan_materi' => $request->safe()->penguasaan,
+                    'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
+                    'etika_dan_sopan_santun' => $request->safe()->etika,
                 ]);
             }
-            $data->update([
-                'penulisan_draft_tugas_akhir_dan_ppt' => $request->safe()->penulisan,
-                'penyajian_atau_presentasi' => $request->safe()->penyajian,
-                'penguasaan_materi' => $request->safe()->penguasaan,
-                'kemampuan_menjawab' => $request->safe()->kemampuan_menjawab,
-                'etika_dan_sopan_santun' => $request->safe()->etika,
-                'nilai_bimbingan' => $request->safe()->bimbingan,
-            ]);
             return redirect()->route('penilaian-detail', ['id' => $request->query('id')]);
         }
         return redirect()->route('penilaian');

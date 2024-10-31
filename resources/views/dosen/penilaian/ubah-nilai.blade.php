@@ -25,6 +25,13 @@
                     {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
+            <div class="w-1/2">
+                <label for="nim" class="block mb-2 text-base text-[#000000] font-poppins font-normal">NIM
+                    Teruji</label>
+                <p id="nim" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
+                    {{ $data['penggunas']['nim'] }}
+                </p>
+            </div>
         </div>
         <div class="w-full px-5 py-2">
             <div>
@@ -140,18 +147,20 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    @if(auth()->user()->id !== $data['penguji_1_id'] && auth()->user()->id !== $data['penguji_2_id'])
                     <div class="lg:w-1/3">
                         <label for="bimbingan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Nilai
                             Bimbingan</label>
                         <input type="text" id="bimbingan" name="bimbingan"
                             class="bg-white border rounded-md border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block p-1 w-full "
-                            value="{{ $data['penilaians'][0]['nilai_bimbingan'] }}" />
+                            />
                         @error('bimbingan')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror
                     </div>
+                    @endif
                 </div>
-                <div class="w-full flex flex-col my-4">
+                {{-- <div class="w-full flex flex-col my-4">
                     <label for="tandatangan" class="block mb-2 text-sm text-[#000000] font-poppins font-normal">Tanda
                         Tangan
                     </label>
@@ -172,7 +181,7 @@
                     @error('ttd')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                     @enderror
-                </div>
+                </div> --}}
                 <div class="w-full flex justify-end gap-x-4 my-3">
                     <button type="submit"
                         class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Simpan</button>

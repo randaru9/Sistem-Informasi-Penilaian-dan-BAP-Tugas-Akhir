@@ -14,11 +14,13 @@ use App\Http\Requests\Pengguna\UpdateKatasandiRequest;
 use App\Imports\DosenImport;
 use App\Imports\MahasiswaImport;
 use App\Mail\OTP;
+use App\Mail\OTPEmail;
 use App\Models\Pengguna;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PenggunaController extends Controller
@@ -28,13 +30,13 @@ class PenggunaController extends Controller
     public function ProfilView()
     {
         if (auth()->user()->role_id == 3) {
-            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email'])->first();
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nim', 'email', 'ttd'])->first();
             return view('mahasiswa.profil.profil', compact('data'));
         } elseif (auth()->user()->role_id == 2) {
-            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email', 'ttd'])->first();
             return view('dosen.profil.profil', compact('data'));
         } else {
-            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email'])->first();
+            $data = Pengguna::where('id', auth()->user()->id)->get(['id', 'nama', 'nip', 'email', 'ttd'])->first();
             return view('admin.profil.profil', compact('data'));
         }
     }
@@ -48,28 +50,29 @@ class PenggunaController extends Controller
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
-        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
+        Mail::to(session()->get('email'))->send(new OTPEmail($data->only(['nama', 'otp'])));
         if (auth()->user()->role_id == 3) {
             return redirect()->route('profil-verifikasi-email-mahasiswa');
         } elseif (auth()->user()->role_id == 2) {
             return redirect()->route('profil-verifikasi-email-dosen');
-        }else{
+        } else {
             return redirect()->route('profil-verifikasi-email-admin');
         }
     }
 
-    public function regenerateOtp(){
+    public function regenerateOtp()
+    {
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $data->update([
             'otp' => random_int(100000, 999999)
         ]);
         // resend otp via email in session 
-        Mail::to(session()->get('email'))->send(new OTP($data->only(['nama', 'otp'])));
+        Mail::to(session()->get('email'))->send(new OTPEmail($data->only(['nama', 'otp'])));
         if (auth()->user()->role_id == 3) {
             return redirect()->route('profil-verifikasi-email-mahasiswa');
         } elseif (auth()->user()->role_id == 2) {
             return redirect()->route('profil-verifikasi-email-dosen');
-        }else{
+        } else {
             return redirect()->route('profil-verifikasi-email-admin');
         }
     }
@@ -87,7 +90,7 @@ class PenggunaController extends Controller
                 return redirect()->route('profil-mahasiswa');
             } elseif (auth()->user()->role_id == 2) {
                 return redirect()->route('profil-dosen');
-            }else{
+            } else {
                 return redirect()->route('profil-admin');
             }
 
@@ -108,7 +111,7 @@ class PenggunaController extends Controller
                     return redirect()->route('profil-mahasiswa');
                 } elseif (auth()->user()->role_id == 2) {
                     return redirect()->route('profil-dosen');
-                }else{
+                } else {
                     return redirect()->route('profil-admin');
                 }
             }
@@ -140,8 +143,18 @@ class PenggunaController extends Controller
         $data = Pengguna::where('id', auth()->user()->id)->first();
         $data->update([
             'nama' => $request->safe()->nama ?? $data->nama,
-            'nip' => $request->safe()->nip ?? $data->nip
+            'nip' => $request->safe()->nip ?? $data->nip,
+            'ttd' => $request->safe()->ttd ?? $data->ttd
         ]);
+        if ($request->safe()->ttd) {
+            if ($data->ttd) {
+                Storage::delete($data->ttd);
+            }
+            $ttd = $request->safe()->ttd->store("/ttd/dosen/{$data->id}");
+            $data->update([
+                'ttd' => $ttd
+            ]);
+        }
         return redirect()->route('profil-dosen');
     }
 
@@ -218,12 +231,14 @@ class PenggunaController extends Controller
         return redirect()->route('dosen');
     }
 
-    public function ParsingPenggunaDosen(ParsingPenggunaRequest $request){
+    public function ParsingPenggunaDosen(ParsingPenggunaRequest $request)
+    {
         Excel::import(new DosenImport, $request->safe()->file);
         return redirect()->route('dosen');
     }
 
-    public function ParsingPenggunaMahasiswa(ParsingPenggunaRequest $request){
+    public function ParsingPenggunaMahasiswa(ParsingPenggunaRequest $request)
+    {
         Excel::import(new MahasiswaImport, $request->safe()->file);
         return redirect()->route('mahasiswa');
     }

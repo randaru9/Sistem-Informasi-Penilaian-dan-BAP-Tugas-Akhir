@@ -32,6 +32,7 @@ class Pengguna extends Authenticatable
         'nim',
         'nip',
         'password',
+        'ttd',
         'otp',
     ];
 

@@ -25,6 +25,13 @@
                     {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
+            <div class="w-1/2">
+                <label for="nim" class="block mb-2 text-base text-[#000000] font-poppins font-normal">NIM
+                    Teruji</label>
+                <p id="nim" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
+                    {{ $data['penggunas']['nim'] }}
+                </p>
+            </div>
         </div>
         <div class="w-full px-5 py-2">
             <div>

@@ -27,6 +27,19 @@
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
+                <label for="nip" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Tanda Tangan</label>
+                @if ($data['ttd'] != null)
+                    <img class="w-[100px] h-[100px]" src="{{ url(asset('storage/'.$data['ttd'])) }}" alt="">
+                @else
+                    <p>-</p>
+                @endif
+                {{-- <div class="h-3 mt-5">
+                    <img src="{{ url(asset('storage/assets/footer_surat.svg')) }}" alt="">
+                </div> --}}
+            </div>
+        </div>
+        <div class="w-full px-5 flex py-2 gap-2">
+            <div class="w-1/2">
                 <a href="{{route('profil-ubah-biodata-dosen')}}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">
                     Ubah Biodata

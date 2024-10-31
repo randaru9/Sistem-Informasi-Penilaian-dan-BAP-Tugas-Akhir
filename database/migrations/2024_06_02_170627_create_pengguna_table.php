@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('email')->unique()->nullable();
             $table->string('nim')->unique()->nullable();
             $table->string('nip')->unique()->nullable();
+            $table->string('ttd')->nullable();
             $table->string('password');
             $table->string('otp')->nullable();
             $table->softDeletes();

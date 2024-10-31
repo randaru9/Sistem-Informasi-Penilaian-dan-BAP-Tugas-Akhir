@@ -56,7 +56,7 @@ class RevisiController extends Controller
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
@@ -90,7 +90,7 @@ class RevisiController extends Controller
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);
@@ -152,7 +152,7 @@ class RevisiController extends Controller
             $id = auth()->user()->id;
             $data = Seminar::where('id', $request->query('id'))->with([
                 'Penggunas' => function ($query) {
-                    $query->select(['id', 'nama']);
+                    $query->select(['id', 'nama', 'nim']);
                 },
                 'JenisSeminars' => function ($query) {
                     $query->select(['id', 'keterangan']);

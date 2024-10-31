@@ -21,10 +21,18 @@
                     {{ $data['penggunas']['nama'] }}
                 </p>
             </div>
+            <div class="w-1/2">
+                <label for="nim" class="block mb-2 text-base text-[#000000] font-poppins font-normal">NIM
+                    Teruji</label>
+                <p id="nim" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
+                    {{ $data['penggunas']['nim'] }}
+                </p>
+            </div>
         </div>
         <div class="w-full px-5 py-2">
             <div>
-                <label for="judul_tugas_akhir" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
+                <label for="judul_tugas_akhir"
+                    class="block mb-2 text-base text-[#000000] font-poppins font-normal">Judul
                     Tugas Akhir</label>
                 <p id="judul_tugas_akhir" class="text-sm text-[#000000] font-poppins font-normal w-2/3 text-justify">
                     {{ $data['judul'] }}
@@ -104,8 +112,10 @@
         </div>
         <div class="w-full px-5 flex py-2 gap-2">
             <div class="w-1/2">
-                <label for="berkas_yudisium" class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft</label>
-                <a href="{{ route('penilaian-unduh-draft', ['path' => $data['draft'], 'jenis' => $data['jenis_seminar_id'], 'id' => $data['id']])}}" id="berkas_yudisium"
+                <label for="berkas_yudisium"
+                    class="block mb-2 text-base text-[#000000] font-poppins font-normal">Draft</label>
+                <a href="{{ route('penilaian-unduh-draft', ['path' => $data['draft'], 'jenis' => $data['jenis_seminar_id'], 'id' => $data['id']]) }}"
+                    id="berkas_yudisium"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-1 w-fit rounded-[5px] font-poppins text-base">
                     Unduh
                 </a>
@@ -117,6 +127,10 @@
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Beri
                     Nilai</a>
             @elseif($data['count_penilaian'] !== 0 && $data['penilaians'][0]['status_penilaian_id'] !== 2)
+                <a href="{{ route('bap-unduh-form-penilaian-dosen', ['id' => $data['penilaians'][0]['id']]) }}"
+                    class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">
+                    Unduh Form Penilaian
+                </a>
                 <a href="{{ route('penilaian-cek-nilai', ['id' => $data['id']]) }}"
                     class="bg-gold text-white hover:bg-white hover:ring-2 hover:ring-gold hover:text-gold px-4 py-2 w-fit rounded-[5px] font-poppins text-base">Cek
                     Nilai</a>

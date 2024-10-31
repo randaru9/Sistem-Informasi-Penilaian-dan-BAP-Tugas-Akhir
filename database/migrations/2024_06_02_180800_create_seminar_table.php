@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignUuid('bap2_id')->constrained('bap_2');
             $table->foreignUuid('pengguna_id')->constrained('pengguna');
             $table->foreignUuid('pembimbing_1_id')->constrained('pengguna');
-            $table->foreignUuid('pembimbing_2_id')->constrained('pengguna');
+            $table->foreignUuid('pembimbing_2_id')->nullable()->constrained('pengguna');
             $table->foreignUuid('penguji_1_id')->constrained('pengguna');
             $table->foreignUuid('penguji_2_id')->constrained('pengguna');
             $table->foreignUuid('pimpinan_sidang_id')->constrained('pengguna');
