@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             StatusRevisiSeeder::class,
             StatusTandaTanganSeeder::class,
             StatusYudisiumSeeder::class,
+            RentangNilaiSeeder::class
         ]);
     }
 }

@@ -10,21 +10,27 @@
 @endphp
 
 <x-layout-admin :$breads title="BAP">
-    <div class="flex justify-between mb-4">
+    <div class="flex mb-4">
         <form action="" class="w-full flex space-x-4">
             @csrf
             <input type="text" id="search" name="search"
-                class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-3/12 font-poppins font-normal"
-                placeholder="Cari nama mahasiswa" value="{{ request()->query('search') }}"/>
+                class="bg-white border rounded-md border-gold text-gray-900 text-sm focus:ring-gold focus:border-gold block p-1 sm:w-1/2 lg:w-4/12 font-poppins font-normal"
+                placeholder="Cari nama mahasiswa" value="{{ request()->query('search') }}" />
             <button type="submit"
                 class="py-2 px-4 font-poppins font-medium text-white bg-gold rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
                 Cari
             </button>
         </form>
-        <a href="/admin/bap/rekap-nilai"
-            class="py-2 px-4 font-poppins font-medium text-white bg-gold whitespace-nowrap rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
-            Unduh Rekap Nilai
-        </a>
+        <div class="flex space-x-4">
+            <a href="{{route('ubah-rentang-nilai')}}"
+                class="py-2 px-4 font-poppins font-medium text-white bg-gold whitespace-nowrap rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
+                Ubah Rentang Nilai
+            </a>
+            <a href="/admin/bap/rekap-nilai"
+                class="py-2 px-4 font-poppins font-medium text-white bg-gold whitespace-nowrap rounded-[4px] hover:bg-white hover:text-gold hover:ring-2 hover:ring-gold">
+                Unduh Rekap Nilai
+            </a>
+        </div>
     </div>
     <div>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg ring-2 ring-blue1">
@@ -95,8 +101,8 @@
     </div>
 
     @if ($data['last_page'] > 1)
-    <div class="mt-4 flex justify-end">
-        <x-pagination :pages="$data['last_page']" :current="$data['current_page']" />
-    </div>
+        <div class="mt-4 flex justify-end">
+            <x-pagination :pages="$data['last_page']" :current="$data['current_page']" />
+        </div>
     @endif
 </x-layout-admin>

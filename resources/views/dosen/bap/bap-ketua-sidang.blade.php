@@ -225,32 +225,31 @@
                             @endif
                         </span> dengan nilai
                         :</p>
-
-                    @if ($avg >= 80)
+                    @if ($avg >= $nilai[0]['min'])
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> A / <s>AB</s> /
                                 <s>B</s> / <s>BC</s> / <s>C</s> / <s>D</s> / <s>E</s>
                             </span> </p>
-                    @elseif ($avg >= 75)
+                    @elseif ($avg >= $nilai[1]['min'])
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / AB /
                                 <s>B</s> / <s>BC</s> / <s>C</s> / <s>D</s> / <s>E</s>
                             </span> </p>
-                    @elseif ($avg >= 70)
+                    @elseif ($avg >= $nilai[2]['min'])
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / <s>AB</s> /
                                 B / <s>BC</s> / <s>C</s> / <s>D</s> / <s>E</s>
                             </span> </p>
-                    @elseif ($avg >= 65)
+                    @elseif ($avg >= $nilai[3]['min'])
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / <s>AB</s> /
                                 <s>B</s> / BC / <s>C</s> / <s>D</s> / <s>E</s>
                             </span> </p>
-                    @elseif ($avg >= 60)
+                    @elseif ($avg >= $nilai[4]['min'])
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / <s>AB</s> /
                                 <s>B</s> / <s>BC</s> / C / <s>D</s> / <s>E</s>
                             </span> </p>
-                    @elseif ($avg >= 55)
+                    @elseif ($avg >= ($nilai[4]['min']-5))
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / <s>AB</s> /
                                 <s>B</s> / <s>BC</s> / <s>C</s> / D / <s>E</s>
                             </span> </p>
-                    @elseif ($avg <= 50)
+                    @elseif ($avg <= ($nilai[4]['min']-10))
                         <p>Nilai Huruf : <span class="font-tmr font-semibold text-base"> <s>A</s> / <s>AB</s> /
                                 <s>B</s> / <s>BC</s> / <s>C</s> / <s>D</s> / E
                             </span> </p>
@@ -275,10 +274,11 @@
                     </div>
                 </div>
                 <div class="flex flex-col font-tmr mt-2 font-normal text-xs">
-                    <p>( <span class="font-tmr font-semibold"> A </span> = 80 – 100 ; <span
-                            class="font-tmr font-semibold"> AB </span> = 75 – 79 ; <span class="font-tmr font-semibold">
-                            B </span> = 70 – 74 ; <span class="font-tmr font-semibold"> BC </span> = 65 – 69 ; <span
-                            class="font-tmr font-semibold"> C </span> = 60 – 64)
+                    <p>( <span class="font-tmr font-semibold"> A </span> = {{ $nilai[0]['min']}} – 100 ; <span
+                            class="font-tmr font-semibold"> AB </span> = {{ $nilai[1]['min']}} – {{ $nilai[0]['min'] - 1}} ; <span
+                            class="font-tmr font-semibold"> B </span> = {{ $nilai[2]['min']}} – {{ $nilai[1]['min'] - 1}} ; <span
+                            class="font-tmr font-semibold"> BC </span> = {{ $nilai[3]['min']}} – {{ $nilai[2]['min'] - 1}} ; <span
+                            class="font-tmr font-semibold"> C </span> = {{ $nilai[4]['min']}} – {{ $nilai[3]['min'] - 1}})
                     </p>
                     <p class="font-semibold">&bull; ** Coret salah satu</p>
                     <p class="font-semibold">&bull; * Diketik mahasiswa</p>

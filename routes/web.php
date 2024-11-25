@@ -216,6 +216,10 @@ Route::prefix('admin')->middleware('admin')->group(function () {
         Route::get('/', [SeminarController::class, 'BapAdminView'])->name('bap-admin');
 
         Route::get('/rekap-nilai', [SeminarController::class, 'RekapNilaiView'])->name('bap-rekap-nilai');
+        
+        Route::get('/ubah-rentang-nilai', [BAPController::class, 'UbahRentangNilaiView'])->name('ubah-rentang-nilai');
+
+        Route::post('/ubah-rentang-nilai', [BAPController::class, 'UbahRentangNilai'])->name('ubah-rentang-nilai-post');
 
         Route::post('/rekap-nilai-post', [SeminarController::class, 'RekapNilaiExport'])->name('bap-rekap-nilai-post');
 

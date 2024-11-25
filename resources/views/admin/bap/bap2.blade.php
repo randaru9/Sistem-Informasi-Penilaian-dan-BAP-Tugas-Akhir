@@ -201,7 +201,7 @@
                     <p>Berdasarkan nilai yang diperoleh, maka diputuskan bahwa mahasiswa tersebut dinyatakan:
                     </p>
                     <p> <span class="font-tmr font-semibold text-base">
-                            @if ($avg >= 60)
+                            @if ($avg >= $nilai[4]['min'])
                                 LULUS/ <s>TIDAK LULUS</s>
                             @else
                                 <s>LULUS</s>/ TIDAK LULUS

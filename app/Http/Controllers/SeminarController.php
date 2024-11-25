@@ -13,6 +13,7 @@ use App\Models\BAP2;
 use App\Models\JenisSeminar;
 use App\Models\Pengguna;
 use App\Models\Penilaian;
+use App\Models\RentangNilai;
 use App\Models\Seminar;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -309,7 +310,7 @@ class SeminarController extends Controller
     {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -317,7 +318,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
-            return view('dosen.bap.bap-tambah-tanda-tangan', compact('collection'));
+            return view('dosen.bap.bap-tambah-tanda-tangan', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-dosen');
     }
@@ -326,7 +327,7 @@ class SeminarController extends Controller
     {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -334,7 +335,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
-            return view('dosen.bap.bap-ketua-sidang', compact('collection'));
+            return view('dosen.bap.bap-ketua-sidang', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-dosen');
     }
@@ -543,7 +544,7 @@ class SeminarController extends Controller
     {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -551,7 +552,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
-            return view('admin.bap.bap-lihat-bap1', compact('collection'));
+            return view('admin.bap.bap-lihat-bap1', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-admin');
     }
@@ -560,7 +561,7 @@ class SeminarController extends Controller
     {
         if ($request->query('id') !== null) {
             $data = Seminar::where('id', $request->query('id'))->with(['Penggunas:id,nama,nim', 'Penilaians', 'Pembimbing1s:id,nama,nip', 'Pembimbing2s:id,nama,nip', 'Penguji1s:id,nama,nip', 'Penguji2s:id,nama,nip', 'PimpinanSidangs:id,nama,nip', 'BAP1s'])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -568,7 +569,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_1'] = optional($data->penilaians->where('pengguna_id', $data->penguji_1_id)->first())->toArray() ?? [];
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
-            return view('admin.bap.bap1', compact('collection'));
+            return view('admin.bap.bap1', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-admin');
     }
@@ -589,7 +590,7 @@ class SeminarController extends Controller
                     $query->with('Koordinators:id,nama,nip');
                 },
             ])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -598,7 +599,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
 
-            return view('admin.bap.bap-lihat-bap2', compact('collection'));
+            return view('admin.bap.bap-lihat-bap2', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-admin');
     }
@@ -619,7 +620,7 @@ class SeminarController extends Controller
                     $query->with('Koordinators:id,nama,nip');
                 },
             ])->first();
-
+            $nilai = RentangNilai::all()->toArray();
             if ($data) {
                 $collection = $data->toArray();
                 $collection['penilaian_pembimbing_1'] = optional($data->penilaians->where('pengguna_id', $data->pembimbing_1_id)->first())->toArray() ?? [];
@@ -628,7 +629,7 @@ class SeminarController extends Controller
                 $collection['penilaian_penguji_2'] = optional($data->penilaians->where('pengguna_id', $data->penguji_2_id)->first())->toArray() ?? [];
             }
 
-            return view('admin.bap.bap2', compact('collection'));
+            return view('admin.bap.bap2', compact('collection', 'nilai'));
         }
         return redirect()->route('bap-admin');
     }

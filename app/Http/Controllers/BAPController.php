@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BAP\AddTTDBAP1Request;
 use App\Http\Requests\BAP\CreateBAP1Request;
 use App\Http\Requests\BAP\UpdateBAP1Request;
+use App\Http\Requests\BAP\UpdateRentangNilai;
 use App\Http\Requests\Seminar\GetByIdRequest;
 use App\Models\BAP1;
+use App\Models\RentangNilai;
 use App\Models\Seminar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -43,6 +45,29 @@ class BAPController extends Controller
         return redirect()->route('bap-dosen');
     }
 
+    public function UbahRentangNilaiView(){
+        $data = RentangNilai::all();
+        return view('admin.bap.ubah-rentang-nilai', compact('data'));
+    }
+
+    public function UbahRentangNilai(UpdateRentangNilai $request){
+        RentangNilai::where('id', 1)->update([
+            'min' => $request->min_a,
+        ]);
+        RentangNilai::where('id', 2)->update([
+            'min' => $request->min_ab,
+        ]);
+        RentangNilai::where('id', 3)->update([
+            'min' => $request->min_b,
+        ]);
+        RentangNilai::where('id', 4)->update([
+            'min' => $request->min_bc,
+        ]);
+        RentangNilai::where('id', 5)->update([
+            'min' => $request->min_c,
+        ]);
+        return redirect()->route('ubah-rentang-nilai');
+    }
 
 
 }
